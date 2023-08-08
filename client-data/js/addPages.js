@@ -1,6 +1,8 @@
 var flag = 1;
 
 async function addNewPage() {
+  //Navigation Logic
+  const baseURL = window.location.origin + window.location.pathname;
   document.getElementById("addNewPageModal").style.display = "block";
   document.getElementById("pagesModalClose").addEventListener("click", () => {
     document.getElementById("addNewPageModal").style.display = "none";
@@ -33,8 +35,6 @@ async function addNewPage() {
       // const pageNumber = pageContainer.children.length + 1;
       newPage.classList.add("page-tile");
 
-      //Navigation Logic
-      const baseURL = window.location.origin + window.location.pathname;
       const newParams = `?board=${boardName}&file=${multipageNumber}`;
       const newURL = baseURL + newParams;
       newPage.textContent = "Page " + multipageNumber;
@@ -66,9 +66,7 @@ async function addNewPage() {
       }
     });
     window.location.assign(
-      `http://localhost:8080/board.html?board=${selectedBoard}&file=${
-        nextFile + 1
-      }`
+      `${baseURL}/board.html?board=${selectedBoard}&file=${nextFile + 1}`
     );
   });
 }
