@@ -1,0 +1,955 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <title>Iprep | Online collaborative whiteboard</title>
+    <link rel="stylesheet" href="Fonts/stylesheet.css">
+    <link rel="stylesheet" href="tools/table/table.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="tools/background-manangement/backgorund.css">
+    <link rel="stylesheet" href="tools/background-manangement/backgorund.css">
+    <link rel="stylesheet" href="tools/mathematical-tools/mathematicaltools.css">
+    <link rel="stylesheet" href="tools/PDF/pdf.css">
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.0/css/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.0/css/react-select.css" />
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+
+    <link rel="stylesheet" type="text/css" href="board.css" />
+    <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
+    <script src="/server/boardData.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/jquery.fullscreen.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"
+        integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg=="
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="board.css" />
+    <script src="https://kit.fontawesome.com/0166a4ad2b.js" crossorigin="anonymous"></script>
+    <script src="socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.6.1/RecordRTC.min.js"
+        integrity="sha512-JdnCTTJRivaH4nStpZnsHO5Fm6TmgWHwwyPfhTPMgHGOz4GRzynCnm1T28C7Ees55ERL+t+gqg/DQro9oROd0w=="
+        crossorigin="anonymous"></script>
+    <script src="https://www.webrtc-experiment.com/EBML.js"></script> <!-- ../libs/DBML.js -->
+
+
+
+    <meta name="description" content="A free and opensource online collaborative drawing tool." />
+    <meta name="keywords" content="Collaborative whiteboard,online,draw,paint,shared,realtime" />
+    <link rel="shortcut icon"
+        href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/favicon_sptzcl.ico" />
+    <link rel="apple-touch-icon" sizes="180x180"
+        href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/apple-touch-icon_ls1yzj.png">
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/favicon-32x32_bshltf.png">
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/favicon-16x16_w5wobw.png">
+    <link rel="manifest"
+        href="https://res.cloudinary.com/ddwbbzuxw/raw/upload/v1597236051/fevicon/site_uzghky.webmanifest">
+    <link rel="stylesheet" type="text/css" href="board.css" />
+
+    <style>
+        .modal-backdrop {
+            opacity: 0.25 !important;
+        }
+
+        .canvascolor-container {
+            background-color: black;
+            border-radius: 5px;
+            overflow: hidden;
+            width: 179px;
+            padding: 2px;
+            display: none;
+        }
+
+        .canvascolor-container canvas {
+            cursor: crosshair;
+        }
+
+        .canvascolor-history {
+            overflow: auto;
+        }
+
+        .canvascolor-history>div {
+            margin: 2px;
+            display: inline-block;
+        }
+    </style>
+    <!-- <link type="text/css" rel="stylesheet" href="node_modules/@zoomus/websdk/dist/css/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" href="node_modules/@zoomus/websdk/dist/css/react-select.css" /> -->
+</head>
+
+<body id="body-new">
+    <script>
+        $(window).on("load", function () {
+            init();
+        });
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+        document.addEventListener('touchmove', function (event) {
+            if (event.scale !== 1) { event.preventDefault(); }
+        }, { passive: false });
+    </script>
+
+
+
+    <!-- Browser IFRAME -->
+
+    <div class="iframeMoadal" id="iframeModal">
+        <div class="iframemodal-content">
+            <span class="close">&times;</span>
+            <iframe id="browserIframe" style="display: none;"></iframe>
+        </div>
+    </div>
+
+
+    <!-- Download Content Modal -->
+
+    <div class="downloadModal" id="downloadModal">
+        <div class="downloadModal-content">
+            <span class="close" id="downloadModalClose"><img src="./assets/CloseCircle.svg" /></span>
+
+            <div class="downloadItems">
+                <h4 style="text-align: center; cursor: pointer;" id="downloadAsSVG">SVG</h4>
+                <hr />
+                <h4 style="text-align: center; cursor: pointer;" id="downloadAsPDF">PDF</h4>
+                <hr />
+                <h4 style="text-align: center; cursor: pointer;" id="downloadAsPNG">PNG</h4>
+                <hr />
+                <h4 style="text-align: center; cursor: pointer;" id="downloadAsJPG">JPG</h4>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Video Modal -->
+    <div class="videoModal" id="videoModal">
+        <div class="videoModal-content">
+            <div class="videoModalheader" id="videoModalheader">
+                <p> *************** Hold here to Drag **************** </p>
+            </div>
+            <span class="close" id="videoModalClose"></span>
+            <iframe id="videoIframe"></iframe>
+        </div>
+    </div>
+
+    <!-- 
+    Video Player -->
+    <div class="dragVideoModal" id="dragVideoModal">
+        <div class="dragVideoModal-content">
+            <span class="close" id="dragVideoModalClose">&times;</span>
+            <!-- Video Tag -->
+            <div class="dragVideoModalheader" id="dragVideoModalheader">
+                <p> *************** Hold here to Drag **************** </p>
+            </div>
+            <span class="close" id="dragVideoModalClose"><img src="./assets/CloseCircle.svg" /></span>
+            <video id="videoPlayer" controls>
+
+                Your browser does not support the video tag.
+            </video>
+
+        </div>
+    </div>
+
+    <!-- PDF Opener -->
+    <div class="pdf-modal" id="pdfModal">
+        <div class="pdf-modal-content">
+            <div id="closePDFBtn"> <span class="close">&times;</span></div>
+            <div id="addPDFPages">
+            </div>
+            <p>
+                <button class="pdfBtn" onclick="handleAddAllPDF()">Select All</button>
+                <button class="pdfBtn" onclick="deselectAllPDF()">Remove ALL</button>
+
+            </p>
+            <div style="align-self:end;">
+                <button class="pdfBtn" onclick="handleDrawPDF()">Import PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <!--Document Moadal -->
+    <div class="documentModal" id="documentModal">
+        <div class="documentModal-content">
+            <span class="close" id="documentModalModalClose"><img src="./assets/CloseCircle.svg" /></span>
+            <div>
+                <div class="documentModalOptions">
+                    <img src="assets/AddImageFromLocal.svg" />
+                    <p id="SelectFromDevice">Add Image from Device </p>
+
+                </div>
+
+                <hr />
+                <div class="documentModalOptions">
+                    <img src="assets/AddImageFromLibrary.svg" />
+                    <p id="SelectFromLibrary">Add Image From Library</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Drawer Image Library -->
+
+    <div id="drawer" class="drawer ">
+        <div class="content">
+            <span id="closeButton" class="close">&times;</span>
+            <!-- Drawer content goes here -->
+            <h2>Image Library</h2>
+
+            <div class="tab-header">
+                <button class="tab" data-category="category1" id="tab1">Education</button>
+                <button class="tab" data-category="category2" id="tab2">Sports</button>
+                <button class="tab" data-category="category3" id="tab3">Music</button>
+                <button class="tab" data-category="category4" id="tab4">Art</button>
+                <button class="tab" data-category="category5" id="tab5">Science</button>
+                <button class="tab" data-category="category6" id="tab6">Maths</button>
+            </div>
+
+
+            <div class="drawer-tab-content">
+                <div id="category1" class="tab-panel">
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 1.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 2.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 3.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 4.jpeg" />
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 5.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 6.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 7.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 8.jpeg" />
+                    </div>
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 9.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 10.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 11.png" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 13.jpeg" />
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 14.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 15.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 16.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Education/Education 20.jpeg" />
+                    </div>
+                </div>
+                <div id="category2" class="tab-panel">
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 1.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 2.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 3.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 4.jpeg" />
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 5.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 6.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 7.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 8.png" />
+                    </div>
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 9.jpeg">/
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 10.avif" />
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 11.webp" />
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 12.jpeg" />
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 13.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 14.webp" />
+                    </div>
+
+                </div>
+                <div id="category3" class="tab-panel">
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 1.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 2.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 3.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 4.jpeg" />
+
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 5.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 6.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 7.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 8.jpeg" />
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 9.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 10.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 11.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 12.webp" />
+                    </div>
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 13.webp" />
+                        <img id="libraryImage" src="assets/Image Library/Music/Music 14.jpeg" />
+
+                    </div>
+                </div>
+                <div id="category4" class="tab-panel">
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 1.jpeg" alt="Image 1">
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 2.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 3.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 4.jpeg" />
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 5.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 6.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 7.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 8.jpeg" />
+                    </div>
+
+                    <img id="libraryImage" src="assets/Image Library/Arts/Arts 9.jpeg" />
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 10.jpeg" alt="Image 1">
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 11.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 11.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 12.jpeg" />
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 13.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 14.png" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 15.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 16.jpeg" />
+                    </div>
+
+                </div>
+                <div id="category5" class="tab-panel">
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 1.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 2.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 3.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 4.jpeg" />
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 5.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 6.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 7.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 8.jpeg" />
+                    </div>
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 9.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 10.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 11.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 12.jpeg" />
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 13.avif" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 14.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 15.png" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 16.png" />
+                    </div>
+                </div>
+                <div id="category6" class="tab-panel">
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 1.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 2.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 3.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 4.jpeg" />
+
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 5.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 6.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 7.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 8.jpeg" />
+                    </div>
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 9.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 10.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 11.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 12.webp" />
+
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 13.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 14.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 15.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 16.jpeg" />
+                    </div>
+
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 17.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 18.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 19.avif" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 13.jpeg" />
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Sticky Notes Modal -->
+
+    <div class="stickyNotesModal" id="stickyNotesModal">
+        <div class="stickyNotesModal-content">
+            <span class="close" id="stickyClose">&times;</span>
+            <div>
+                <ul>
+                    <li> <a href="#" contenteditable="true">
+                            <h2>Title #1</h2>
+                            <p>Text Content #1</p>
+                        </a> </li>
+                    <li> <a href="#" contenteditable="true">
+                            <h2>Title #2</h2>
+                            <p>Text Content #2</p>
+                        </a> </li>
+                    <li> <a href="#" contenteditable="true">
+                            <h2>Title #3</h2>
+                            <p>Text Content #3</p>
+                        </a> </li>
+                    <li> <a href="#" contenteditable="true">
+                            <h2>Title #4</h2>
+                            <p>Text Content #4</p>
+                        </a> </li>
+                    <li> <a href="#" contenteditable="true">
+                            <h2>Title #5</h2>
+                            <p>Text Content #5</p>
+                        </a> </li>
+                    <li> <a href="#" contenteditable="true">
+                            <h2>Title #6</h2>
+                            <p>Text Content #6</p>
+                        </a> </li>
+                    <li> <a href="#" contenteditable="true">
+                            <h2>Title #7</h2>
+                            <p>Text Content #7</p>
+                        </a> </li>
+                    <li> <a href="#" contenteditable="true">
+                            <h2>Title #8</h2>
+                            <p>Text Content #8</p>
+                        </a> </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="menu">
+
+    </div>
+
+    <!-- Draggable Toolbar  -->
+    <div id="draggableToolbar">
+        <div id="draggableToolbarheader">
+            <div class="dragIconContainer">
+                <img src="./assets/DRAG.svg" class="dragLogo" height="30" />
+            </div>
+        </div>
+        <!-- <div>
+            <p>
+                <button>Add new</button>
+            </p>
+        </div> -->
+        <!-- Tools -->
+        <!-- Color Picker -->
+        <span class="tool-icon">
+            <div class="color-pick">
+                <input type="color" value="#ff00ff" id="chooseColor" />
+            </div>
+        </span>
+        <!-- Tool Size Indicator -->
+        <div class="tool size_selector_container">
+            <span class="tool-icon">
+                <svg viewBox="-60 -70 120 120" style="display: none;">
+                    <circle id="sizeIndicator" cx=0 cy=0 r=10 />
+                </svg>
+                <img src="icon-size.svg" height=30 />
+            </span>
+            <label class="tool-name slider verticalAlign" for="chooseSize">
+                <input type="range" id="chooseSize" value="3" min="1" max="50" step="1" class="rangeChooser" />
+            </label>
+
+
+
+
+        </div>
+
+
+        <!-- Opacity Picker -->
+        <div class="tool opacityPicker">
+            <span class="tool-icon">
+                <svg viewBox="0 0 8 8">
+                    <pattern id="opacityPattern" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+                        <rect x=0 y=0 width=2 height=2 fill=black />
+                        <rect x=2 y=2 width=2 height=2 fill=black />
+                        <rect x=2 y=0 width=2 height=2 fill=#eee />
+                        <rect x=0 y=2 width=2 height=2 fill=#eee />
+                    </pattern>
+                    <circle cx=4 cy=4.6 id="opacityIndicator" r=3.5 fill="url(#opacityPattern)" />
+                </svg>
+            </span>
+            <label class="tool-name slider opacitySelector hideOpacity" for="chooseOpacity">
+                <input type="range" id="chooseOpacity" value="1" min="0.2" max="1" step="0.1"
+                    style="-webkit-appearance: slider-vertical" class="rangeChooser" />
+            </label>
+        </div>
+        <ul id="tools" class="tools">
+            <li class="tool"><span class="tool-icon"></span></li>
+        </ul>
+
+        <!-- Recording Buttons -->
+        <button id="btn-start-recording"><img class="startRecordingBtn"
+                src="./assets/startRecordingButton.svg" /></button>
+        <button id="btn-stop-recording" style="display: none;"><img class="stopRecordingBtn"
+                src="./assets/stopRecordingButton.png" /> </button>
+        <button id="add-page" onclick="addNewPage()">Add New</button>
+
+    </div>
+
+    </div>
+    <div id="loadingMessage">Loading</div>
+    <div id="overlay"></div>
+    <div id="top_left_tools" class="top__tools">
+    </div>
+    <!-- added on import -->
+    <div id="zmmtg-root"></div>
+    <div id="aria-notify-area"></div>
+    <video class="video__recorder__screen" src=""></video>
+    <!-- added on meeting init -->
+    <div class="ReactModalPortal"></div>
+    <div class="ReactModalPortal"></div>
+    <div class="ReactModalPortal"></div>
+    <div class="ReactModalPortal"></div>
+    <div class="global-pop-up-box"></div>
+    <!-- <div class="sharer-controlbar-container sharer-controlbar-container--hidden"></div> -->
+
+    <div style='display:none' id="msr-pod-up"><i class="fas fa-angle-double-up"></i></div>
+    <div style='display:none' id="msr-dialog" class="msr-dialog">
+        <div id="msr-pod"><span id="msr-header">Geometry</span><i style="float:right;color:gray;margin:5px 10px 0px 0px"
+                class="fas fa-angle-double-down"></i></div>
+        <div id="msr-main"><br>Ready</div>
+    </div>
+    <div id="shape-lock" class="shape-lock">
+        <i id="shape-lock-icon" class="fas fa-unlock"></i>
+    </div>
+    <div id="usercount"></div>
+    <div id="compass">
+        <div id="north" class='direction'><i class="fas fa-chevron-up"></i></div>
+        <div id="west" class='direction'><i class="fas fa-chevron-left"></i></div>
+        <div id="east" class='direction'><i class="fas fa-chevron-right"></i></div>
+        <div id="south" class='direction'><i class="fas fa-chevron-down"></i></div>
+    </div>
+    <!-- Canvas Board Destination  -->
+    <div id="board">
+        <!-- <img id="destination" /> -->
+        <svg id="canvas" width="500" height="500" viewBox="0 0 500 500" svgHeightversion="1.1"
+            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <defs id="defs">
+                <pattern id="smallGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+                    <path d="M 30 0 L 0 0 0 30" fill="none" stroke="gray" stroke-width="0.5" />
+                </pattern>
+                <pattern id="grid" width="300" height="300" patternUnits="userSpaceOnUse">
+                    <rect width="300" height="300" fill="url(#smallGrid)" />
+                    <path d="M 300 0 L 0 0 0 300" fill="none" stroke="gray" stroke-width="1" />
+                </pattern>
+                <pattern id="diagonalLines" width="30" height="30" patternUnits="userSpaceOnUse">
+                    <path d="M 0 0 L 30 30" fill="none" stroke="gray" stroke-width="0.5" />
+                </pattern>
+                <pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse">
+                    <circle cx="5" cy="5" r="1" fill="gray" />
+                </pattern>
+                <pattern id="zigzag" width="30" height="30" patternUnits="userSpaceOnUse">
+                    <path d="M 0 0 L 15 15 L 30 0 L 15 -15" fill="none" stroke="gray" stroke-width="0.5" />
+                </pattern>
+                <pattern id="imagePattern" width="100" height="100" patternUnits="userSpaceOnUse"
+                    patternTransform="scale(6)" patternUnits="matrix(1.5,-.70,.10,1.1,-30,10)">
+                    <image id="setImagePattern" href="./assets/image.jpeg" x="0" y="0" width="100" height="100"
+                        preserveAspectRatio="none">
+                </pattern>
+            </defs>
+            <!-- <rect onmousedown="mouser.unregisterShapes()" style="display:block" id="rect_1" width="100%" height="100%" fill="url(#grid)" /> -->
+            <rect onmousedown="mouser.unregisterShapes()" style="display:block" id="rect_1" width="100%" height="100%"
+                fill="white" />
+            <g id="cursors"></g>
+            <g id="layer-1"></g>
+        </svg>
+    </div>
+    
+    <div class="window" id="calc-container" style="display:none">
+        <div id="calc-container-header">Calc
+            <button type="button" class="close window-button" id="close-calc" aria-label="Close"><span
+                    aria-hidden="true">×</span></button>
+            <button type="button" class="close window-button window-icon-button" id="max-calc" aria-label="Max"><span
+                    aria-hidden="true"><i class="fa fa-window-maximize wb-editor-icon"></i></span></button>
+        </div>
+        <div id="calculator"></div>
+    </div>
+
+    <div class="window" id="wb-editor-container" style="display:none">
+        <div id="wb-editor-container-header"><span id='wb-editor-curmode'>Text</span> Editor &nbsp;
+            <button class="wb-editor-button" data-toggle="tooltip" data-trigger="hover" title="Modes" id="wb-options"
+                type="button"><i class="fas fa-bars wb-editor-icon"></i></button>
+            <button class="wb-editor-button wb-button-inactive" data-toggle="tooltip" data-trigger="hover" title="Run"
+                id="wb-editor-run" type="button"><i class="fas fa-play-circle wb-editor-icon"></i></button>
+            <button class="wb-editor-button wb-button-inactive" data-toggle="tooltip" data-trigger="hover"
+                title="Real-time Run" id="wb-editor-live" type="button"><i id="wb-editor-live-icon"
+                    class="fas fa-circle-notch fa-spin wb-editor-icon"></i></button>
+            <button type="button" class="wb-button wb-textoptions-button" data-toggle="tooltip" data-trigger="hover"
+                title="Text Options" id="wb-textoptions" aria-label="Down"><span aria-hidden="true"><i
+                        class="fas fa-angle-double-down"></i></span></button>
+            <button type="button" class="close window-button" id="close-editor" aria-label="Close"><span
+                    aria-hidden="true">×</span></button>
+            <button type="button" class="close window-button window-icon-button" data-toggle="tooltip"
+                data-trigger="hover" title="Maximize" id="max-editor" aria-label="Max"><span aria-hidden="true"><i
+                        class="fa fa-window-maximize wb-editor-icon"></i></span></button>
+        </div>
+        <div id="wb-editor-container-modes">
+            <button class="wb-button wb-mode-button" id="wb-close-options" type="button"><i
+                    class="fas fa-angle-double-up" aria-hidden="true"></i></button>
+            <button class="wb-editor-mode" id="wb-text" data-toggle="tooltip" data-trigger="hover" title="Text editor"
+                type="button">text</button>
+            <button class="wb-editor-mode" id="wb-js" data-toggle="tooltip" data-trigger="hover"
+                title="Javascript compiler/editor" type="button">js</button>
+            <button class="wb-editor-mode" id="wb-python" data-toggle="tooltip" data-trigger="hover"
+                title="Python compiler/editor" type="button">py</button>
+            <button class="wb-editor-mode" id="wb-cpp" data-toggle="tooltip" data-trigger="hover"
+                title="C++ compiler/Editor" type="button">c++</button>
+        </div>
+        <div id="wb-editor-container-toolbar">
+            <button class="wb-button wb-edit-button" id="wb-close-edit" type="button"><i class="fas fa-angle-double-up"
+                    aria-hidden="true"></i></button>
+            <button class="wb-button wb-edit-button" id="wb-spell-check" data-toggle="tooltip" data-trigger="hover"
+                title="Check spelling" type="button"><i id="wb-editor-spell-check-icon"
+                    class="fas fa-spell-check"></i></button>
+            <button class="wb-button wb-edit-button" id="wb-code-template" data-toggle="tooltip" data-trigger="hover"
+                title="Code template" type="button"><i class="fa fa-file-code-o"></i></button>
+            <button class="wb-button wb-edit-button" id="wb-ed-undo" data-toggle="tooltip" data-trigger="hover"
+                title="Undo" type="button"><i class="fas fa-undo"></i></button>
+            <button class="wb-button wb-edit-button" id="wb-ed-redo" data-toggle="tooltip" data-trigger="hover"
+                title="Redo" type="button"><i class="fas fa-redo"></i></button>
+            <button class="wb-button wb-edit-button" id="wb-ed-search" data-toggle="tooltip" data-trigger="hover"
+                title="Search" type="button"><i class="fas fa-search"></i></button>
+               
+        </div>
+        <button id="searchBrowser" class="wb-button wb-edit-button wb-button wb-edit-button" data-toggle="tooltip" data-trigger="hover">Search</button>
+        <div id="wb-editor">
+            <div class="row wb-editor">
+                <div class="col-sm-12" id="wb-editor-input">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header wb-modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Insert Code Template</h4>
+                </div>
+                <div class="modal-body">
+                    <p>This will insert a basic template for the current language, replacing existing code. Do you wish
+                        to continue?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="wb-ed-insert-template" class="btn btn-default"
+                        data-dismiss="modal">Ok</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Add new Page modal -->
+    <div id="addNewPageModal" class="addNewPageModal">
+        <div class="addNewPageModal-content">
+          <span class="pagesModalClose" id="pagesModalClose">&times;</span>
+          <h2>Page Navigation</h2>
+          <div class="page-container" id="pageContainer">
+            <!-- Pages will be dynamically added here -->
+          </div>
+          <button id="addPageBtn">Add Page</button>
+        </div>
+      </div>
+
+    <div id="template" style="display:none;"></div>
+
+    <!-- backgorund-color-tool -->
+    <div id="colorPickerModal" class="color-modal">
+        <div class="color-modal-content">
+            <div id="closeModalBtn"> <span class="close">&times;</span></div>
+            <div class="color-tabs">
+                <div id="color-tab1" class="color-tab-content show">
+                    <div id="colorPickerModalContent">
+                    </div>
+                </div>
+                <div id="color-tab2" class="color-tab-content">
+                    <div id="backgorundPattern">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <span class="color-tab" onclick="openTab(event, 'color-tab1')"><svg width="25" height="25" viewBox="0 0 16 16"
+                        version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <path fill="#444"
+                            d="M13 14.5c0.468-2.207 0.985-4.050 1.604-5.846 0.411 1.796 0.928 3.638 1.337 5.521 0.059 1.153-0.612 1.825-1.441 1.825s-1.5-0.672-1.5-1.5z">
+                        </path>
+                        <path fill="#444"
+                            d="M8 1l-1.44 1.44-2-2c-0.276-0.262-0.649-0.423-1.060-0.423s-0.784 0.161-1.061 0.423c-0.27 0.271-0.438 0.645-0.438 1.059s0.168 0.789 0.439 1.060l2 2-4.44 4.44 7 7 8-8zM8 2.41l5.59 5.59h-11.18l2.75-2.75c0.071 0.042 0.156 0.067 0.247 0.067 0.271 0 0.49-0.219 0.49-0.49 0-0.091-0.025-0.176-0.068-0.249l0.721-0.718 1.54 1.53c0.091 0.091 0.216 0.147 0.355 0.147 0.277 0 0.502-0.225 0.502-0.502 0-0.139-0.056-0.264-0.147-0.355l-1.53-1.53zM3.15 1.85c-0.091-0.091-0.148-0.216-0.148-0.355s0.057-0.264 0.148-0.355c0.092-0.089 0.217-0.144 0.355-0.144s0.263 0.055 0.355 0.144l2 2-0.71 0.71z">
+                        </path>
+                    </svg>
+                </span>
+                <span class="color-tab" onclick="openTab(event, 'color-tab2')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25"
+                        height="25" viewBox="0 0 24 24" fill="none">
+                        <g id="Media / Image_02">
+                            <path id="Vector"
+                                d="M3.00005 18.0001C3 17.9355 3 17.8689 3 17.8002V6.2002C3 5.08009 3 4.51962 3.21799 4.0918C3.40973 3.71547 3.71547 3.40973 4.0918 3.21799C4.51962 3 5.08009 3 6.2002 3H17.8002C18.9203 3 19.4801 3 19.9079 3.21799C20.2842 3.40973 20.5905 3.71547 20.7822 4.0918C21 4.5192 21 5.07899 21 6.19691V17.8031C21 18.2881 21 18.6679 20.9822 18.9774M3.00005 18.0001C3.00082 18.9884 3.01337 19.5058 3.21799 19.9074C3.40973 20.2837 3.71547 20.5905 4.0918 20.7822C4.5192 21 5.07899 21 6.19691 21H17.8036C18.9215 21 19.4805 21 19.9079 20.7822C20.2842 20.5905 20.5905 20.2837 20.7822 19.9074C20.9055 19.6654 20.959 19.3813 20.9822 18.9774M3.00005 18.0001L7.76798 12.4375L7.76939 12.436C8.19227 11.9426 8.40406 11.6955 8.65527 11.6064C8.87594 11.5282 9.11686 11.53 9.33643 11.6113C9.58664 11.704 9.79506 11.9539 10.2119 12.4541L12.8831 15.6595C13.269 16.1226 13.463 16.3554 13.6986 16.4489C13.9065 16.5313 14.1357 16.5406 14.3501 16.4773C14.5942 16.4053 14.8091 16.1904 15.2388 15.7607L15.7358 15.2637C16.1733 14.8262 16.3921 14.6076 16.6397 14.5361C16.8571 14.4734 17.0896 14.4869 17.2988 14.5732C17.537 14.6716 17.7302 14.9124 18.1167 15.3955L20.9822 18.9774M20.9822 18.9774L21 18.9996M15 9C14.4477 9 14 8.55228 14 8C14 7.44772 14.4477 7 15 7C15.5523 7 16 7.44772 16 8C16 8.55228 15.5523 9 15 9Z"
+                                stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </g>
+                    </svg>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mathematical-Tools -->
+
+    <div id="mathematicalToolsModal" class="mathematicalToolsModal">
+        <div class="mathematicalTool-content">
+            <div id="closeToolModalBtn"> <span class="close">&times;</span></div>
+            <div class="tabs">
+                <div id="tab1--mathematiclTool" class="tab-content show">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- Add a div to hold the SVG content -->
+    <div id="svgContentContainer"></div>
+    <!-- Table Actions -->
+    <div id="table-actions" class="table-modal">
+        <p class="action" id="add-row">Add row</p>
+        <hr />
+        <p class="action" id="delete-column">Delete column</p>
+        <hr />
+        <p class="action" id="add-column">Add column</p>
+        <hr />
+        <p class="action" id="delete-row">Delete row</p>
+        </p>
+    </div>
+
+    <!-- HTML 2 Canvas CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
+    </script>
+
+    <!-- Local Storgae Listener -->
+    <script src="js/storageScript.js"></script>
+    <script type="application/json" id="translations">{}</script>
+    <script src="js/path-data-polyfill.js"></script>
+    <script src="js/minitpl.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/draggableToolbar.js"></script>
+
+    <script src="tools/pencil/pencil.js"></script>
+    <script src="tools/line/line.js"></script>
+    <script src="tools/rect/rect.js"></script>
+    <script src="tools/text/text.js"></script>
+    <script src="tools/eraser/eraser.js"></script>
+    <script src="js/widgets.js"></script>
+    <script src="tools/mathematical-tools/mathematicalTools.js"></script>
+
+
+    <!-- Screenshot Tool -->
+    <script src="tools/screenshotTool/screenshotTool.js"></script>
+
+    <!-- <script  src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js">
+        
+        const socket = io();
+        document.getElementById("createFolderButton").addEventListener("click", () => {
+        // Emit socket.io event to notify the backend that the button was clicked
+        socket.emit("createNewFolder");
+    });
+
+        const render = document.getElementById('createFolderButton').innerHTML
+        console.log(render)
+    </script> -->
+
+    <!-- Sticky Notes -->
+    <!-- <script src="tools/stickyNotes/stickyNotes.js"></script> -->
+    <!-- Recorder -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.6.1/RecordRTC.min.js"
+        integrity="sha512-JdnCTTJRivaH4nStpZnsHO5Fm6TmgWHwwyPfhTPMgHGOz4GRzynCnm1T28C7Ees55ERL+t+gqg/DQro9oROd0w=="
+        crossorigin="anonymous"></script>
+    <script src="https://www.webrtc-experiment.com/EBML.js"></script>
+    <script src="./js/screenRecorder/recorder.js"></script>
+
+
+    <!-- BEGIN TRANSFORM TOOL -->
+    <!-- Transform dep: 2D -->
+    <script src="js/2D.js"></script>
+    <script src="js/Init2D.js"></script>
+    <script src="tools/transform/transform.js"></script>
+
+    <!-- END TRANSFORM TOOL -->
+    <script src="tools/document/document.js"></script>
+
+    <!-- Download -->
+    <script src="tools/download/download.js"></script>
+    <!-- BEGIN EDITOR TOOL -->
+    <!-- Editor dep: CodeMirror -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.css" />
+
+    <!-- Editor dep: Typo -->
+    <script src="https://rawgit.com/cfinke/Typo.js/master/typo/typo.js"></script>
+
+    <!-- Editor dep: Klipse -->
+    <script>
+        window.klipse_settings = {
+            selector_eval_python_client: 'no_element',
+        };
+    </script>
+    <script src="js/klipse_plugin.min.js"></script>
+
+    <!-- Editor dep: Firebase/Firepad -->
+    <script>
+        var firepad_config = {
+            apiKey: '<API_KEY>',
+            authDomain: "<AUTH_DOMAIN>.firebaseapp.com",
+            databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
+        };
+
+    </script>
+    
+
+<!-- Modified By ME -->
+    <script type="module">
+        import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js"
+        const socket = io();
+        document.getElementById("createFolderButton").addEventListener("click", () => {
+        // Emit socket.io event to notify the backend that the button was clicked
+        socket.emit("createNewFolder");
+        console.log("Listened the data")
+    });
+
+        const render = document.getElementById('createFolderButton').innerHTML
+        console.log(render)
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
+    <link rel="stylesheet" href="https://firepad.io/releases/v1.5.9/firepad.css" />
+    <script src="https://firepad.io/releases/v1.5.9/firepad.min.js"></script>
+
+    <!-- Editor -->
+    <script src="tools/editor/editor.js"></script>
+    <!-- END EDITOR TOOL-->
+
+    <script src="tools/handNew/hand.js"></script>
+    <script src="tools/grid/grid.js"></script>
+    <script src="tools/clear/clear.js"></script>
+    <script src="tools/eraser2/eraser2.js"></script>
+
+    <!-- BEGIN CALCULATOR TOOL-->
+    <!-- Calculator dep: Desmos-->
+    <script src="https://www.desmos.com/api/v1.5/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+    <script src="tools/calculator/calculator.js"></script>
+    <!-- END CALCULATOR TOOL-->
+
+    <script src="tools/undo/undo.js"></script>
+    <script src="tools/redo/redo.js"></script>
+
+    <!-- Browser -->
+    <!-- <script src="tools/browserUtil/browserUtil.js"></script> -->
+    <script src="tools/zoom-in/zoom-in.js"></script>
+    <script src="tools/zoom-out/zoom-out.js"></script>
+    <script src="components/measurement/measurement.js"></script>
+    <script src="js/canvascolor/canvascolor.min.js"></script>
+    <script src="js/customJs/custom.js"></script>
+    <script src="tools/Close/close.js"></script>
+    <script src="tools/FullScreen/fullscreen.js"></script>
+    <script src="tools/Mice/mice.js"></script>
+    <script src="tools/VideoRecorder/videoRecorder.js"></script>
+    <script src="tools/shareScreen/sharescreen.js"></script>
+    <!-- Ad Cursosr Event -->
+    <script src="tools/cursor/cursor.js"></script>
+
+    <script src="tools/PDF/pdf.js"></script>
+
+    <!-- import ZoomMtg dependencies -->
+    <script src="https://source.zoom.us/1.8.0/lib/vendor/react.min.js"></script>
+    <script src="https://source.zoom.us/1.8.0/lib/vendor/react-dom.min.js"></script>
+    <script src="https://source.zoom.us/1.8.0/lib/vendor/redux.min.js"></script>
+    <script src="https://source.zoom.us/1.8.0/lib/vendor/redux-thunk.min.js"></script>
+    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/jquery.min.js"></script> -->
+    <script src="https://source.zoom.us/1.8.0/lib/vendor/lodash.min.js"></script>
+    <!-- import ZoomMtg -->
+    <script src="https://source.zoom.us/zoom-meeting-1.8.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.771.0/aws-sdk.min.js"></script>
+    <script type="module" src="js/zoom/meeting2.js"></script>
+    <script src="https://www.webrtc-experiment.com/common.js"></script>
+    <script type="module" src="js/record/record.js"></script>
+    <script type="module" src="js/customJs/zoomOverride.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="js/record/onlyAudioVideo.js"></script>
+
+
+    <!-- pdf.js -->
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+    </script>
+    <script src="js/draggableContainers.js"></script>
+    <script src="tools/background-manangement/background.js"></script>
+
+    <!-- Paste Event -->
+    <script src="js/pasteEvents.js"></script>
+
+    <script src="js/dragEvents.js"></script>
+    <script src="tools/table/table.js"></script>
+    <script src="js/addPages.js"></script>
+
+    <Script></Script>
+</body>
+
+</html>

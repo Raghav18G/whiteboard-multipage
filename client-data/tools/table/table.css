@@ -1,0 +1,38 @@
+.table-modal {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.colorContainer {
+  height: 30px;
+  width: 30px;
+  margin: 8px;
+}
+
+#table-actions {
+  position: fixed;
+  z-index: 10;
+  padding-top: 1rem;
+  background-color: white;
+  width: fit-content;
+  border: 1px solid black;
+}
+
+.action {
+  padding: 0rem 1rem;
+  cursor: pointer;
+}
+ 
+.btn-edit-table{
+position: absolute;
+top:1px;
+left:-1.7rem;
+background-color: #e0e0e0;
+padding: 5px 5px;
+}
