@@ -66,7 +66,7 @@ async function addNewPage() {
       }
     });
     window.location.assign(
-      `${baseURL}/board.html?board=${selectedBoard}&file=${nextFile + 1}`
+      `${baseURL}?board=${selectedBoard}&file=${nextFile + 1}`
     );
   });
 }
