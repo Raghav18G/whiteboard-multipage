@@ -10,12 +10,12 @@ svg {
 }
 
 body{
-  background: transparent !important;
+  /* background: transparent !important; */
 }
 
 
 #rect_1{
-  fill: transparent !important;
+  /* fill: transparent !important; */
   
 }
 /* .tool-icon svg {
