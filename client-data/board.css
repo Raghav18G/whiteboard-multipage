@@ -10,14 +10,11 @@ svg {
 }
 
 body{
-  /* background: transparent !important; */
+  background: transparent !important;
 }
 
 
-#rect_1{
-  /* fill: transparent !important; */
-  
-}
+
 /* .tool-icon svg {
   height: 17px;
   width: 15px;
