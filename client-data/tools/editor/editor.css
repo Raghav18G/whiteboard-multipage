@@ -66,9 +66,11 @@
 #wb-editor-container-header {
 	padding: 9px 10px 9px 10px;
 	cursor: move;
-	opacity:.7;
-	background-color: #2196F3;
+	opacity:1;
+	background-color: #69b6f2;
 	color: #fff;
+	display: flex;
+    justify-content: space-between;
 }
 
 #wb-editor-container-modes {

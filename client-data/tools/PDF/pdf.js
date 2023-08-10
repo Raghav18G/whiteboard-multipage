@@ -20,7 +20,9 @@ function drawPDF(event, file) {
         "//mozilla.github.io/pdf.js/build/pdf.worker.js"
     const files = file
     pdfModal.style.display = "block"
-
+    const setPdfName= document.getElementById("pdf-name")
+    setPdfName.innerHTML=file[0].name
+    // console.log(file)
     // Process dropped files
     for (let i = 0; i < files.length; i++) {
         const file = files[i]

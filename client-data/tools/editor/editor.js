@@ -24,7 +24,7 @@
  * @licend
  */
 
-(function editor() { //Code isolation
+ (function editor() { //Code isolation
 
 	var win = {
 		toggle : 0,
@@ -33,8 +33,8 @@
 	 };
 
 	 // All this so the current word doesn't get highlighted by the spell checker
-	 var notesSVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M0,0V17H7l7-7V0ZM7,10h5.59L7,15.59Zm6-1H6v7H1V1H13Z"/></g></g></svg>';
-	 var startline = 0;
+	 var notesSVG = '<svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 22H15C18.866 22 22 18.866 22 15V12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22Z" stroke="#1C274C" stroke-width="1.5"/><path d="M15 22C15 20.1387 15 19.2081 15.2447 18.4549C15.7393 16.9327 16.9327 15.7393 18.4549 15.2447C19.2081 15 20.1387 15 22 15" stroke="#1C274C" stroke-width="1.5"/></svg><label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Editor</p></label>';
+	  var startline = 0;
 	 var linenum = 0;
 	 var changeCalled = false;
 	 var cursorLock = false;

@@ -425,13 +425,13 @@ Tools.HTML = {
           (menu?.content
             ? `<div class="popover-body">` + menu.content + `</div>`
             : `<div class="popover-body">` +
-              `<h5>Two Dimensional Shapes (2D) </h5>  <div id="popover-body-2d">` +
-              menu.content2d +
-              `</div> <br/>` +
-              `<h5>Three Dimensional Shapes (3D) </h5> <div id="popover-body-3d">` +
-              menu.content3d +
-              `</div>` +
-              `</div>
+            `<h5 id="two-dimension">Two Dimensional Shapes (2D) </h5>  <div id="popover-body-2d">` +
+            menu.content2d +
+            `</div> <br/>` +
+            `<h5 id="three-dimension">Three Dimensional Shapes (3D) </h5> <div id="popover-body-3d">` +
+            menu.content3d +
+            `</div>` +
+            `</div>
                 </div>`);
         document.getElementById("template").innerHTML = container;
 
@@ -460,8 +460,8 @@ Tools.HTML = {
               Tools.menus[toolName].y = Math.max(
                 10,
                 $(elem).position().top +
-                  scrollTop -
-                  ($(Tools.menus[toolName].menu).height() > 60 ? 10 : -9)
+                scrollTop -
+                ($(Tools.menus[toolName].menu).height() > 60 ? 10 : -9)
               );
               Tools.menus[toolName].menu.style.transform =
                 "translate3d(50px,  " +
@@ -472,11 +472,11 @@ Tools.HTML = {
               document
                 .getElementById("menu")
                 .addEventListener("scroll", handleScroll, false);
-              //if(!isTouchDevice){
-              document.addEventListener("mousedown", listen, true);
-              //}else{
-              document.addEventListener("touchstart", listen, true);
-              //}
+              if (!isTouchDevice) {
+                document.addEventListener("mousedown", listen, true);
+              } else {
+                document.addEventListener("touchstart", listen, true);
+              }
             }
           };
 
@@ -546,9 +546,9 @@ wb_comp.add = function (newComp) {
   if (newComp.name in wb_comp.list) {
     console.log(
       "wb_comp add: The component '" +
-        newComp.name +
-        "' is already" +
-        "in the list. Updating it..."
+      newComp.name +
+      "' is already" +
+      "in the list. Updating it..."
     );
   }
 
@@ -568,9 +568,9 @@ Tools.add = function (newTool) {
   if (newTool.name in Tools.list) {
     console.log(
       "Tools.add: The tool '" +
-        newTool.name +
-        "' is already" +
-        "in the list. Updating it..."
+      newTool.name +
+      "' is already" +
+      "in the list. Updating it..."
     );
   }
 
@@ -781,28 +781,28 @@ function handleMessage(message) {
 /*
 //Receive draw instructions from the server
 Tools.socket.on("broadcast", function (msg) {
-	handleMessage(msg).finally(function afterload() {
-		var loadingEl = document.getElementById("loadingMessage");
-		loadingEl.classList.add("hidden");
-		if(msg.type=='sync'){
-			if(Tools.msgs.length>msg.msgCount){
-				for(var i = msg.msgCount;i<Tools.msgs.length;i++){
-					Tools.msgs[i].curTool.draw(Tools.msgs[i].msg, true);
-				}
-			}
-		}
-	});
+  handleMessage(msg).finally(function afterload() {
+    var loadingEl = document.getElementById("loadingMessage");
+    loadingEl.classList.add("hidden");
+    if(msg.type=='sync'){
+      if(Tools.msgs.length>msg.msgCount){
+        for(var i = msg.msgCount;i<Tools.msgs.length;i++){
+          Tools.msgs[i].curTool.draw(Tools.msgs[i].msg, true);
+        }
+      }
+    }
+  });
 });
 
 Tools.socket.on("disconnect", function onDisconnection() {
-	Tools.socket = io.connect('', {
-	"reconnection" : true,
-    	"forceNew" : true,
-	"reconnectionDelay": 100, //Make the xhr connections as fast as possible
-	"timeout": 1000 * 60 * 20 // Timeout after 20 minutes
-	});
-	//Get the board as soon as the page is loaded
-	Tools.socket.emit("getboard", Tools.boardName);
+  Tools.socket = io.connect('', {
+  "reconnection" : true,
+      "forceNew" : true,
+  "reconnectionDelay": 100, //Make the xhr connections as fast as possible
+  "timeout": 1000 * 60 * 20 // Timeout after 20 minutes
+  });
+  //Get the board as soon as the page is loaded
+  Tools.socket.emit("getboard", Tools.boardName);
 });
 
 */
@@ -821,7 +821,7 @@ window.addEventListener("focus", function () {
   updateDocumentTitle();
 });
 
-function updateDocumentTitle() {}
+function updateDocumentTitle() { }
 
 (function () {
   // Scroll and hash handling
@@ -923,17 +923,18 @@ Tools.toolHooks = [
       tool.listeners = {};
     }
     if (typeof tool.onstart !== "function") {
-      tool.onstart = function () {};
+      tool.onstart = function () { };
     }
     if (typeof tool.onquit !== "function") {
-      tool.onquit = function () {};
+      tool.onquit = function () { };
     }
     if (tool.menu && typeof tool.menu.listener !== "function") {
-      tool.menu.listener = function () {};
+      tool.menu.listener = function () { };
     }
   },
   function compileListeners(tool) {
     //compile listeners into compiledListeners
+    console.log("ture");
     var listeners = tool.listeners;
     //A tool may provide precompiled listeners
     var compiled = tool.compiledListeners || {};
@@ -959,6 +960,7 @@ Tools.toolHooks = [
             y = touch.pageY / Tools.getScale();
           return listener(x, y, evt, true);
         }
+        console.log("endddd");
         return true;
       };
     }
@@ -1386,31 +1388,31 @@ function arrayContains(arr, searchFor) {
 /**
  What does a "tool" object look like?
  newtool = {
- 	"name" : "SuperTool",
- 	"listeners" : {
- 		"press" : function(x,y,evt){...},
- 		"move" : function(x,y,evt){...},
-  		"release" : function(x,y,evt){...},
- 	},
- 	"draw" : function(data, isLocal){
- 		//Print the data on Tools.svg
-	 },
-	 "shortcuts": {
-		"changeTool":"c",
-		"actions":[{"key":"z","action":keyZoomIn}]
-	},
-	"menu":{
-		"title": 'Shapes',
-		"content": `<div class="tool-extra submenu-rect" id="submenu-rect-Circle">
-						<span class="tool-icon">◯</span>
-					</div>
-					<div class="tool-extra submenu-rect" id="submenu-rect-Ellipse">
-						<span class="tool-icon">` + icons["Ellipse"].icon + `</span>
-					</div>`,
-		"listener": menuListener
-	},
- 	"onstart" : function(oldTool){...},
- 	"onquit" : function(newTool){...},
- 	"stylesheet" : "style.css",
+    "name" : "SuperTool",
+    "listeners" : {
+      "press" : function(x,y,evt){...},
+      "move" : function(x,y,evt){...},
+      "release" : function(x,y,evt){...},
+    },
+    "draw" : function(data, isLocal){
+      //Print the data on Tools.svg
+   },
+   "shortcuts": {
+    "changeTool":"c",
+    "actions":[{"key":"z","action":keyZoomIn}]
+  },
+  "menu":{
+    "title": 'Shapes',
+    "content": `<div class="tool-extra submenu-rect" id="submenu-rect-Circle">
+            <span class="tool-icon">◯</span>
+          </div>
+          <div class="tool-extra submenu-rect" id="submenu-rect-Ellipse">
+            <span class="tool-icon">` + icons["Ellipse"].icon + `</span>
+          </div>`,
+    "listener": menuListener
+  },
+    "onstart" : function(oldTool){...},
+    "onquit" : function(newTool){...},
+    "stylesheet" : "style.css",
 }
 */

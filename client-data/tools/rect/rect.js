@@ -30,10 +30,10 @@
   var ellipse =
     '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"  viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"><g><path id="submenu-rect-path" fill="';
   var shapeSVG =
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M11.91,7A6.64,6.64,0,0,0,12,6a6,6,0,1,0-6,6,6.64,6.64,0,0,0,1-.09V17H17V7ZM6,11a5,5,0,1,1,5-5,5.47,5.47,0,0,1-.1,1H7v3.9A5.47,5.47,0,0,1,6,11Zm4.58-3A5.07,5.07,0,0,1,8,10.58V8ZM16,16H8V11.65A6,6,0,0,0,11.65,8H16Z"/></g></g></svg>';
-  var ellipse2 =
+    '<svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="13.6" cy="13.6" r="8.8" stroke="black" stroke-width="1.6"/><rect x="14.3937" y="14.4006" width="12.8" height="12.8" rx="0.8" stroke="black" stroke-width="1.6"/></svg><label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Shapes</p></label>';
+      var ellipse2 =
     '" d="M435.204,126.967C387.398,94.1,324.11,76,257,76c-67.206,0-130.824,18.084-179.138,50.922C27.652,161.048,0,206.889,0,256c0,49.111,27.652,94.952,77.862,129.078C126.176,417.916,189.794,436,257,436c67.11,0,130.398-18.1,178.204-50.967C484.727,350.986,512,305.161,512,256S484.727,161.014,435.204,126.967z M418.208,360.312C375.354,389.774,318.103,406,257,406 c-61.254,0-118.884-16.242-162.273-45.733C52.986,331.898,30,294.868,30,256s22.986-75.898,64.727-104.267C138.116,122.242,195.746,106,257,106c61.103,0,118.354,16.226,161.208,45.688C459.345,179.97,482,217.015,482,256S459.345,332.03,418.208,360.312z"/></g></svg>';
-var cubeImg= ""
+  var cubeImg = "";
   var icons = {
     Rectangle: {
       icon: "▭",
@@ -86,18 +86,18 @@ var cubeImg= ""
       isSVG: false,
     },
     Cone: {
-      icon: "◁",
-      isHTML: false,
+      icon: ` <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="16px" width="16px" version="1.1" id="Layer_1" viewBox="0 0 511.915 511.915" xml:space="preserve"><g><path d="M426.624,469.269c0-0.043-0.021-0.064-0.021-0.107c0-0.597-0.235-1.131-0.32-1.707c-0.107-0.576-0.043-1.152-0.235-1.707    l-0.192-0.555c-0.043-0.128-0.085-0.235-0.128-0.363l-0.448-1.301c-0.256-0.683-0.363-1.387-0.704-2.048L266.069,7.061    c-0.085-0.235-0.256-0.384-0.341-0.597c-0.256-0.64-0.661-1.173-1.045-1.749c-0.384-0.576-0.747-1.173-1.237-1.664    c-0.448-0.448-1.003-0.789-1.536-1.152c-0.619-0.427-1.195-0.832-1.877-1.109c-0.192-0.085-0.341-0.256-0.555-0.32    c-0.469-0.171-0.96-0.107-1.451-0.192C257.365,0.149,256.747,0,256.064,0c-0.832,0-1.621,0.149-2.411,0.341    c-0.384,0.085-0.768,0.021-1.152,0.171c-0.171,0.064-0.277,0.192-0.448,0.256c-0.789,0.32-1.472,0.789-2.176,1.28    c-0.448,0.32-0.917,0.597-1.301,0.981c-0.533,0.533-0.939,1.152-1.344,1.813c-0.363,0.533-0.725,1.045-0.96,1.621    c-0.085,0.213-0.277,0.363-0.341,0.597L87.339,461.504c-0.341,0.64-0.448,1.323-0.683,1.984l-0.789,2.24    c-0.235,0.661-0.171,1.323-0.277,2.005c-0.064,0.512-0.299,0.96-0.299,1.515c0,0.107,0.064,0.213,0.064,0.32    c0.021,0.661,0.213,1.28,0.363,1.92c0.171,0.896,0.341,1.771,0.725,2.603c11.669,36.629,152.768,37.824,169.515,37.824    c16.768,0,158.101-1.195,169.557-37.909c0.064-0.128,0.107-0.277,0.171-0.427c0.192-0.427,0.213-0.896,0.363-1.344    c0.256-0.896,0.512-1.771,0.555-2.709c0-0.043,0.021-0.085,0.021-0.128C426.603,469.333,426.624,469.312,426.624,469.269z     M255.957,42.944l139.435,399.701c-45.739-15.381-126.976-16.064-139.413-16.064c-12.437,0-93.696,0.683-139.435,16.064    L255.957,42.944z M255.957,490.56c-91.285,0.021-141.269-14.272-148.437-20.715c8.384-8,58.176-21.952,148.437-21.952    c91.285,0,141.269,14.272,148.437,20.715C396.011,476.608,346.219,490.56,255.957,490.56z"/></g></svg>`,
+      isHTML: true,
       isSVG: false,
     },
     Cylinder: {
-      icon: "⭘",
-      isHTML: false,
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="16px" width="16px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve"><g><g><path d="M425.621,38.187C414.763,1.216,272.789,0,256,0S97.237,1.216,86.379,38.187c-0.64,1.387-1.045,2.859-1.045,4.48v426.667    c0,1.707,0.469,3.328,1.152,4.843C98.155,510.805,239.275,512,256,512c16.789,0,158.763-1.216,169.621-38.187    c0.64-1.387,1.045-2.859,1.045-4.48V42.667C426.667,41.045,426.261,39.573,425.621,38.187z M256,21.333    c87.723,0,137.685,13.248,148.075,21.333C393.685,50.752,343.723,64,256,64S118.315,50.752,107.925,42.667    C118.315,34.581,168.277,21.333,256,21.333z M256,490.667c-91.285,0-141.269-14.272-148.437-20.715    C115.947,461.952,165.739,448,256,448c91.285,0,141.269,14.272,148.437,20.715C396.053,476.715,346.24,490.667,256,490.667z     M405.333,446.571C362.688,427.456,269.397,426.667,256,426.667s-106.688,0.789-149.333,19.904V65.429 C149.312,84.544,242.603,85.333,256,85.333s106.688-0.789,149.333-19.904V446.571z"/></g></g></svg>`,
+      isHTML: true,
       isSVG: false,
     },
     Sphere: {
-      icon: "⭘",
-      isHTML: false,
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="16px" width="16px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve"><g><g><path d="M256,0C114.837,0,0,114.837,0,256s114.837,256,256,256s256-114.837,256-256S397.163,0,256,0z M319.125,215.147    c111.381,6.357,171.541,28.523,171.541,40.853s-60.16,34.496-171.541,40.853C319.701,282.197,320,268.288,320,256    S319.701,229.803,319.125,215.147z M488.704,227.093c-36.011-19.883-107.755-29.504-170.624-33.173    c-3.669-62.848-13.291-134.592-33.173-170.624C391.189,36.437,475.563,120.811,488.704,227.093z M298.667,256    c0,14.656-0.341,28.48-0.832,41.835c-13.355,0.491-27.179,0.832-41.835,0.832s-28.48-0.341-41.835-0.832    c-0.491-13.355-0.832-27.179-0.832-41.835s0.341-28.48,0.832-41.835c13.355-0.491,27.179-0.832,41.835-0.832    s28.48,0.341,41.835,0.832C298.325,227.52,298.667,241.344,298.667,256z M256,21.333c12.331,0,34.496,60.16,40.853,171.541    C282.197,192.299,268.288,192,256,192s-26.197,0.299-40.853,0.875C221.504,81.493,243.669,21.333,256,21.333z M227.093,23.296    c-19.883,36.032-29.504,107.776-33.173,170.624c-62.848,3.669-134.592,13.291-170.624,33.173    C36.437,120.811,120.811,36.437,227.093,23.296z M192.875,215.147C192.299,229.803,192,243.712,192,256s0.299,26.197,0.875,40.853    C81.493,290.496,21.333,268.331,21.333,256S81.493,221.504,192.875,215.147z M23.296,284.907    c36.011,19.883,107.755,29.504,170.624,33.173c3.669,62.848,13.291,134.592,33.173,170.624    C120.811,475.563,36.437,391.189,23.296,284.907z M256,490.667c-12.331,0-34.496-60.16-40.853-171.541    C229.803,319.701,243.712,320,256,320s26.197-0.299,40.853-0.875C290.496,430.507,268.331,490.667,256,490.667z M284.907,488.704    c19.883-36.011,29.504-107.755,33.173-170.624c62.848-3.669,134.592-13.291,170.624-33.173    C475.563,391.189,391.189,475.563,284.907,488.704z"/></g></g></svg>`,
+      isHTML: true,
       isSVG: false,
     },
     Pyramid: {
@@ -128,7 +128,6 @@ var cubeImg= ""
       isSVG: true,
     },
   };
-
 
   var curshape = "Rectangle",
     end = false,
@@ -524,22 +523,23 @@ var cubeImg= ""
       shape.setAttribute("transform", data.transform);
     }
   }
-
+  
   function updatePentagon(shape, data) {
     // Extract the required properties from the data object
-    var centerX = Math.round((data.x2 + data.x) / 2);
-    var centerY = Math.round((data.y2 + data.y) / 2);
-    var sideLength = Math.abs(Math.round((data.x2 - data.x) / 2));
-
+    var centerX = (data.x2 + data.x) / 2;
+    var centerY = (data.y2 + data.y) / 2;
+    var sideLength = Math.abs(data.x2 - data.x) / 2;
+  
     // Calculate the coordinates of the pentagon vertices
+    var angleOffset = Math.PI * 3 / 2; // Offset to start from the bottom vertex
     var angle = (2 * Math.PI) / 5;
     var points = [];
     for (var i = 0; i < 5; i++) {
-      var x = centerX + sideLength * Math.cos(angle * i);
-      var y = centerY + sideLength * Math.sin(angle * i);
+      var x = centerX + sideLength * Math.cos(angle * i + angleOffset);
+      var y = centerY + sideLength * Math.sin(angle * i + angleOffset);
       points.push(x + "," + y);
     }
-
+  
     // Update the attributes of the polygon shape
     shape.setAttribute("points", points.join(" "));
     shape.setAttribute("fill", "none");
@@ -603,18 +603,18 @@ var cubeImg= ""
     // Set image source based on the shape
     if (data.shape === "Cone") {
       image.src =
-        "https://clipart-library.com/newhp/41112278-ba4c-46dc-9dfc-8d56be33405f_medium_thumb.jpg";
+        "././assets/cone.png";
     } else if (data.shape === "Cube") {
       image.src =
         "https://images.nagwa.com/figures/explainers/158156163529/6.svg";
     } else if (data.shape === "Cylinder") {
       image.src =
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTU-HBIWG7uchwerjQb3vmiLlPx5XHKpO09iJSK6f2E8FEpqxL9dRxYj5Ybx85O4S57Ug&usqp=CAU";
+        "././assets/cylinder.png";
     } else if (data.shape === "Sphere") {
-      image.src = "https://clipart-library.com/img/852313.gif";
+      image.src = "././assets/sphere.png";
     } else if (data.shape === "Pyramid") {
       image.src =
-        "https://www.sciencekids.co.nz/images/experiments/squarepyramid230.jpg";
+        "././assets/pyramid.png";
     }
 
     image.onload = function () {
@@ -764,54 +764,54 @@ var cubeImg= ""
       title: "Shapes",
       content2d:
         `<div class="tool-extra submenu-rect" id="submenu-rect-Rectangle">
-							<span title = "rectangle" class="tool-icon">▭</span>
+              <span title = "Rectangle" class="tool-icon" id="shape2d-rectangle">▭</span>
 						</div>
 
 						<div class="tool-extra submenu-rect" id="submenu-rect-Circle">
-							<span title = "circle" class="tool-icon">◯</span>
+              <span title = "Circle" class="tool-icon" id="shape2d-circle">◯</span>
 						</div>
             
 						<div class="tool-extra submenu-rect" id="submenu-rect-Triangle">
-							<span title = "triangle" class="tool-icon">◺</span>
+              <span title = "Triangle" class="tool-icon" id="shape2d-triangle">◺</span>
 						</div>
 
 						<div class="tool-extra submenu-rect" id="submenu-rect-EquiTriangle">
-							<span title = "equiTriangle" class="tool-icon">△</span>
+              <span title = "EquiTriangle" class="tool-icon" id="shape2d-equi">△</span>
 						</div>
 
 						<div class="tool-extra submenu-rect" id="submenu-rect-Parallelogram">
-							<span title = "parallelogram" class="tool-icon">▱</span>
+              <span title = "Parallelogram" class="tool-icon" id="shape2d-parallelogram">▱</span>
 						</div>
             
 						<div class="tool-extra submenu-rect" id="submenu-rect-Trapezoid">
-							<span title = "trapezoid" class="tool-icon">⏢</span>
+              <span title = "Trapezoid" class="tool-icon" id="shape2d-trapezoid">⏢</span>
 						</div>
 
             <div class="tool-extra submenu-rect" id="submenu-rect-Rombus">
-							<span title = "rombus" class="tool-icon">◇</span>
+              <span title = "Rombus" class="tool-icon" id="shape2d-rombus">◇</span>
 						</div>
 
 						<div class="tool-extra submenu-rect" id="submenu-rect-Pentagon">
-							<span title = "pentagon" class="tool-icon">⬠</span>
+              <span title = "Pentagon" class="tool-icon" id="shape2d-pentagon">⬠</span>
 						</div>
             
 						<div class="tool-extra submenu-rect" id="submenu-rect-Hexagon">
-							<span title = "hexagon" class="tool-icon">⎔</span>
+            <span title = "Hexagon" class="tool-icon" id="shape2d-hexagon">⎔</span>
 						</div>
 
             <div class="tool-extra submenu-rect" id="submenu-rect-Ellipse">
-							<span title = "ellipse" class="tool-icon">` +
+							<span title = "Ellipse" class="tool-icon" id="shape2d-ellipse">` +
         icons["Ellipse"].icon +
         `</span>
 						</div>
             `,
-            content3d:`  <div class="tool-extra submenu-rect" id="submenu-rect-Cube">
-            <span title = "cube" class="tool-icon">❒</span>
+      content3d: `  <div class="tool-extra submenu-rect" id="submenu-rect-Cube">
+            <span title = "cube" class="tool-icon" id="shape3d-cube">❒</span>
            </div>
 
           <div class="tool-extra submenu-rect" id="submenu-rect-Cone">
-            <span title = "cone" class="tool-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" viewBox="0 0 511.915 511.915" xml:space="preserve">             
+            <span title = "cone" class="tool-icon" id="shape3d-cone">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="16px" width="16px" version="1.1" id="Layer_1" viewBox="0 0 511.915 511.915" xml:space="preserve">             
               <g>
                 <path d="M426.624,469.269c0-0.043-0.021-0.064-0.021-0.107c0-0.597-0.235-1.131-0.32-1.707c-0.107-0.576-0.043-1.152-0.235-1.707    l-0.192-0.555c-0.043-0.128-0.085-0.235-0.128-0.363l-0.448-1.301c-0.256-0.683-0.363-1.387-0.704-2.048L266.069,7.061    c-0.085-0.235-0.256-0.384-0.341-0.597c-0.256-0.64-0.661-1.173-1.045-1.749c-0.384-0.576-0.747-1.173-1.237-1.664    c-0.448-0.448-1.003-0.789-1.536-1.152c-0.619-0.427-1.195-0.832-1.877-1.109c-0.192-0.085-0.341-0.256-0.555-0.32    c-0.469-0.171-0.96-0.107-1.451-0.192C257.365,0.149,256.747,0,256.064,0c-0.832,0-1.621,0.149-2.411,0.341    c-0.384,0.085-0.768,0.021-1.152,0.171c-0.171,0.064-0.277,0.192-0.448,0.256c-0.789,0.32-1.472,0.789-2.176,1.28    c-0.448,0.32-0.917,0.597-1.301,0.981c-0.533,0.533-0.939,1.152-1.344,1.813c-0.363,0.533-0.725,1.045-0.96,1.621    c-0.085,0.213-0.277,0.363-0.341,0.597L87.339,461.504c-0.341,0.64-0.448,1.323-0.683,1.984l-0.789,2.24    c-0.235,0.661-0.171,1.323-0.277,2.005c-0.064,0.512-0.299,0.96-0.299,1.515c0,0.107,0.064,0.213,0.064,0.32    c0.021,0.661,0.213,1.28,0.363,1.92c0.171,0.896,0.341,1.771,0.725,2.603c11.669,36.629,152.768,37.824,169.515,37.824    c16.768,0,158.101-1.195,169.557-37.909c0.064-0.128,0.107-0.277,0.171-0.427c0.192-0.427,0.213-0.896,0.363-1.344    c0.256-0.896,0.512-1.771,0.555-2.709c0-0.043,0.021-0.085,0.021-0.128C426.603,469.333,426.624,469.312,426.624,469.269z     M255.957,42.944l139.435,399.701c-45.739-15.381-126.976-16.064-139.413-16.064c-12.437,0-93.696,0.683-139.435,16.064    L255.957,42.944z M255.957,490.56c-91.285,0.021-141.269-14.272-148.437-20.715c8.384-8,58.176-21.952,148.437-21.952    c91.285,0,141.269,14.272,148.437,20.715C396.011,476.608,346.219,490.56,255.957,490.56z"/>
               </g>
@@ -820,8 +820,8 @@ var cubeImg= ""
           </div>
 
           <div class="tool-extra submenu-rect" id="submenu-rect-Cylinder">
-            <span title = "cylinder" class="tool-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve">
+            <span title = "cylinder" class="tool-icon" id="shape3d-cylinder">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="16px" width="16px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve">
               <g>
                 <g>
                   <path d="M425.621,38.187C414.763,1.216,272.789,0,256,0S97.237,1.216,86.379,38.187c-0.64,1.387-1.045,2.859-1.045,4.48v426.667    c0,1.707,0.469,3.328,1.152,4.843C98.155,510.805,239.275,512,256,512c16.789,0,158.763-1.216,169.621-38.187    c0.64-1.387,1.045-2.859,1.045-4.48V42.667C426.667,41.045,426.261,39.573,425.621,38.187z M256,21.333    c87.723,0,137.685,13.248,148.075,21.333C393.685,50.752,343.723,64,256,64S118.315,50.752,107.925,42.667    C118.315,34.581,168.277,21.333,256,21.333z M256,490.667c-91.285,0-141.269-14.272-148.437-20.715    C115.947,461.952,165.739,448,256,448c91.285,0,141.269,14.272,148.437,20.715C396.053,476.715,346.24,490.667,256,490.667z     M405.333,446.571C362.688,427.456,269.397,426.667,256,426.667s-106.688,0.789-149.333,19.904V65.429    C149.312,84.544,242.603,85.333,256,85.333s106.688-0.789,149.333-19.904V446.571z"/>
@@ -832,8 +832,8 @@ var cubeImg= ""
           </div>
 
           <div class="tool-extra submenu-rect" id="submenu-rect-Sphere">
-            <span title = "sphere" class="tool-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve">
+            <span title = "sphere" class="tool-icon" id="shape3d-sphere">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="16px" width="16px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve">
               <g>
 	              <g>
 		              <path d="M256,0C114.837,0,0,114.837,0,256s114.837,256,256,256s256-114.837,256-256S397.163,0,256,0z M319.125,215.147    c111.381,6.357,171.541,28.523,171.541,40.853s-60.16,34.496-171.541,40.853C319.701,282.197,320,268.288,320,256    S319.701,229.803,319.125,215.147z M488.704,227.093c-36.011-19.883-107.755-29.504-170.624-33.173    c-3.669-62.848-13.291-134.592-33.173-170.624C391.189,36.437,475.563,120.811,488.704,227.093z M298.667,256    c0,14.656-0.341,28.48-0.832,41.835c-13.355,0.491-27.179,0.832-41.835,0.832s-28.48-0.341-41.835-0.832    c-0.491-13.355-0.832-27.179-0.832-41.835s0.341-28.48,0.832-41.835c13.355-0.491,27.179-0.832,41.835-0.832    s28.48,0.341,41.835,0.832C298.325,227.52,298.667,241.344,298.667,256z M256,21.333c12.331,0,34.496,60.16,40.853,171.541    C282.197,192.299,268.288,192,256,192s-26.197,0.299-40.853,0.875C221.504,81.493,243.669,21.333,256,21.333z M227.093,23.296    c-19.883,36.032-29.504,107.776-33.173,170.624c-62.848,3.669-134.592,13.291-170.624,33.173    C36.437,120.811,120.811,36.437,227.093,23.296z M192.875,215.147C192.299,229.803,192,243.712,192,256s0.299,26.197,0.875,40.853    C81.493,290.496,21.333,268.331,21.333,256S81.493,221.504,192.875,215.147z M23.296,284.907    c36.011,19.883,107.755,29.504,170.624,33.173c3.669,62.848,13.291,134.592,33.173,170.624    C120.811,475.563,36.437,391.189,23.296,284.907z M256,490.667c-12.331,0-34.496-60.16-40.853-171.541    C229.803,319.701,243.712,320,256,320s26.197-0.299,40.853-0.875C290.496,430.507,268.331,490.667,256,490.667z M284.907,488.704    c19.883-36.011,29.504-107.755,33.173-170.624c62.848-3.669,134.592-13.291,170.624-33.173    C475.563,391.189,391.189,475.563,284.907,488.704z"/>
@@ -843,7 +843,7 @@ var cubeImg= ""
             </span>
           </div>
           <div class="tool-extra submenu-rect" id="submenu-rect-Pyramid">
-           <span title = "pyramid" class="tool-icon">◮</span>
+           <span title = "pyramid" class="tool-icon" id="shape3d-pyramid">◮</span>
           </div>`,
       listener: menuListener,
     },

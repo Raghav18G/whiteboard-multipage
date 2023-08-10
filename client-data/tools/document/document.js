@@ -1,11 +1,34 @@
 ﻿(function documents() {
-  //For drawer
-  const drawer = document.querySelector("#drawer");
   const closeButton = document.querySelector("#closeButton");
+  const drawer = document.querySelector("#drawer");
+
+  //google Event
+  document.getElementById("SearchGoogle").addEventListener("click", () => {
+    document.getElementById("iframeModal").style.display = "block";
+    drawer.classList.remove("open");
+  });
+
+  document.getElementById("close-browser").addEventListener("click", () => {
+    document.getElementById("iframeModal").style.display = "none";
+  });
+
+  //For drawer
   const libraryImages = document.querySelectorAll("#libraryImage");
 
   closeButton.addEventListener("click", () => {
     drawer.classList.remove("open");
+  });
+
+  // close the modal when click outside of it
+
+  const modal = document.getElementById("documentModal");
+  function closeModal() {
+    modal.style.display = "none";
+  }
+  window.addEventListener("click", function (event) {
+    if (event.target === modal) {
+      closeModal();
+    }
   });
 
   //Tabs Logic
@@ -28,6 +51,8 @@
   libraryImages.forEach((lbImage) => {
     lbImage.addEventListener("click", () => {
       console.log("CLICKED LIBRARY IMAGE");
+      
+      drawer.classList.remove("open");
       let uid = Tools.generateUID("doc");
 
       // Create a new XMLHttpRequest or fetch to load the image
@@ -71,7 +96,7 @@
 
   //Code isolation
   var uploadSVG =
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon points="16 9 16 16 1 16 1 9 0 9 0 17 17 17 17 9 16 9"/><polygon points="8.5 0 15.15 6.65 14.44 7.35 9 1.91 9 13 8 13 8 1.91 2.56 7.35 1.85 6.65 8.5 0"/></g></g></svg>';
+  '<svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 16V3M12 3L16 7.375M12 3L8 7.375" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Document</p></label>';
   var xlinkNS = "http://www.w3.org/1999/xlink";
   var imgCount = 1;
   var fileInput;
@@ -123,7 +148,9 @@
 
   function chooseFromLibrary(e) {
     e = e || window.event;
-    const container = document.getElementsByClassName(".tab-panel");
+
+    const container = document.querySelector(".tab-panel");
+    console.log("Container", container);
     let startX;
     let startY;
 
@@ -153,6 +180,50 @@
       });
   }
 
+  function uploadPDF(e) {
+    document.getElementById("documentModal").style.display = "none";
+    document
+      .getElementById("SelectFromPDF")
+      .removeEventListener("click", () => {
+        console.log("Event Listener Removed");
+      });
+  
+    fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = ".pdf"; // Accept only PDF files
+    fileInput.click();
+    fileInput.addEventListener("change", function () {
+      var file = fileInput.files;
+
+      console.log("File Uploaded",file)
+      drawPDF(e,file);
+      
+    });
+  }  
+
+  function uploadVideo() {
+    document.getElementById("documentModal").style.display = "none";
+    document
+      .getElementById("SelectFromVideo")
+      .removeEventListener("click", () => {
+        console.log("Event Listener Removed");
+      });
+  
+    fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = "video/*"; // Accept all video formats
+    fileInput.click();
+    fileInput.addEventListener("change", function () {
+      let file = fileInput.files[0];
+  
+      console.log("Video Uploaded", file);
+     
+      DropVideo(file);
+    
+    });
+    
+  }
+ 
   function onstart() {
     document.getElementById("documentModal").style.display = "block";
     document
@@ -166,6 +237,12 @@
     document
       .getElementById("SelectFromLibrary")
       .addEventListener("click", chooseFromLibrary);
+    document
+      .getElementById("SelectFromPDF")
+      .addEventListener("click", uploadPDF);
+    document
+      .getElementById("SelectFromVideo")
+      .addEventListener("click", uploadVideo);
   }
 
   function draw(msg) {

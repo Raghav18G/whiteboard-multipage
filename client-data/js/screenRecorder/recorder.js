@@ -10,15 +10,15 @@ if (!navigator.getDisplayMedia && !navigator.mediaDevices.getDisplayMedia) {
 function invokeGetDisplayMedia(success, error) {
   var displaymediastreamconstraints = {
     video: {
-      displaySurface: "monitor", // monitor, window, application, browser
-      logicalSurface: true,
-      cursor: "always", // never, always, motion
+      mediaSource: "screen",
+      cursor: "always", // or 'motion' for cursor sharing
     },
+    audio: true,
   };
 
   // above constraints are NOT supported YET
   // that's why overriding them
-  displaymediastreamconstraints = { audio: true, video: true };
+  // displaymediastreamconstraints = { audio: true, video: true };
 
   if (navigator.mediaDevices.getDisplayMedia) {
     navigator.mediaDevices
@@ -54,6 +54,7 @@ function captureScreen(callback) {
 }
 
 function stopRecordingCallback() {
+  console.group("Stopped");
   getSeekableBlob(recorder.getBlob(), function (seekableBlob) {
     recorder.screen.stop();
     recorder.destroy();
@@ -71,17 +72,21 @@ document.getElementById("btn-start-recording").onclick = function () {
   this.disabled = true;
 
   captureScreen(function (screen) {
+    const audioTracks = screen.getAudioTracks();
+    const audioConstraints = {};
+
+    if (audioTracks.length > 0) {
+      audioConstraints.mandatory = {
+        chromeMediaSource: "desktop",
+        chromeMediaSourceId: audioTracks[0].getSettings().deviceId,
+      };
+    }
+
     recorder = RecordRTC(screen, {
       type: "video",
       recorderType: MediaStreamRecorder,
       mimeType: "video/webm",
-      audio: {
-        mandatory: {
-          chromeMediaSource: "desktop",
-          chromeMediaSourceId: screen.getAudioTracks()[0].getSettings()
-            .deviceId,
-        },
-      },
+      audio: audioConstraints,
     });
 
     recorder.startRecording();

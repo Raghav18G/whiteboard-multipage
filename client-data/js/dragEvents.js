@@ -93,34 +93,36 @@ function onstart(event) {
   event.preventDefault();
 }
 
+function DropVideo(file) {
+
+  console.log("Video Dropped", URL.createObjectURL(file));
+  let url = URL.createObjectURL(file);
+  let type = file.type;
+  let video = document.getElementById("videoPlayer");
+  let source = document.createElement("source");
+  document.getElementById("dragVideoModal").style.display = "block";
+  document
+    .getElementById("dragVideoModalClose")
+    .addEventListener("click", () => {h
+      document.getElementById("dragVideoModal").style.display = "none";
+      video.removeChild(source);
+      video.load();
+    });
+  document.getElementById("videoPlayer").style.display = "block";
+  source.setAttribute("src", url);
+  source.setAttribute("type", type);
+  video.appendChild(source);
+}
 
 function drop(e) {
   e.preventDefault();
+  console.log(e,"data transfer")
   var imgCount = 1;
-  function DropVideo() {
-    console.log("Video Dropped", URL.createObjectURL(e.dataTransfer.files[0]));
-    let url = URL.createObjectURL(e.dataTransfer.files[0]);
-    let type = e.dataTransfer.files[0].type;
-    let video = document.getElementById("videoPlayer");
-    let source = document.createElement("source");
-    document.getElementById("dragVideoModal").style.display = "block";
-    document
-      .getElementById("dragVideoModalClose")
-      .addEventListener("click", () => {
-        document.getElementById("dragVideoModal").style.display = "none";
-        video.removeChild(source);
-        video.load();
-      });
-    document.getElementById("videoPlayer").style.display = "block";
-    source.setAttribute("src", url);
-    source.setAttribute("type", type);
-    video.appendChild(source);
-  }
 
-  if (e.dataTransfer.files[0].type.includes("video")) {
-    DropVideo();
+  if (e.dataTransfer?.files[0]?.type.includes("video")) {
+    DropVideo(e.dataTransfer?.files[0]);
   } 
-  else if(e.dataTransfer.files[0].type.includes("/pdf")){
+  else if(e.dataTransfer?.files[0]?.type.includes("/pdf")){
     drawPDF(e,e.dataTransfer.files)
   }
   else {

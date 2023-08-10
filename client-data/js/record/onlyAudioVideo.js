@@ -1,25 +1,17 @@
 const audioVideo = async () => {
-  let audioStream = await navigator.mediaDevices.getUserMedia({
-    audio: true,
-    video: true,
-  });
-  changeMiceIfAudioOn();
-  changeVideoIfVideoOn();
-  /* get video element */
-  var video = document.querySelector(".video__recorder__screen");
-  $(".video__recorder__screen_container").draggable().resizable();
-  $(".video__recorder__screen").draggable();
-  if ("srcObject" in video) {
-    video.srcObject = audioStream;
-  } else {
-    video.src = window.URL.createObjectURL(audioStream);
-  }
-  video.onloadedmetadata = function (e) {
-    video.play();
-  };
+  try {
+    // Request permission for camera and microphone
+    let audioStream = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video: true,
+    });
 
-  // start video
-  $("body").on("click", ".hide__video", () => {
+    changeMiceIfAudioOn();
+    changeVideoIfVideoOn();
+    /* get video element */
+    var video = document.querySelector(".video__recorder__screen");
+    $(".video__recorder__screen_container").draggable().resizable();
+    $(".video__recorder__screen").draggable();
     if ("srcObject" in video) {
       video.srcObject = audioStream;
     } else {
@@ -28,27 +20,42 @@ const audioVideo = async () => {
     video.onloadedmetadata = function (e) {
       video.play();
     };
-  });
 
-  // stop video
-  $("body").on("click", ".video__recorder", () => {
-    const stream = video.srcObject;
-    const tracks = stream.getTracks();
-    video.onloadedmetadata = function (e) {
-      video.pause();
-    };
-    video.srcObject = null;
-  });
+    // start video
+    $("body").on("click", ".hide__video", () => {
+      if ("srcObject" in video) {
+        video.srcObject = audioStream;
+      } else {
+        video.src = window.URL.createObjectURL(audioStream);
+      }
+      video.onloadedmetadata = function (e) {
+        video.play();
+      };
+    });
 
-  // unmute
-  $("body").on("click", ".mice__mute", () => {
-    audioStream.getAudioTracks()[0].enabled = true;
-  });
+    // stop video
+    $("body").on("click", ".video__recorder", () => {
+      const stream = video.srcObject;
+      const tracks = stream.getTracks();
+      video.onloadedmetadata = function (e) {
+        video.pause();
+      };
+      video.srcObject = null;
+    });
 
-  //mute
-  $("body").on("click", ".mice__record", () => {
-    audioStream.getAudioTracks()[0].enabled = false;
-  });
+    // unmute
+    $("body").on("click", ".mice__mute", () => {
+      audioStream.getAudioTracks()[0].enabled = true;
+    });
+
+    //mute
+    $("body").on("click", ".mice__record", () => {
+      audioStream.getAudioTracks()[0].enabled = false;
+    });
+  } catch (error) {
+    // Handle errors, e.g., the user denied access or the media devices are not available
+    console.error("Error accessing camera or microphone:", error);
+  }
 };
 
 /* start when no token */

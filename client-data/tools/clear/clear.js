@@ -30,7 +30,7 @@
 	var msg = {
 		"type": "clear"
 	};
-	var binSVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M11,3a3.48,3.48,0,0,0-6.9,0H0V4H2V14a3,3,0,0,0,3,3h5a3,3,0,0,0,3-3V4h2V3ZM7.5,1A2.5,2.5,0,0,1,10,3H5.05A2.5,2.5,0,0,1,7.5,1ZM12,14a2,2,0,0,1-2,2H5a2,2,0,0,1-2-2V4h9Z"/></g></g></svg>';
+	var binSVG = '<svg height="18" width="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M11,3a3.48,3.48,0,0,0-6.9,0H0V4H2V14a3,3,0,0,0,3,3h5a3,3,0,0,0,3-3V4h2V3ZM7.5,1A2.5,2.5,0,0,1,10,3H5.05A2.5,2.5,0,0,1,7.5,1ZM12,14a2,2,0,0,1-2,2H5a2,2,0,0,1-2-2V4h9Z"/></g></g></svg>';
 	function clearBoard(evt) {
 		// if($("#menu").width()>Tools.menu_width+3)return;
 		if (evt) evt.preventDefault();
@@ -38,8 +38,6 @@
 		draw(msg, true);
 		Tools.send(msg, "Clear");
 		// clear the Table modal
-		const modal = document.getElementById("table-actions");
-		modal.style.display = "none";
 	};
 
 	function draw(data) {

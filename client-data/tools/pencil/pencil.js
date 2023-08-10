@@ -27,8 +27,8 @@
 (function () { //Code isolation
 
 	//Indicates the id of the line the user is currently drawing or an empty string while the user is not drawing
-	var pencilSVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M13,0,0,13v4H4L17,4Zm0,1.41L15.59,4,6.65,12.94,4.06,10.35ZM3.59,16H1V13.41l2.35-2.35,2.59,2.59Z"/></g></g></svg>';
-	var eraserSVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M13,0,0,13l4,4h8l9-9Zm6.59,8L14.5,13.09,7.91,6.5,13,1.41Zm-8,8H4.42l-3-3,5.8-5.79,6.58,6.58Z"/></g></g></svg>';
+	var pencilSVG = '<svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" width="23" height="24" viewBox="0 0 23 24" fill="none"><path d="M14.363 3.63703L15.2722 2.72777C16.7787 1.22127 19.2855 1.28554 20.8713 2.87134C22.4571 4.45713 22.5214 6.96394 21.0149 8.47045L20.1056 9.3797M14.363 3.63703C14.363 3.63703 14.5305 5.62304 16.3251 7.41762C18.1196 9.21221 20.1056 9.3797 20.1056 9.3797M14.363 3.63703L5.04663 12.9534C4.48044 13.5196 4.19735 13.8027 3.95569 14.1166C3.67063 14.4869 3.4284 14.8894 3.23331 15.3167C3.06792 15.679 2.94798 16.0655 2.7081 16.8384L1.69162 20.1137M20.1056 9.3797L10.7893 18.696C10.2231 19.2622 9.94002 19.5453 9.62607 19.787C9.25573 20.072 8.85332 20.3143 8.42597 20.5094C8.06369 20.6747 7.67722 20.7947 6.90427 21.0346L3.62893 22.0511M3.62893 22.0511L2.82829 22.2995C2.44792 22.4176 2.02238 22.3069 1.72909 22.0136C1.43579 21.7203 1.3251 21.2948 1.44314 20.9144L1.69162 20.1137M3.62893 22.0511L1.69162 20.1137" stroke="#1C274C" stroke-width="1.5"/></svg><label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Pencil</p></label>';
+	var eraserSVG = '<svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M13,0,0,13l4,4h8l9-9Zm6.59,8L14.5,13.09,7.91,6.5,13,1.41Zm-8,8H4.42l-3-3,5.8-5.79,6.58,6.58Z"/></g></g></svg> <label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Eraser</p></label>';
 	var curLineId = "",
 		startX=0,
 		startY=0,
@@ -146,7 +146,7 @@
 				break;
 			default:
 				console.error("Pencil: Draw instruction with unknown type. ", data);
-				break;
+				break;``
 		}
 	}
 
@@ -263,7 +263,7 @@
 			index=1;
 		}else{
 			curPen.mode="Pencil"
-			curPen.erasurSize=Tools.getSize();
+			curPen.eraserSize=Tools.getSize();
 			Tools.setSize(curPen.penSize);
 			Tools.showMarker=false;
 			var cursor = Tools.svg.getElementById("mycursor");
@@ -272,6 +272,10 @@
 			}
 		}
 		elem.getElementsByClassName("tool-icon")[0].innerHTML = penIcons[index];
+
+		  // Update the title attribute based on the current mode
+		  elem.setAttribute("title", curPen.mode === "Pencil" ? "For Eraser click to toggle" : "For Pencil click to toggle");
+
 	};
 
 	Tools.add({ //The new tool
@@ -279,7 +283,7 @@
 		// "icon": "✏",
 		"iconHTML": pencilSVG,
 		"name": "Pencil",
-		"title":"Pencil",
+		"title":" For Eraser",
 		"listeners": {
 			"press": startLine,
 			"move": continueLine,

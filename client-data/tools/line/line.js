@@ -28,8 +28,8 @@
   //Code isolation
   //Indicates the id of the line the user is currently drawing or an empty string while the user is not drawing
   var lineSVG =
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M17,6V0H11V5.29L5.29,11H0v6H6V11.71L11.71,6ZM12,1h4V5H12ZM5,16H1V12H5Z"/></g></g></svg>';
-  var curLineId = "",
+  '<svg class="tool-icon-svg" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M16.375 1H22.375V7H17.5179L8.375 17.9715V23H2.375V17H7.23205L16.375 6.02846V1Z" fill="#1C274C"/><path d="M16.875 6.5V1.5H21.875V6.5H16.875Z" stroke="#E6E8F1" stroke-linecap="round"/><path d="M16.875 6.5V1.5H21.875V6.5H16.875Z" fill="white" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/><path d="M7.875 17.5H2.875V22.5H7.875V17.5Z" fill="white" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/></svg><label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Lines</p></label>';
+    var curLineId = "",
     end = false,
     startX,
     startY,
@@ -45,7 +45,7 @@
 
   var icons = {
     line: {
-      icon: "☇",
+      icon: "—",
       isHTML: false,
       isSVG: false,
     },
@@ -215,7 +215,8 @@
     line.setAttribute("stroke", lineData.color || "black");
     line.setAttribute("stroke-width", lineData.size || 10);
     if (lineData.line == "dashline") {
-      line.setAttribute("stroke-dasharray", "10 10" || "10 10");
+      // line.setAttribute("stroke-dasharray", "10 10" || "10 10");
+      line.setAttribute("stroke-dasharray", "20 40" || "20 50");
     }
     line.setAttribute(
       "opacity",
@@ -477,15 +478,15 @@
       title: "Lines",
       content:
         `<div class="tool-extra submenu-line" id="submenu-line-line">
-							<span title="solid line" class="tool-icon">☇</span>
+            <span title="solid line" class="tool-icon" id="line1">—</span>
 						</div>
 						<div class="tool-extra submenu-line" id="submenu-line-arrw">
-							<span title="solid arrow" class="tool-icon">` +
+							<span title="solid arrow" class="tool-icon" id="line2">` +
         icons["arrw"].icon +
         `</span>
 						</div>
 						<div class="tool-extra submenu-line" id="submenu-line-dashline">
-							<span title="dashed line" class="tool-icon">` +
+							<span title="dashed line" class="tool-icon"  id="line3">` +
         icons["dashline"].icon +
         `</span>
 						</div>

@@ -25,7 +25,7 @@
  */
 
 (function () { //Code isolation
-	var textSVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon points="0 0 0 6 1 6 1 1 7 1 7 16 3 16 3 17 12 17 12 16 8 16 8 1 14 1 14 6 15 6 15 0 0 0"/></g></g></svg>';
+	var textSVG = '<svg class="tool-icon-svg" width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.65625 12.0641V6.37988H15.3705M23.0848 12.4701V6.37988H15.3705M15.3705 6.37988V24.2445M15.3705 24.2445H10.4983M15.3705 24.2445H20.2427" stroke="#1C274C" stroke-width="1.91406" stroke-linecap="round"/></svg><label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Text</p></label>';
 	var board = Tools.board, svg = Tools.svg;
 
 	var input = document.createElement("input");
@@ -98,6 +98,7 @@
 		input.removeEventListener("keyup", textChangeHandler);
 	}
 
+	
 	function startEdit() {
 		if (!input.parentNode) board.appendChild(input);
 		input.value="";
