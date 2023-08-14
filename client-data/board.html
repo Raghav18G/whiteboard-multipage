@@ -7,6 +7,7 @@
     <title>Iprep | Online collaborative whiteboard</title>
     <link rel="stylesheet" href="Fonts/stylesheet.css">
     <link rel="stylesheet" href="tools/table/table.css">
+    
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="tools/background-manangement/backgorund.css">
@@ -21,9 +22,6 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
 
     <link rel="stylesheet" type="text/css" href="board.css" />
-    <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
-    <script src="/server/boardData.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" /> -->
     <!-- <link href="OfflineCDN/ajax.googleapis.com/ajax/libs/jquery/" rel="stylesheet" /> -->
    
@@ -138,6 +136,19 @@
     </div>
 
 
+    
+    <!-- Add new Page modal -->
+    <div id="addNewPageModal" class="addNewPageModal">
+        <div class="addNewPageModal-content">
+          <span class="pagesModalClose" id="pagesModalClose">&times;</span>
+          <h2>Page Navigation</h2>
+          <div class="page-container" id="pageContainer">
+            <!-- Pages will be dynamically added here -->
+          </div>
+          <button id="addPageBtn">Add Page</button>
+        </div>
+      </div>
+
     <!-- Download Content Modal -->
         <div class="downloadModal" id="downloadModal">
             <div class="downloadModal-content">
@@ -188,7 +199,9 @@
     <div class="pdf-modal" id="pdfModal">
         <div class="pdf-modal-content">
             <div id="closePDFBtn"> <span class="close">&times;</span></div>
+
             <h5 id="pdf-name"></h5>
+
             <div id="addPDFPages">
             </div>
             <p>
@@ -202,6 +215,13 @@
         </div>
     </div>
 
+    <!-- Snackbar -->
+
+    <div id="snackbar">Invalid File type. Please choose PDF file.</div>
+    <div id="snackbar-success">PDF uploaded successfully.</div>
+    <!-- <div id="snackbar-success">PDF uploaded successfully.</div> -->
+   
+    
     <!--Document Moadal -->
     
     <div class="documentModal" id="documentModal">
@@ -532,19 +552,14 @@
                 <img src="./assets/DRAG.svg" class="dragLogo" height="30" />
             </div>
         </div>
-        <!-- <div>
-            <p>
-                <button>Add new</button>
-            </p>
-        </div> -->
         <!-- Tools -->
 
         <!-- Color Picker -->
-            <span class="tool-icon color-tool-pick" style="margin: -6px 18px auto 16px;">
+            <span class="tool-icon color-tool-pick" style="margin: 0px 18px auto 16px;">
             <div class="color-pick"  id="color-pick" title="Color Picker">
-                <input type="color" value="#ff00ff" id="chooseColor" />
+                    <input type="color" value="#ff00ff" id="chooseColor" />
             </div>
-            <label id="tool-color-picker"class="label-tool" style="font-size:10px;font-weight:400;margin-top: 4px;"><p>Color Picker</p></label>
+            <label id="tool-color-localization" class="label-tool" style="font-size:10px;font-weight:400;margin-top: 4px;"><p>Color Picker</p></label>
         </span>
         <!-- Tool Size Indicator -->    
         <div class="tool size_selector_container">
@@ -552,15 +567,20 @@
                 <svg viewBox="-60 -70 120 120" class="tool-icon-sizeIndicator" style="display:none">
                     <circle id="sizeIndicator" cx=0 cy=0 r=10 />
                 </svg>
-               
+                    
                 <!-- <img src="icon-size.svg" height=30 /> -->
-                <svg class="tool-icon-svg" viewBox="0 0 37 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- <svg class="tool-icon-svg" viewBox="0 0 37 42" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5.28555 14.1307C4.06106 15.3552 4.06106 17.3507 5.28555 18.5752L20.5208 33.8104C20.5803 33.8728 20.6568 33.9181 20.7362 33.9465L26.2889 35.8569C26.493 35.9277 26.7198 35.8739 26.8728 35.7208C26.9805 35.6131 27.04 35.4686 27.04 35.3212C27.04 35.2588 27.0287 35.1965 27.0089 35.1369L25.0984 29.5842C25.0701 29.502 25.0247 29.4283 24.9624 29.3688L9.72715 14.1336C9.13475 13.5412 8.34394 13.2124 7.50494 13.2124C6.66594 13.2124 5.87512 13.5383 5.28272 14.1336L5.28555 14.1307ZM8.76911 20.4544L9.78951 19.434L21.9409 31.5854L20.9204 32.6058L8.76911 20.4544ZM25.5605 34.4056L21.9635 33.1698L23.1427 31.9907L24.3218 30.8115L25.5576 34.4085L25.5605 34.4056ZM23.7634 29.7685L22.743 30.7889L10.5917 18.6375L11.6121 17.6171L23.7634 29.7685ZM10.8099 16.815L9.38985 18.235L7.96979 19.6551L7.29235 18.9777L10.1325 16.1375L10.8099 16.815ZM8.93067 14.9357L9.33033 15.3354L6.4902 18.1755L6.09054 17.7759C5.30823 16.9935 5.30823 15.718 6.09054 14.9357C6.87285 14.1534 8.14836 14.1534 8.93067 14.9357Z" fill="black"/>
                     <path d="M0.706387 25.2591C-0.235463 26.201 -0.235463 27.7359 0.706387 28.6777L12.425 40.3963C12.4708 40.4443 12.5297 40.4792 12.5907 40.501L16.8617 41.9704C17.0187 42.0249 17.1931 41.9835 17.3109 41.8658C17.3937 41.7829 17.4395 41.6718 17.4395 41.5584C17.4395 41.5104 17.4308 41.4625 17.4155 41.4167L15.946 37.1456C15.9242 37.0824 15.8894 37.0257 15.8414 36.9799L4.12277 25.2613C3.66711 24.8057 3.05883 24.5528 2.41349 24.5528C1.76815 24.5528 1.15987 24.8035 0.704206 25.2613L0.706387 25.2591ZM3.38586 30.1232L4.17074 29.3383L13.5173 38.6849L12.7324 39.4697L3.38586 30.1232ZM16.3014 40.8542L13.5347 39.9036L14.4417 38.9966L15.3487 38.0897L16.2992 40.8564L16.3014 40.8542ZM14.9192 37.2874L14.1343 38.0722L4.78774 28.7257L5.57261 27.9408L14.9192 37.2874ZM4.95561 27.3238L3.86333 28.4161L2.77104 29.5084L2.24997 28.9873L4.43454 26.8027L4.95561 27.3238ZM3.51013 25.8783L3.81754 26.1857L1.63298 28.3703L1.32557 28.0629C0.723829 27.4612 0.723828 26.4801 1.32557 25.8783C1.9273 25.2766 2.9084 25.2766 3.51013 25.8783Z" fill="black"/>
                     <path d="M27.6893 26.0511L27.6893 26.0511C27.554 26.0028 27.4148 25.9229 27.3006 25.8045L9.13735 7.64123C7.54238 6.04627 7.54106 3.44904 9.13338 1.85241L27.6893 26.0511ZM27.6893 26.0511L27.6932 26.0524M27.6893 26.0511L27.6932 26.0524M27.6932 26.0524L34.313 28.33C34.3131 28.33 34.3133 28.3301 34.3134 28.3301C34.6853 28.4591 35.0952 28.3601 35.3704 28.0849C35.5635 27.8918 35.672 27.631 35.672 27.3616C35.672 27.2453 35.6509 27.1336 35.6169 27.0316L35.6169 27.0316M27.6932 26.0524L35.6169 27.0316M35.6169 27.0316L35.6158 27.0284M35.6169 27.0316L35.6158 27.0284M35.6158 27.0284L33.3379 20.4076L33.3379 20.4074M35.6158 27.0284L33.3379 20.4074M33.3379 20.4074C33.288 20.2627 33.2063 20.1271 33.09 20.015M33.3379 20.4074L33.09 20.015M33.09 20.015L14.9268 1.85182C14.1552 1.08023 13.1236 0.651232 12.0304 0.651232C10.9397 0.651232 9.90926 1.07493 9.13735 1.84844C9.13733 1.84846 9.13731 1.84848 9.1373 1.84849L33.09 20.015ZM31.9336 22.6264L32.9917 25.7062L29.912 24.648L30.9228 23.6372L31.9336 22.6264ZM28.0264 23.6304L14.0312 9.63523L14.7544 8.912L28.7496 22.9072L28.0264 23.6304ZM30.9227 20.7408L30.1995 21.4641L16.2043 7.46885L16.9275 6.74564L30.9227 20.7408ZM14.0311 6.74221L12.5846 8.1887L12.2703 7.87442L15.1633 4.98145L15.4776 5.29573L14.0311 6.74221ZM13.4836 3.30173L13.7134 3.53154L10.8204 6.42451L10.5906 6.1947C9.79411 5.39818 9.79411 4.09826 10.5906 3.30173C11.3872 2.50521 12.6871 2.50521 13.4836 3.30173Z" fill="black" stroke="#F6F6F6" stroke-width="0.69786"/>
+                </svg> -->
+                
+                <svg class="tool-icon-svg" width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M27.1198 3.875L15.9662 6.86359L19.3416 10.239L8.94209 20.6385L5.56671 17.2631L2.57812 28.4167L13.7317 25.4281L10.3563 22.0527L20.7558 11.6532L24.1312 15.0286L27.1198 3.875Z" fill="#424242"/>
                 </svg>
+    
 
-            <label class="label-tool" style="font-size:10px; line-height:2px;font-weight:400; margin-top:14px"><p>Tool-size</p> <p>Selector</p></label>
+            <label class="label-tool" style="font-size:10px; line-height:2px;font-weight:400; margin-top:14px"><p id="tool-size-localization">Tool-size</p> <p id="tool-selector-localization">selector</p></label>
                
             </span>
 
@@ -574,7 +594,7 @@
         <!-- Opacity Picker -->
         <div class="tool opacityPicker">
             <span class="tool-icon" id="opacity-picker" title="Opacity Picker">
-                <svg class="tool-icon-svg" viewBox="0 0 8 8">
+                <!-- <svg class="tool-icon-svg" viewBox="0 0 8 8">
                     <pattern id="opacityPattern" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
                         <rect x=0 y=0 width=2 height=2 fill=black />
                         <rect x=2 y=2 width=2 height=2 fill=black />
@@ -582,8 +602,35 @@
                         <rect x=0 y=2 width=2 height=2 fill=#eee />
                     </pattern>
                     <circle cx=4 cy=4.6 id="opacityIndicator" r=3.5 fill="url(#opacityPattern)" />
-                </svg>
-                <label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Opacity</p><p></p> Picker</p></label>
+                </svg> -->
+                <svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                    <mask id="mask0_8261_28999" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="28" height="28">
+                    <circle id="opacityIndicator" cx="14" cy="14" r="14" fill="#D9D9D9"/>
+                    </mask>
+                    <g mask="url(#mask0_8261_28999)">
+                    <path d="M-5 0H4V9H-5V0Z" fill="#212121"/>
+                    <path d="M-5 18H4V27H-5V18Z" fill="#212121"/>
+                    <path d="M-5 9H4V18H-5V9Z" fill="white"/>
+                    <path d="M-5 27H4V36H-5V27Z" fill="white"/>
+                    <path d="M4 0H13V9H4V0Z" fill="white"/>
+                    <path d="M4 18H13V27H4V18Z" fill="white"/>
+                    <path d="M4 9H13V18H4V9Z" fill="#212121"/>
+                    <path d="M4 27H13V36H4V27Z" fill="#212121"/>
+                    <path d="M13 0H22V9H13V0Z" fill="#212121"/>
+                    <path d="M13 18H22V27H13V18Z" fill="#212121"/>
+                    <path d="M31 9H40V18H31V9Z" fill="white"/>
+                    <path d="M31 27H40V36H31V27Z" fill="white"/>
+                    <path d="M22 0H31V9H22V0Z" fill="white"/>
+                    <path d="M22 18H31V27H22V18Z" fill="white"/>
+                    <path d="M22 9H31V18H22V9Z" fill="#212121"/>
+                    <path d="M22 27H31V36H22V27Z" fill="#212121"/>
+                    <path d="M31 0H40V9H31V0Z" fill="#212121"/>
+                    <path d="M31 18H40V27H31V18Z" fill="#212121"/>
+                    <path d="M13 9H22V18H13V9Z" fill="white"/>
+                    <path d="M13 27H22V36H13V27Z" fill="white"/>
+                    </g>
+                    </svg>
+                <label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p id="tool-opacity-localization">Opacity</p><p id="tool-picker-localization"> Picker</p></label>
             </span>
             <label class="tool-name slider opacitySelector hideOpacity" for="chooseOpacity" id="opacitySelector">
                 <input type="range" id="chooseOpacity" value="1" min="0.2" max="1" step="0.1"
@@ -597,24 +644,21 @@
 
         <!-- Recording Buttons -->
         <button id="btn-start-recording" style="border:none; margin-top: -5px;margin-left: -9px;">
-            <svg class="tool-icon-svg" width="35px" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.99933 0H2.99942C2.20387 0 1.44058 0.316069 0.878325 0.878325C0.316069 1.44058 0 2.20387 0 2.99942C0 4.74317 0 7.25666 0 8.99933C0 9.55191 0.4483 10.0002 0.999806 10.0002C1.55131 10.0002 1.99961 9.55191 1.99961 8.99933V2.99942C1.99961 2.73495 2.10497 2.48017 2.2931 2.29311C2.48016 2.10497 2.73495 1.99961 2.99942 1.99961H8.99933C9.55191 1.99961 10.0002 1.55131 10.0002 0.999806C10.0002 0.4483 9.55191 0 8.99933 0Z" fill="black"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M19.0007 1.99961H25.0006C25.265 1.99961 25.5198 2.10497 25.7069 2.29311C25.895 2.48017 26.0004 2.73495 26.0004 2.99942V8.99933C26.0004 9.55191 26.4487 10.0002 27.0002 10.0002C27.5517 10.0002 28 9.55191 28 8.99933V2.99942C28 2.20387 27.6839 1.44058 27.1217 0.878325C26.5594 0.316069 25.7961 0 25.0006 0C23.2568 0 20.7433 0 19.0007 0C18.4481 0 17.9998 0.4483 17.9998 0.999806C17.9998 1.55131 18.4481 1.99961 19.0007 1.99961Z" fill="black"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.99933 25.9984H2.99942C2.73495 25.9984 2.48016 25.8931 2.2931 25.7049C2.10497 25.5179 1.99961 25.2631 1.99961 24.9986V18.9987C1.99961 18.4461 1.55131 17.9978 0.999806 17.9978C0.4483 17.9978 0 18.4461 0 18.9987V24.9986C0 25.7942 0.316069 26.5575 0.878325 27.1197C1.44058 27.682 2.20387 27.998 2.99942 27.998C4.74317 27.998 7.25666 27.998 8.99933 27.998C9.55191 27.998 10.0002 27.5497 10.0002 26.9982C10.0002 26.4467 9.55191 25.9984 8.99933 25.9984Z" fill="black"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M19.0007 27.998H25.0006C25.7961 27.998 26.5594 27.682 27.1217 27.1197C27.6839 26.5575 28 25.7942 28 24.9986C28 23.2549 28 20.7414 28 18.9987C28 18.4461 27.5517 17.9978 27.0002 17.9978C26.4487 17.9978 26.0004 18.4461 26.0004 18.9987V24.9986C26.0004 25.2631 25.895 25.5179 25.7069 25.7049C25.5198 25.8931 25.265 25.9984 25.0006 25.9984H19.0007C18.4481 25.9984 17.9998 26.4467 17.9998 26.9982C17.9998 27.5497 18.4481 27.998 19.0007 27.998Z" fill="black"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M14.0356 6.03418C9.63933 6.03418 6.07031 9.6032 6.07031 13.9995C6.07031 18.3958 9.63933 21.9648 14.0356 21.9648C18.4319 21.9648 22.001 18.3958 22.001 13.9995C22.001 9.6032 18.4319 6.03418 14.0356 6.03418ZM14.0356 8.03381C17.3282 8.03381 20.0013 10.707 20.0013 13.9995C20.0013 17.292 17.3282 19.9652 14.0356 19.9652C10.7431 19.9652 8.06995 17.292 8.06995 13.9995C8.06995 10.707 10.7431 8.03381 14.0356 8.03381Z" fill="black"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M19 14.999H23C23.552 14.999 24 14.551 24 13.999C24 13.447 23.552 12.999 23 12.999H19C18.448 12.999 18 13.447 18 13.999C18 14.551 18.448 14.999 19 14.999Z" fill="black"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M5 14.999H9C9.552 14.999 10 14.551 10 13.999C10 13.447 9.552 12.999 9 12.999H5C4.448 12.999 4 13.447 4 13.999C4 14.551 4.448 14.999 5 14.999Z" fill="black"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13 18.999V22.999C13 23.551 13.448 23.999 14 23.999C14.552 23.999 15 23.551 15 22.999L15 18.999C15 18.447 14.552 17.999 14 17.999C13.448 17.999 13 18.447 13 18.999Z" fill="black"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13 4.99902V8.99902C13 9.55102 13.448 9.99902 14 9.99902C14.552 9.99902 15 9.55102 15 8.99902L15 4.99902C15 4.44702 14.552 3.99902 14 3.99902C13.448 3.99902 13 4.44702 13 4.99902Z" fill="black"/>
-                </svg><br/>
-                <label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 6px;"><p>Screen</p><p>Recorder</p></label>  
+            <svg style="margin-top:-5px;width:20px" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.30402 0H3.30411C2.50856 0 1.74527 0.316069 1.18301 0.878325C0.620757 1.44058 0.304688 2.20387 0.304688 2.99942C0.304688 4.74317 0.304688 7.25666 0.304688 8.99933C0.304688 9.55191 0.752988 10.0002 1.30449 10.0002C1.856 10.0002 2.3043 9.55191 2.3043 8.99933V2.99942C2.3043 2.73495 2.40965 2.48017 2.59779 2.29311C2.78485 2.10497 3.03964 1.99961 3.30411 1.99961H9.30402C9.8566 1.99961 10.3049 1.55131 10.3049 0.999806C10.3049 0.4483 9.8566 0 9.30402 0Z" fill="#424242"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M19.3054 1.99961H25.3053C25.5697 1.99961 25.8245 2.10497 26.0116 2.29311C26.1997 2.48017 26.3051 2.73495 26.3051 2.99942V8.99933C26.3051 9.55191 26.7534 10.0002 27.3049 10.0002C27.8564 10.0002 28.3047 9.55191 28.3047 8.99933V2.99942C28.3047 2.20387 27.9886 1.44058 27.4264 0.878325C26.8641 0.316069 26.1008 0 25.3053 0C23.5615 0 21.048 0 19.3054 0C18.7528 0 18.3045 0.4483 18.3045 0.999806C18.3045 1.55131 18.7528 1.99961 19.3054 1.99961Z" fill="#424242"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.30402 25.9984H3.30411C3.03964 25.9984 2.78485 25.8931 2.59779 25.7049C2.40965 25.5179 2.3043 25.2631 2.3043 24.9986V18.9987C2.3043 18.4461 1.856 17.9978 1.30449 17.9978C0.752988 17.9978 0.304688 18.4461 0.304688 18.9987V24.9986C0.304688 25.7942 0.620757 26.5575 1.18301 27.1197C1.74527 27.682 2.50856 27.998 3.30411 27.998C5.04785 27.998 7.56135 27.998 9.30402 27.998C9.8566 27.998 10.3049 27.5497 10.3049 26.9982C10.3049 26.4467 9.8566 25.9984 9.30402 25.9984Z" fill="#424242"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M19.3054 27.998H25.3053C26.1008 27.998 26.8641 27.682 27.4264 27.1197C27.9886 26.5575 28.3047 25.7942 28.3047 24.9986C28.3047 23.2549 28.3047 20.7414 28.3047 18.9987C28.3047 18.4461 27.8564 17.9978 27.3049 17.9978C26.7534 17.9978 26.3051 18.4461 26.3051 18.9987V24.9986C26.3051 25.2631 26.1997 25.5179 26.0116 25.7049C25.8245 25.8931 25.5697 25.9984 25.3053 25.9984H19.3054C18.7528 25.9984 18.3045 26.4467 18.3045 26.9982C18.3045 27.5497 18.7528 27.998 19.3054 27.998Z" fill="#424242"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M14.3403 6.03418C9.94402 6.03418 6.375 9.6032 6.375 13.9995C6.375 18.3958 9.94402 21.9648 14.3403 21.9648C18.7366 21.9648 22.3056 18.3958 22.3056 13.9995C22.3056 9.6032 18.7366 6.03418 14.3403 6.03418ZM14.3403 8.03381C17.6329 8.03381 20.306 10.707 20.306 13.9995C20.306 17.292 17.6329 19.9652 14.3403 19.9652C11.0478 19.9652 8.37464 17.292 8.37464 13.9995C8.37464 10.707 11.0478 8.03381 14.3403 8.03381Z" fill="#424242"/>
+            </svg>   <br/>
+                <label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 10px; margin-bottom: 0px;"><p id="tool-screen-localization">Screen</p><p id="tool-recorder-localization">Recorder</p></label>  
 
             </button>
 
         <button id="btn-stop-recording" style="display: none;"><img class="stopRecordingBtn"
                 src="./assets/stopRecordingButton.png" /> </button>
-        <button id="add-page" onclick="addNewPage()">Add New</button>
+
+            <button id="add-page" onclick="addNewPage()">Add New</button>
 
     </div>
 
@@ -651,7 +695,6 @@
         <div id="east" class='direction'><i class="fas fa-chevron-right"></i></div>
         <div id="south" class='direction'><i class="fas fa-chevron-down"></i></div>
     </div>
-    <!-- Canvas Board Destination  -->
 
     <div id="board">
         <!-- <img id="destination" /> -->
@@ -696,7 +739,7 @@
             <g id="layer-1"></g>
         </svg>
     </div>
-   
+
     <div class="window" id="calc-container" style="display:none">
         <div id="calc-container-header">
             Calc
@@ -718,7 +761,7 @@
         <div>
             <span id='wb-editor-curmode'>Text</span> Editor &nbsp;
 
-            <button class="wb-editor-button" data-trigger="hover" title="Modes"
+            <button class="wb-editor-button" data-trigger="hover" title="Modes" style="display: none"
                 id="wb-options" type="button"><i class="fas fa-bars wb-editor-icon"></i></button>
             <button class="wb-editor-button wb-button-inactive" data-trigger="hover"
                 title="Run" id="wb-editor-run" type="button"><i
@@ -726,7 +769,7 @@
             <button class="wb-editor-button wb-button-inactive" data-trigger="hover"
                 title="Real-time Run" id="wb-editor-live" type="button"><i id="wb-editor-live-icon"
                     class="fas fa-circle-notch fa-spin wb-editor-icon"></i></button>
-            <button type="button" class="wb-button wb-textoptions-button" data-trigger="hover"
+            <button type="button" class="wb-button wb-textoptions-button" data-trigger="hover" style="display: none"
                 title="Text Options" id="wb-textoptions" aria-label="Down"><span aria-hidden="true"><i
                         class="fas fa-angle-double-down"></i></span></button>
 
@@ -754,7 +797,7 @@
         <button class="wb-editor-mode" id="wb-cpp" data-trigger="hover"
             title="C++ compiler/Editor" type="button">c++</button>
     </div>
-    <div id="wb-editor-container-toolbar">
+    <div id="wb-editor-container-toolbar" style="display: none">
         <button class="wb-button wb-edit-button" id="wb-close-edit" type="button"><i class="fas fa-angle-double-up"
                 aria-hidden="true"></i></button>
         <button class="wb-button wb-edit-button" id="wb-spell-check" data-trigger="hover"
@@ -807,19 +850,6 @@
         </div>
     </div>
 
-
-    <!-- Add new Page modal -->
-    <div id="addNewPageModal" class="addNewPageModal">
-        <div class="addNewPageModal-content">
-          <span class="pagesModalClose" id="pagesModalClose">&times;</span>
-          <h2>Page Navigation</h2>
-          <div class="page-container" id="pageContainer">
-            <!-- Pages will be dynamically added here -->
-          </div>
-          <button id="addPageBtn">Add Page</button>
-        </div>
-      </div>
-
     <div id="template" style="display:none;"></div>
 
     <!-- backgorund-color-tool -->
@@ -870,10 +900,11 @@
                 <div id="tab1--mathematiclTool" class="tab-content show">
                  </div>
             </div>
+            <div>
+            </div>
         </div>
     </div>
 
-    
 
    <!-- Table Actions -->
 
@@ -895,24 +926,17 @@
     <script src="tools/eraser/eraser.js"></script>
     <script src="js/widgets.js"></script>
     <script src="tools/mathematical-tools/mathematicalTools.js"></script>
+    <!-- ADD NEW PAGES -->
+    <!-- <script src="tools/add-pages/addPages.js"></script> -->
 
 
     <!-- Screenshot Tool -->
     <script src="tools/screenshotTool/screenshotTool.js"></script>
 
-    <!-- <script  src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js">
-        
-        const socket = io();
-        document.getElementById("createFolderButton").addEventListener("click", () => {
-        // Emit socket.io event to notify the backend that the button was clicked
-        socket.emit("createNewFolder");
-    });
-     ContextMenu -->
+    <!-- ContextMenu -->
     <script src="js/contextMenu.js" ></script>
 
 
-      
-    </script> 
 
     <!-- Sticky Notes -->
     <!-- <script src="tools/stickyNotes/stickyNotes.js"></script> -->
@@ -942,7 +966,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.css" />
 
-	<!-- Editor dep: Typo -->
+	<!-- *Editor dep: Typo -->
 	<script src="https://rawgit.com/cfinke/Typo.js/master/typo/typo.js"></script>
 
 	<!-- Editor dep: Klipse -->
@@ -953,39 +977,22 @@
 	</script>
 	<script src="js/klipse_plugin.min.js"></script>
 
-    <!-- Editor dep: Firebase/Firepad -->
-    <script>
-        var firepad_config = {
-            apiKey: '<API_KEY>',
-            authDomain: "<AUTH_DOMAIN>.firebaseapp.com",
-            databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
-        };
+	<!-- Editor dep: Firebase/Firepad -->
+	<script>
+		var firepad_config = {
+			apiKey: '<API_KEY>',
+			authDomain: "<AUTH_DOMAIN>.firebaseapp.com",
+			databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
+		};
+	</script>
+	<script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
+	<link rel="stylesheet" href="https://firepad.io/releases/v1.5.9/firepad.css" />
+	<script src="https://firepad.io/releases/v1.5.9/firepad.min.js"></script>
 
-    </script>
+	<!-- Editor -->
+	<script src="tools/editor/editor.js"></script>
+	<!-- END EDITOR TOOL-->
     
-
-<!-- Modified By ME -->
-    <script type="module">
-        import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js"
-        const socket = io();
-        document.getElementById("createFolderButton").addEventListener("click", () => {
-        // Emit socket.io event to notify the backend that the button was clicked
-        socket.emit("createNewFolder");
-        console.log("Listened the data")
-    });
-
-        const render = document.getElementById('createFolderButton').innerHTML
-        console.log(render)
-    </script>
-
-    <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
-    <link rel="stylesheet" href="https://firepad.io/releases/v1.5.9/firepad.css" />
-    <script src="https://firepad.io/releases/v1.5.9/firepad.min.js"></script>
-
-    <!-- Editor -->
-    <script src="tools/editor/editor.js"></script>
-    <!-- END EDITOR TOOL-->
-
     <script src="tools/handNew/hand.js"></script>
     <script src="tools/grid/grid.js"></script>
     <script src="tools/clear/clear.js"></script>
@@ -1015,7 +1022,7 @@
     <script src="tools/VideoRecorder/videoRecorder.js"></script>
     <script src="tools/shareScreen/sharescreen.js"></script>
     <!-- Ad Cursosr Event -->
-    <script src="tools/cursor/cursor.js"></script>
+    <!-- <script src="tools/cursor/cursor.js"></script> -->
 
     <script src="tools/PDF/pdf.js"></script>
 
@@ -1046,7 +1053,6 @@
     <script src="OfflineCDN/code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="js/record/onlyAudioVideo.js"></script>
 
-
     <!-- pdf.js -->
     <!-- <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script> -->
     <script src="OfflineCDN/mozilla.github.io/pdf.js/build/pdf.js"></script>
@@ -1064,13 +1070,12 @@
 
     <script src="js/dragEvents.js"></script>
     <script src="tools/table/table.js"></script>
+
     <script src="js/addPages.js"></script>
-    <!-- ADD NEW PAGES -->
-    <!-- <script src="tools/add-pages/addPages.js"></script> -->
 
     <script async src="https://cse.google.com/cse.js?cx=95c89d889e52e4b7f">
     </script>
-
+    <script src="js/dragElements.js"></script>
     <!-- Localization  -->
     <script>
         function changeLanguage() {
@@ -1131,13 +1136,42 @@
                     document.getElementById("shape3d-sphere").title = `स्फीयर`;
                     document.getElementById("shape3d-pyramid").title = `पिरामिड`;
 
+                    // tools-label
+                    document.getElementById("tool-color-localization").innerHTML = `कलर पिकर`;
+                    document.getElementById("tool-size-localization").innerHTML = `टूल साइज़`;
+                    document.getElementById("tool-selector-localization").innerHTML = `सलेक्टर`;
+                    document.getElementById("tool-opacity-localization").innerHTML = `ओपेसिटी`;
+                    document.getElementById("tool-picker-localization").innerHTML = `पिकर`;
+                    document.getElementById("tool-pencil-localization").innerHTML = `पेंसिल`;
+                    // document.getElementById("tool-eraser-localization").innerHTML = `इरेजर`;
+                
+                    document.getElementById("tool-lines-localization").innerHTML = `लाइनस`; 
+                    document.getElementById("tool-shapes-localization").innerHTML = `शेपस`;
+                    document.getElementById("tool-text-localization").innerHTML = `टेक्स्ट`;
+                    document.getElementById("tool-text-localization").innerHTML = `शेपस`;
+                    document.getElementById("tool-mathstool-localization").innerHTML = `मैथमेटिकल`; 
+                    document.getElementById("tool-mathstools-localization").innerHTML = `टूल्स`;
+                    document.getElementById("tool-screenshot-localization").innerHTML = `स्क्रीनशॉट`;
+                    document.getElementById("tool-transform-localization").innerHTML = `ट्रांसफोर्म`;                   
+                    document.getElementById("tool-document-localization").innerHTML = `डॉक्यूमेंट`;         
+                    document.getElementById("tool-download-localization").innerHTML = `डाउनलोड`;                  
+                    document.getElementById("tool-editor-localization").innerHTML = `एडीटर`;
+                    document.getElementById("tool-hand-localization").innerHTML = `हैंड`;
+                    document.getElementById("tool-grid-localization").innerHTML = `ग्रिड`;
+                    document.getElementById("tool-calculator-localization").innerHTML = `कैलक्युलेटर`;              
+                    document.getElementById("tool-zoomin-localization").innerHTML = `जूम इन`;                    
+                    document.getElementById("tool-zoomout-localization").innerHTML = `जूम आउट`;
+                    document.getElementById("tool-table-localization").innerHTML = `टेबल`;                  
+                    document.getElementById("tool-screen-localization").innerHTML = `स्क्रीन`;
+                    document.getElementById("tool-recorder-localization").innerHTML = `रिकॉर्डिंग`;
+
                     document.getElementById("img-library").innerHTML = `इमेज लाइब्रेरी`;
                     document.getElementById("SelectFromDevice").innerHTML = `ऐड इमेज from डिवाइस `;
                     document.getElementById("SelectFromLibrary").innerHTML = `ऐड इमेज from लाइब्रेरी`;
                     document.getElementById("SelectFromPDF").innerHTML = `अपलोड पीडीएफ `;
                     document.getElementById("SelectFromVideo").innerHTML = `अपलोड वीडियो`;
 
-                     document.getElementById("downloadAsSVG").innerHTML = `एसवीजी`;
+                    document.getElementById("downloadAsSVG").innerHTML = `एसवीजी`;
                     document.getElementById("downloadAsPDF").innerHTML = `पीडीऍफ़`;
                     document.getElementById("downloadAsPNG").innerHTML = `पीएनजी`;
                     document.getElementById("downloadAsJPG").innerHTML = `जेपीईजी`;
@@ -1159,9 +1193,9 @@
                     document.getElementById("undo-tag").innerHTML = `अन्डू`;
                     document.getElementById("redo-tag").innerHTML = `रीडू`;
 
-                    document.getElementById("popover-header").innerHTML = `शेपस`;
-
-
+                    // document.getElementById("lines-localization").innerHTML = `शेपस`;
+                    // document.getElementById("popover-header").innerHTML = `शेपस`;
+                  
                     break;
                 default:
                     // English is the default language

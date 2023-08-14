@@ -51,8 +51,7 @@
   libraryImages.forEach((lbImage) => {
     lbImage.addEventListener("click", () => {
       console.log("CLICKED LIBRARY IMAGE");
-      
-      drawer.classList.remove("open");
+
       let uid = Tools.generateUID("doc");
 
       // Create a new XMLHttpRequest or fetch to load the image
@@ -96,7 +95,7 @@
 
   //Code isolation
   var uploadSVG =
-  '<svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 16V3M12 3L16 7.375M12 3L8 7.375" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Document</p></label>';
+  '<svg class="tool-icon-svg" width="31" height="30" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.33594 18.75C4.33594 22.2855 4.33594 24.0533 5.43429 25.1517C6.53264 26.25 8.3004 26.25 11.8359 26.25H19.3359C22.8715 26.25 24.6392 26.25 25.7376 25.1517C26.8359 24.0533 26.8359 22.2855 26.8359 18.75" stroke="#424242" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.5859 20V3.75M15.5859 3.75L20.5859 9.21875M15.5859 3.75L10.5859 9.21875" stroke="#8AC926" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round"/></svg><label id="tool-document-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Document</p></label>';
   var xlinkNS = "http://www.w3.org/1999/xlink";
   var imgCount = 1;
   var fileInput;
@@ -263,9 +262,9 @@
     name: "Document",
     // "icon": "🖼️",
     iconHTML: uploadSVG,
-    shortcuts: {
-      changeTool: "7",
-    },
+    // shortcuts: {
+    //   changeTool: "7",
+    // },
     draw: draw,
     onstart: onstart,
     oneTouch: true,

@@ -19,7 +19,7 @@ $(document).ready(() => {
   // const urlParams = new URLSearchParams(queryString);
   // const token = urlParams.get("token");
   // if (token) {
-    $("#top_left_tools").append(container);
+  $("#top_left_tools").append(container);
   // }
   $("body").on("click", ".mice__mute", () => {
     $(".mice__container").empty().append(mice);

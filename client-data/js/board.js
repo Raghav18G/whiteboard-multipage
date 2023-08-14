@@ -94,17 +94,16 @@ var loading = true;
     });
 
     this.socket.on("broadcast", function (msg) {
-      console.log("structure", msg.structure);
-      console.log("Total live users " + msg.userCount);
+      console.log("Total live users " + msg?.userCount);
       window.localStorage.removeItem("structure");
-      window.localStorage.setItem("structure", msg.structure);
+      window.localStorage.setItem("structure", msg?.structure);
       const selectedBoard = window.location.search
         .split("?board=")[1]
         .split("&")[0];
       window.localStorage.removeItem("selectedBoard");
       window.localStorage.setItem("selectedBoard", selectedBoard);
-
       handleMessage(msg);
+
       if (
         (msg.type == "sync" || msg.subtype == "sync") &&
         Tools.acceptMsgs &&
@@ -136,11 +135,9 @@ Tools.connect();
 Tools.boardName = (function () {
   var path = window.location.href;
   const urlParams = new URLSearchParams(path);
-
   const fileName = urlParams.get("file").split("#")[0];
   const folderName = window.location.search.split("?board=")[1].split("&")[0];
   console.log("FILENAME", fileName, "Folder NAme", folderName);
-
   return encodeURIComponent(folderName) + "/" + fileName;
 })();
 
@@ -425,13 +422,13 @@ Tools.HTML = {
           (menu?.content
             ? `<div class="popover-body">` + menu.content + `</div>`
             : `<div class="popover-body">` +
-            `<h5 id="two-dimension">Two Dimensional Shapes (2D) </h5>  <div id="popover-body-2d">` +
-            menu.content2d +
-            `</div> <br/>` +
-            `<h5 id="three-dimension">Three Dimensional Shapes (3D) </h5> <div id="popover-body-3d">` +
-            menu.content3d +
-            `</div>` +
-            `</div>
+              `<h5 id="two-dimension">Two Dimensional Shapes (2D) </h5>  <div id="popover-body-2d">` +
+              menu.content2d +
+              `</div> <br/>` +
+              `<h5 id="three-dimension">Three Dimensional Shapes (3D) </h5> <div id="popover-body-3d">` +
+              menu.content3d +
+              `</div>` +
+              `</div>
                 </div>`);
         document.getElementById("template").innerHTML = container;
 
@@ -460,8 +457,8 @@ Tools.HTML = {
               Tools.menus[toolName].y = Math.max(
                 10,
                 $(elem).position().top +
-                scrollTop -
-                ($(Tools.menus[toolName].menu).height() > 60 ? 10 : -9)
+                  scrollTop -
+                  ($(Tools.menus[toolName].menu).height() > 60 ? 10 : -9)
               );
               Tools.menus[toolName].menu.style.transform =
                 "translate3d(50px,  " +
@@ -546,9 +543,9 @@ wb_comp.add = function (newComp) {
   if (newComp.name in wb_comp.list) {
     console.log(
       "wb_comp add: The component '" +
-      newComp.name +
-      "' is already" +
-      "in the list. Updating it..."
+        newComp.name +
+        "' is already" +
+        "in the list. Updating it..."
     );
   }
 
@@ -568,9 +565,9 @@ Tools.add = function (newTool) {
   if (newTool.name in Tools.list) {
     console.log(
       "Tools.add: The tool '" +
-      newTool.name +
-      "' is already" +
-      "in the list. Updating it..."
+        newTool.name +
+        "' is already" +
+        "in the list. Updating it..."
     );
   }
 
@@ -655,14 +652,13 @@ Tools.change = function (toolName) {
   //There is not necessarily already a curTool
   if (Tools.curTool !== null) {
     //It's useless to do anything if the new tool is already selected
-    console.log("IN NOT NULL FUNCTION")
     if (newtool === Tools.curTool) {
       if (newtool.toggle) {
         var elem = document.getElementById("toolID-" + newtool.name);
         console.log("TOOL Toogling New Tool");
         newtool.toggle(elem);
       }
-      return;
+      //return;
     }
     //Remove the old event listeners
     for (var event in Tools.curTool.compiledListeners) {
@@ -821,7 +817,7 @@ window.addEventListener("focus", function () {
   updateDocumentTitle();
 });
 
-function updateDocumentTitle() { }
+function updateDocumentTitle() {}
 
 (function () {
   // Scroll and hash handling
@@ -923,13 +919,13 @@ Tools.toolHooks = [
       tool.listeners = {};
     }
     if (typeof tool.onstart !== "function") {
-      tool.onstart = function () { };
+      tool.onstart = function () {};
     }
     if (typeof tool.onquit !== "function") {
-      tool.onquit = function () { };
+      tool.onquit = function () {};
     }
     if (tool.menu && typeof tool.menu.listener !== "function") {
-      tool.menu.listener = function () { };
+      tool.menu.listener = function () {};
     }
   },
   function compileListeners(tool) {

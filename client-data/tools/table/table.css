@@ -34,9 +34,19 @@
  
 .btn-edit-table{
 position: absolute;
-top:1px;
+top:0px;
 left:-2.7rem;
 background-color: #e0e0e0;
 padding: 5px 5px;
 cursor: pointer;
 }
+
+.drag-div{
+  position: absolute;
+  top:-4rem;
+  left: 0rem;
+  background-color: #e0e0e0;
+  padding: 5px 5px;
+  cursor: grab;
+  text-align: center;
+  }

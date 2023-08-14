@@ -1,19 +1,17 @@
-
-const express = require('express');
-const http = require('http');
-const socketIO = require('socket.io');
+const express = require("express");
+const http = require("http");
+const socketIO = require("socket.io");
 const app = express();
 const server = http.createServer(app);
-// const io = socketIO(server);
 
 var iolib = require("socket.io"),
   BoardData = require("./boardData.js").BoardData,
   config = require("./configuration.js");
 const fs = require("fs");
-const path = require("path");
 // Map from name to *promises* of BoardData
 var boards = {};
 var io;
+
 var _FileNameListWithDir = [];
 const testFolder = "./server-data";
 
@@ -34,6 +32,7 @@ function getFileNameWithDir(rootFolder, parentFolder) {
     }
   });
 }
+
 function noFail(fn) {
   return function noFailWrapped(arg) {
     try {
@@ -111,11 +110,6 @@ function socketConnection(socket) {
     console.log({ _FileNameListWithDir });
   })();
 
-  
-  // })();
-  
-
-//  THis broadcasts all the data as soon as it is edited
   socket.on(
     "getboard",
     noFail(function onGetBoard(name) {
@@ -217,10 +211,9 @@ function socketConnection(socket) {
             board.save();
             delete boards[room];
           } else {
-            socket.broadcast.to(board.name).emit("broadcast", {
-              userCount: board.users.size,
-              structure: _FileNameListWithDir,
-            });
+            socket.broadcast
+              .to(board.name)
+              .emit("broadcast", { userCount: board.users.size });
           }
         });
       }
@@ -269,11 +262,6 @@ function handleMsg(board, message, socket) {
     } else {
       success = board.redo();
     }
-    _FileNameListWithDir = [];
-    if (!fs.existsSync(testFolder)) {
-      fs.mkdirSync(testFolder);
-    }
-    getFileNameWithDir(testFolder);
     if (success) {
       var sockets = getConnectedSockets();
       sockets.forEach(function (s, i) {
@@ -284,7 +272,6 @@ function handleMsg(board, message, socket) {
           _children: batches[0] || [],
           _more: batches.length > 1,
           msgCount: board.getMsgCount(s.id),
-          structure: _FileNameListWithDir,
         });
         for (var i = 1; i < batches.length; i++) {
           s.emit("broadcast", {
@@ -292,7 +279,6 @@ function handleMsg(board, message, socket) {
             subtype: "sync",
             _more: i != batches.length - 1,
             msgCount: board.getMsgCount(s.id),
-            structure: _FileNameListWithDir,
           });
         }
       });
@@ -301,7 +287,6 @@ function handleMsg(board, message, socket) {
         type: "sync",
         id: socket.id,
         msgCount: board.getMsgCount(socket.id),
-        structure: _FileNameListWithDir,
       });
     }
   } else {

@@ -28,7 +28,7 @@
   //Code isolation
   //Indicates the id of the line the user is currently drawing or an empty string while the user is not drawing
   var lineSVG =
-  '<svg class="tool-icon-svg" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M16.375 1H22.375V7H17.5179L8.375 17.9715V23H2.375V17H7.23205L16.375 6.02846V1Z" fill="#1C274C"/><path d="M16.875 6.5V1.5H21.875V6.5H16.875Z" stroke="#E6E8F1" stroke-linecap="round"/><path d="M16.875 6.5V1.5H21.875V6.5H16.875Z" fill="white" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/><path d="M7.875 17.5H2.875V22.5H7.875V17.5Z" fill="white" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/></svg><label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Lines</p></label>';
+  '<svg class="tool-icon-svg" width="40" height="28" style="margin-top: 3px" viewBox="0 0 40 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M33.2575 0.336914V2.51131H22.6063V0.336914H16.4575V2.51131H6.21911V0.336914H0.0703125V6.48631H6.21911V4.31131H16.4575V6.48631H18.1087C17.5861 7.74511 16.1863 10.4613 13.2313 12.5805L12.5383 13.0797L13.0003 13.7985C14.2303 15.7047 14.5663 17.8131 14.5663 19.5243C14.5663 20.5287 14.4511 21.3861 14.3437 21.9615H13.4827V27.5109H25.6321V21.9615H24.7219C24.6139 21.3861 24.4975 20.5287 24.4987 19.5225C24.4975 17.8125 24.8335 15.7047 26.0647 13.7973L26.5273 13.0797L25.8337 12.5805C23.8213 11.1339 22.5313 9.41971 21.7453 8.06791C21.3769 7.43491 21.1237 6.88771 20.9569 6.48571H22.6075V4.31071H33.2587V6.48571H39.4075V0.336914H33.2575ZM4.41971 4.68631H1.86971V2.13631H4.41971V4.68631ZM18.2569 2.13631H20.8069V4.68631H18.2569V2.13631ZM19.4941 16.5615C19.8253 16.5633 20.0935 16.8297 20.0941 17.1621C20.0929 17.4933 19.8247 17.7609 19.4941 17.7621C19.1635 17.7609 18.8953 17.4933 18.8941 17.1621C18.8953 16.8297 19.1635 16.5633 19.4941 16.5615ZM23.8321 25.7121H15.2815V23.7609H23.8321V25.7121ZM24.1255 13.5435C22.9993 15.6255 22.6987 17.7873 22.6975 19.5237C22.6975 20.4891 22.7905 21.3249 22.8949 21.9627H16.1695C16.2727 21.3267 16.3657 20.4897 16.3657 19.5255C16.3657 17.7891 16.0645 15.6261 14.9389 13.5435C16.6249 12.1941 17.7955 10.7103 18.5941 9.43651V14.9409C17.7151 15.2967 17.0947 16.1553 17.0947 17.1627C17.0947 18.4881 18.1681 19.5621 19.4947 19.5621C20.8201 19.5621 21.8947 18.4881 21.8947 17.1627C21.8947 16.1553 21.2737 15.2973 20.3953 14.9409V9.31891C21.1939 10.6179 22.3885 12.1521 24.1255 13.5435ZM37.6069 4.68631H35.0569V2.13631H37.6069V4.68631Z" fill="#424242"/></svg><label id="tool-lines-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 11px;"><p>Lines</p></label>';
     var curLineId = "",
     end = false,
     startX,
@@ -216,7 +216,7 @@
     line.setAttribute("stroke-width", lineData.size || 10);
     if (lineData.line == "dashline") {
       // line.setAttribute("stroke-dasharray", "10 10" || "10 10");
-      line.setAttribute("stroke-dasharray", "20 40" || "20 50");
+      line.setAttribute("stroke-dasharray", "20 52" || "10 10");
     }
     line.setAttribute(
       "opacity",
@@ -470,9 +470,9 @@
       move: continueLine,
       release: stopLine,
     },
-    shortcuts: {
-      changeTool: "2",
-    },
+    // shortcuts: {
+    //   changeTool: "2",
+    // },
     toggle: toggle,
     menu: {
       title: "Lines",

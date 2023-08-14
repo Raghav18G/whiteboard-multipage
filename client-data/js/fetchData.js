@@ -2,8 +2,6 @@
 var select = document.getElementById("newBoard--Select");
 var btn = document.getElementById("go-btn");
 
-
-
 if (!select.options[select.selectedIndex].value) {
   btn.disabled = true;
 }
@@ -47,7 +45,6 @@ if ("serviceWorker" in navigator) {
   });
 }
 
-
 //after Selecting a board name unable the GO button
 function checkDisable() {
   var select = document.getElementById("newBoard--Select");
@@ -87,11 +84,11 @@ function checkDisable() {
     });
 
     this.socket.on("boardName", function (data) {
-      console.log("DATA", data);
+      console.log("DATA 1", data);
       var dropdown = document.getElementsByClassName("newBoard--Select");
       data.boardNames.map((name) => {
         dropdown[0].innerHTML =
-          dropdown[0].innerHTML + `<option  value=${name}>${name}</option>`;
+          dropdown[0].innerHTML + `<option  value=${name}>${decodeURI(name)}</option>`;
       });
       window.localStorage.setItem("structure", data.structure);
     });

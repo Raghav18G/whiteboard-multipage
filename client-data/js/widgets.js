@@ -1,7 +1,11 @@
 // Clock Widget
 let clockInterval;
+let getAllWidgets;
+
+let createDrag;
 
 const ClockWidget = (e) => {
+  createDrag = new Draggable();
   clearInterval(clockInterval);
   const foreignObjectClock = document.createElementNS(
     "http://www.w3.org/2000/svg",
@@ -51,8 +55,14 @@ const ClockWidget = (e) => {
   foreignObjectClock.setAttribute("overflow", "visible");
 
   foreignObjectClock.appendChild(clockWidget);
-  Tools.group.appendChild(foreignObjectClock);
+  const dragDiv = document.createElement("div");
+  dragDiv.innerHTML =
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false" ></img>';
+  dragDiv.classList.add("drag-widget");
+  foreignObjectClock.appendChild(dragDiv);
 
+  Tools.group.appendChild(foreignObjectClock);
+  createDrag.addDrag(dragDiv, foreignObjectClock);
   const HOURHAND = document.querySelector("#hour");
   const MINUTEHAND = document.querySelector("#minute");
   const SECONDHAND = document.querySelector("#second");
@@ -90,13 +100,21 @@ const ClockWidget = (e) => {
   // Use the inbuilt setInterval function to invoke the method we created earlier
   clockInterval = setInterval(runClock, 1000);
   //  if (msg.transform) clockWidget.setAttribute("transform", msg.transform);
-  makeDraggeble(foreignObjectClock);
+  //makeDraggeble(foreignObjectClock);
+
+  // getAllWidgets = document.querySelectorAll("foreignObject")
+
+  // Array.from(getAllWidgets).map(parentRef => {
+  //   createDrag.addDrag(parentRef)
+  // })
   if (Tools.useLayers)
     clockWidget.setAttribute("class", "layer-" + Tools.layer);
 };
 
 const CompassWidget = (e) => {
   e.preventDefault();
+  createDrag = new Draggable();
+
   const foreignObjectCompass = document.createElementNS(
     "http://www.w3.org/2000/svg",
     "foreignObject"
@@ -126,8 +144,15 @@ const CompassWidget = (e) => {
   foreignObjectCompass.setAttribute("overflow", "visible");
 
   foreignObjectCompass.appendChild(compassWidget);
+  const dragDiv = document.createElement("div");
+  dragDiv.innerHTML =
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false" ></img>';
+  dragDiv.classList.add("drag-widget");
+  foreignObjectCompass.appendChild(compassWidget).appendChild(dragDiv);
   Tools.group.appendChild(foreignObjectCompass);
-  makeDraggeble(foreignObjectCompass);
+  createDrag.addDrag(dragDiv, foreignObjectCompass);
+  //makeDraggeble(foreignObjectCompass);
+
   var svgNS = "http://www.w3.org/2000/svg";
   var svg = document.getElementById("compassWidget");
 
@@ -283,7 +308,7 @@ const MagnifyingGlass = () => {
     parentGlass.classList.add("parent-glass");
     glass.setAttribute("class", "img-magnifier-glass");
     glass.setAttribute("id", "magnifying-glass");
-    (glass.style.top = "20vw"),
+    (glass.style.top = "30vw"),
       (glass.style.left = "60vh"),
       /*insert magnifier glass:*/
       parentGlass.appendChild(glass);
@@ -292,7 +317,7 @@ const MagnifyingGlass = () => {
     const maginifyingBtn = document.createElement("button");
     maginifyingBtn.setAttribute("id", "btn-magnifying");
     maginifyingBtn.classList.add("maginifying-btn");
-    maginifyingBtn.innerHTML = '<img src="./assets/CloseCircle.svg">';
+    maginifyingBtn.innerHTML = '<img src="./assets/CloseCircle.svg" ></img>';
     glass.appendChild(maginifyingBtn);
 
     //clear the Magnigfying class
@@ -314,9 +339,8 @@ const MagnifyingGlass = () => {
       MagnifyingGlass.length >= 1 ? parentGlass.remove() : "";
     });
 
-
     function addMouoseMove(e) {
-      e.preventDefault()
+      e.preventDefault();
       e.stopPropagation();
 
       const getVisibleArea = getVisibleViewport();
@@ -329,6 +353,7 @@ const MagnifyingGlass = () => {
         height: window.innerHeight,
       }).then(function (res) {
         var canvasURL = res.toDataURL("image/jpg");
+        console.log(canvasURL, "utl");
         glass.style.backgroundImage = "url('" + canvasURL + "')";
       });
 
@@ -345,7 +370,7 @@ const MagnifyingGlass = () => {
       /*and also for touch screens:*/
       glass.addEventListener("touchmove", moveMagnifier);
       img.addEventListener("touchmove", moveMagnifier);
-      
+
       function moveMagnifier(e) {
         /*prevent any other actions that may occur when moving over the image*/
         e.preventDefault();
@@ -380,7 +405,7 @@ const MagnifyingGlass = () => {
         }px`;
       }
       function getCursorPos(e) {
-        e.preventDefault()
+        e.preventDefault();
         e.stopPropagation();
 
         window.event.preventDefault();
@@ -400,8 +425,8 @@ const MagnifyingGlass = () => {
       }
 
       function stopDragging(e) {
-        e.preventDefault()
-        e.stopPropagation()
+        e.preventDefault();
+        e.stopPropagation();
         glass.removeEventListener("mousemove", moveMagnifier);
         img.removeEventListener("mousemove", moveMagnifier);
         glass.removeEventListener("touchmove", moveMagnifier);
@@ -426,6 +451,8 @@ const MagnifyingGlass = () => {
 };
 
 const calculatorWidget = (e) => {
+  createDrag = new Draggable();
+
   const calculatorForeignObject = document.createElementNS(
     "http://www.w3.org/2000/svg",
     "foreignObject"
@@ -436,10 +463,7 @@ const calculatorWidget = (e) => {
 
   const calculatorHTML = ` 
   <div id="calculatorWidget">
-  <div>
-  <p>***Hold here to Drag***</p>
-  </div>
-<input type="text" id="result" disabled />
+<input type="text" id="result" disabled="true" ></input>
 <div>
 <button id="ClearButton" class="calc-btn">C</button>
 <button id="number7" class="calc-btn">7</button>
@@ -471,7 +495,13 @@ const calculatorWidget = (e) => {
   calculatorForeignObject.setAttribute("overflow", "visible");
 
   calculatorForeignObject.appendChild(calculatorWidgetElement);
+  const dragDiv = document.createElement("div");
+  dragDiv.innerHTML =
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false" ></img>';
+  dragDiv.classList.add("drag-widget");
+  calculatorForeignObject.appendChild(dragDiv);
 
+  createDrag.addDrag(dragDiv, calculatorForeignObject);
   Tools.group.appendChild(calculatorForeignObject);
 
   // Number Event Listeneres
@@ -541,7 +571,7 @@ const calculatorWidget = (e) => {
       resultElement.value = result;
     } catch (error) {
       expression = "";
-      resultElement.value = "Error";
+      resultElement.value = "Invalid Input";
     }
   }
 
@@ -549,11 +579,77 @@ const calculatorWidget = (e) => {
     expression = "";
     resultElement.value = "";
   }
-  //make the widget draggable
-  makeDraggeble(calculatorForeignObject);
 };
 
+// const diceWidget = (e) => {
+//   const diceforeignObject = document.createElementNS(
+//     "http://www.w3.org/2000/svg",
+//     "foreignObject"
+//   );
+
+//   const dicewidgetElement = document.createElement("div");
+//   dicewidgetElement.id = "diceWidget";
+//   var uid = Tools.generateUID("doc");
+
+//   const dicewidgetHTML = `
+//   <svg id="dice" viewBox="0 0 100 100">
+//   <rect class="dice" x="10" y="10" width="80" height="80" rx="10" />
+//   <g id="dots-container">
+//     <circle class="dot" cx="30" cy="30" r="6" />
+//     <circle class="dot" cx="50" cy="30" r="6" />
+//     <circle class="dot" cx="70" cy="30" r="6" />
+//     <circle class="dot" cx="30" cy="50" r="6" />
+//     <circle class="dot" cx="50" cy="50" r="6" />
+//     <circle class="dot" cx="70" cy="50" r="6" />
+//     <circle class="dot" cx="30" cy="70" r="6" />
+//     <circle class="dot" cx="50" cy="70" r="6" />
+//     <circle class="dot" cx="70" cy="70" r="6" />
+//   </g>
+// </svg>
+
+// <button id="rollButton">Roll Dice</button>
+//  `;
+
+//   dicewidgetElement.innerHTML = dicewidgetHTML;
+
+//   diceforeignObject.style.x = e.clientX;
+//   diceforeignObject.style.y = e.clientY;
+//   diceforeignObject.style.width = "1px";
+//   diceforeignObject.style.height = "1px";
+//   diceforeignObject.setAttribute("id", uid);
+//   diceforeignObject.setAttribute("overflow", "visible");
+
+//   diceforeignObject.appendChild(dicewidgetElement);
+
+//   Tools.group.appendChild(diceforeignObject);
+
+//   makeDraggeble(diceforeignObject);
+
+//   const dice = document.getElementById("dice");
+//   const dotsContainer = document.getElementById("dots-container");
+//   const rollButton = document.getElementById("rollButton");
+
+//   rollButton.addEventListener("click", rollDice);
+
+//   function rollDice() {
+//     const dots = document.getElementsByClassName("dot");
+//     dotsContainer.style.display = "block";
+
+//     // Hide all dots initially
+//     for (let i = 0; i < dots.length; i++) {
+//       dots[i].style.display = "none";
+//     }
+
+//     // Show random number of dots (1 to 6)
+//     const randomNumber = Math.floor(Math.random() * 6) + 1;
+//     for (let i = 0; i < randomNumber; i++) {
+//       dots[i].style.display = "block";
+//     }
+//   }
+// };
+
 const diceWidget = (e) => {
+  createDrag = new Draggable();
   const diceforeignObject = document.createElementNS(
     "http://www.w3.org/2000/svg",
     "foreignObject"
@@ -567,17 +663,16 @@ const diceWidget = (e) => {
   <svg id="dice" viewBox="0 0 100 100">
   <rect class="dice" x="10" y="10" width="80" height="80" rx="10" />
   <g id="dots-container">
-    <circle class="dot" cx="30" cy="30" r="6" />
-    <circle class="dot" cx="50" cy="30" r="6" />
-    <circle class="dot" cx="70" cy="30" r="6" />
-    <circle class="dot" cx="30" cy="50" r="6" />
-    <circle class="dot" cx="50" cy="50" r="6" />
-    <circle class="dot" cx="70" cy="50" r="6" />
-    <circle class="dot" cx="30" cy="70" r="6" />
-    <circle class="dot" cx="50" cy="70" r="6" />
-    <circle class="dot" cx="70" cy="70" r="6" />
+    <circle class="dot" cx="50" cy="50" r="6" /> <!-- Center dot -->
+    <circle class="dot" cx="25" cy="25" r="6" />
+    <circle class="dot" cx="50" cy="25" r="6" />
+    <circle class="dot" cx="75" cy="25" r="6" />
+    <circle class="dot" cx="25" cy="75" r="6" />
+    <circle class="dot" cx="75" cy="75" r="6" />
   </g>
 </svg>
+
+
 
 <button id="rollButton">Roll Dice</button>
  `;
@@ -593,9 +688,16 @@ const diceWidget = (e) => {
 
   diceforeignObject.appendChild(dicewidgetElement);
 
-  Tools.group.appendChild(diceforeignObject);
+  const dragDiv = document.createElement("div");
+  dragDiv.innerHTML =
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false" ></img>';
+  dragDiv.classList.add("drag-widget");
 
-  makeDraggeble(diceforeignObject);
+  diceforeignObject.appendChild(dragDiv);
+
+  createDrag.addDrag(dragDiv, diceforeignObject);
+
+  Tools.group.appendChild(diceforeignObject);
 
   const dice = document.getElementById("dice");
   const dotsContainer = document.getElementById("dots-container");
@@ -617,10 +719,78 @@ const diceWidget = (e) => {
     for (let i = 0; i < randomNumber; i++) {
       dots[i].style.display = "block";
     }
+
+    // Special cases for number on dice
+    if (randomNumber === 1) {
+      dots[0].setAttribute("cx", 50);
+      dots[0].setAttribute("cy", 50);
+    } else if (randomNumber === 2) {
+      dots[0].setAttribute("cx", 25);
+      dots[0].setAttribute("cy", 25);
+
+      dots[1].setAttribute("cx", 75);
+      dots[1].setAttribute("cy", 75);
+    } else if (randomNumber === 3) {
+      dots[0].setAttribute("cx", 25);
+      dots[0].setAttribute("cy", 25);
+
+      dots[1].setAttribute("cx", 50);
+      dots[1].setAttribute("cy", 50);
+
+      dots[2].setAttribute("cx", 75);
+      dots[2].setAttribute("cy", 75);
+    } else if (randomNumber === 4) {
+      dots[0].setAttribute("cx", 25);
+      dots[0].setAttribute("cy", 25);
+
+      dots[1].setAttribute("cx", 75);
+      dots[1].setAttribute("cy", 25);
+
+      dots[2].setAttribute("cx", 25);
+      dots[2].setAttribute("cy", 75);
+
+      dots[3].setAttribute("cx", 75);
+      dots[3].setAttribute("cy", 75);
+    } else if (randomNumber === 5) {
+      dots[0].setAttribute("cx", 25);
+      dots[0].setAttribute("cy", 25);
+
+      dots[1].setAttribute("cx", 75);
+      dots[1].setAttribute("cy", 25);
+
+      dots[2].setAttribute("cx", 25);
+      dots[2].setAttribute("cy", 75);
+
+      dots[3].setAttribute("cx", 75);
+      dots[3].setAttribute("cy", 75);
+
+      dots[4].setAttribute("cx", 50);
+      dots[4].setAttribute("cy", 50);
+    } else if (randomNumber === 6) {
+      dots[0].setAttribute("cx", 25);
+      dots[0].setAttribute("cy", 25);
+
+      dots[1].setAttribute("cx", 25);
+      dots[1].setAttribute("cy", 50);
+
+      dots[2].setAttribute("cx", 25);
+      dots[2].setAttribute("cy", 75);
+
+      dots[3].setAttribute("cx", 75);
+      dots[3].setAttribute("cy", 25);
+
+      dots[4].setAttribute("cx", 75);
+      dots[4].setAttribute("cy", 50);
+
+      dots[5].setAttribute("cx", 75);
+      dots[5].setAttribute("cy", 75);
+    }
   }
 };
 
 const stopWatchWidget = (e) => {
+  createDrag = new Draggable();
+
   const stopWatchforeignObject = document.createElementNS(
     "http://www.w3.org/2000/svg",
     "foreignObject"
@@ -650,8 +820,16 @@ const stopWatchWidget = (e) => {
   stopWatchforeignObject.appendChild(stopwatchWidgetElement);
 
   Tools.group.appendChild(stopWatchforeignObject);
+  const dragDiv = document.createElement("div");
+  dragDiv.innerHTML =
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false" ></img>';
+  dragDiv.classList.add("drag-widget");
+
+  stopWatchforeignObject.appendChild(dragDiv);
+
+  createDrag.addDrag(dragDiv, stopWatchforeignObject);
   //make draggable
-  makeDraggeble(stopWatchforeignObject);
+  //makeDraggeble(stopWatchforeignObject);
 
   let startTime = null;
   let elapsedTime = 0;
@@ -709,6 +887,7 @@ const stopWatchWidget = (e) => {
 
 const protractorWidget = (e) => {
   console.log("protractor", e);
+  createDrag = new Draggable();
 
   const protractorforeignObject = document.createElementNS(
     "http://www.w3.org/2000/svg",
@@ -722,7 +901,7 @@ const protractorWidget = (e) => {
     <div class="protractor-parent">
       <div class="rotational-container">
         <div class="rotational-division">
-          <input type="text" id="rotation-angle" value="0°">
+          <input type="text" id="rotation-angle" value="0°"></input>
         </div>
       </div>
     </div>`;
@@ -739,8 +918,14 @@ const protractorWidget = (e) => {
   protractorforeignObject.appendChild(protractorWidgetElement);
 
   Tools.group.appendChild(protractorforeignObject);
+  const dragDiv = document.createElement("div");
+  dragDiv.innerHTML =
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>';
+  dragDiv.classList.add("drag-widget");
 
-  makeDraggeble(protractorforeignObject);
+  protractorforeignObject.appendChild(dragDiv);
+  createDrag.addDrag(dragDiv, protractorforeignObject);
+  //makeDraggeble(protractorforeignObject);
 
   // Make the widget draggable
   // let isDragging = false;
@@ -839,6 +1024,7 @@ function stopDraw() {
 
 const rulerWidget = (e) => {
   console.log("ruler", e);
+  createDrag = new Draggable();
 
   const rulerforeignObject = document.createElementNS(
     "http://www.w3.org/2000/svg",
@@ -872,8 +1058,15 @@ const rulerWidget = (e) => {
 
   Tools.group.appendChild(rulerforeignObject);
 
-  makeDraggeble(rulerforeignObject);
+  //makeDraggeble(rulerforeignObject);
+  const dragDiv = document.createElement("div");
+  dragDiv.innerHTML =
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>';
+  dragDiv.classList.add("drag-widget");
 
+  rulerforeignObject.appendChild(dragDiv);
+
+  createDrag.addDrag(dragDiv, rulerforeignObject);
   const canvas = document.getElementById("myCanvas");
   const ctx = canvas.getContext("2d");
   let isDrawing = false;
@@ -916,6 +1109,7 @@ const rulerWidget = (e) => {
 
 const roundCompassWidget = (e) => {
   console.log("roundCompass", e);
+  createDrag = new Draggable();
 
   const roundCompassforeignObject = document.createElementNS(
     "http://www.w3.org/2000/svg",
@@ -927,29 +1121,32 @@ const roundCompassWidget = (e) => {
   var uid = Tools.generateUID("doc");
 
   const roundCompassWidgetHTML = `
-  <div class="rounded-compass ">
-
+  <div class="rounded-compass">
+<div class="rounded-compass-input" style="display:block">
+<div style="display:flex;margin-bottom: 11px;">
   <label for="radius" style="color: red">Radius:</label>
     <input
       type="number"
       id="radius"
       min="0"
-      max="9.2"
+      max="6"
       step="0.1"
       value="2.5"
-      style="color: red"
+      style="color: red;margin: -4px 0px 0px 8px;"
     />
-    <br />
-
-    <label for="degree" style="color: green; border: 1px solid rgb(0, 0, 0)">Degree:</label>
+</div>
+<div style="display:flex">
+    <label for="degree" style="color: green;">Degree:</label>
     <input
       type="number"
       id="degree"
       min="0"
       max="360"
       value="0"
-      style="color: green"
-    /><br />
+      style="color: green;margin: -4px 0px 0px 8px;"
+    />
+    </div>
+    </div>
 
     <canvas id="canvas-roundcompass"> </canvas>
     </div>
@@ -968,7 +1165,15 @@ const roundCompassWidget = (e) => {
 
   Tools.group.appendChild(roundCompassforeignObject);
 
-  makeDraggeble(roundCompassforeignObject);
+  //makeDraggeble(roundCompassforeignObject);
+  const dragDiv = document.createElement("div");
+  dragDiv.innerHTML =
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>';
+  dragDiv.classList.add("drag-widget");
+
+  roundCompassWidgetElement.appendChild(dragDiv);
+
+  createDrag.addDrag(dragDiv, roundCompassforeignObject);
 
   const canvas = document.getElementById("canvas-roundcompass");
   const ctx = canvas.getContext("2d");
@@ -1076,65 +1281,101 @@ const roundCompassWidget = (e) => {
   drawArc();
 };
 
-function makeDraggeble(parentRef) {
-  let isDragging = false;
-  let initialMouseX = 0;
-  let initialMouseY = 0;
-  let initialImageX = 0;
-  let initialImageY = 0;
-  // for mouse events
-  parentRef.addEventListener("mousedown", (e) => {
-    isDragging = true;
-    initialMouseX = e.clientX;
-    initialMouseY = e.clientY;
-    initialImageX = parseInt(parentRef.style.x);
-    initialImageY = parseInt(parentRef.style.y);
-  });
+// function makeDraggeble(parentRef) {
+//   let isDragging = false;
+//   let initialMouseX = 0;
+//   let initialMouseY = 0;
+//   let initialImageX = 0;
+//   let initialImageY = 0;
+//   // for mouse events
+//   parentRef.addEventListener("mousedown", (e) => {
+//     isDragging = true;
+//     initialMouseX = e.clientX;
+//     initialMouseY = e.clientY;
+//     initialImageX = parseInt(parentRef.style.x);
+//     initialImageY = parseInt(parentRef.style.y);
+//   });
 
-  document.addEventListener("mousemove", (e) => {
-    if (isDragging) {
-      const deltaX = e.clientX - initialMouseX;
-      const deltaY = e.clientY - initialMouseY;
-      const newX = initialImageX + deltaX;
-      const newY = initialImageY + deltaY;
-      parentRef.style.x = newX + "px";
-      parentRef.style.y = newY + "px";
-    }
-  });
+//   document.addEventListener("mousemove", (e) => {
+//     if (isDragging) {
+//       const deltaX = e.clientX - initialMouseX;
+//       const deltaY = e.clientY - initialMouseY;
+//       const newX = initialImageX + deltaX;
+//       const newY = initialImageY + deltaY;
+//       parentRef.style.x = newX + "px";
+//       parentRef.style.y = newY + "px";
+//     }
+//   });
 
-  document.addEventListener("mouseup", () => {
-    isDragging = false;
-  });
+//   document.addEventListener("mouseup", () => {
+//     isDragging = false;
+//     parentRef.removeEventListener("mousedown", (e) => {
+//       isDragging = true;
+//       initialMouseX = e.clientX;
+//       initialMouseY = e.clientY;
+//       initialImageX = parseInt(parentRef.style.x);
+//       initialImageY = parseInt(parentRef.style.y);
+//     });
+//     document.removeEventListener("mousemove", (e) => {
+//       if (isDragging) {
+//         const deltaX = e.clientX - initialMouseX;
+//         const deltaY = e.clientY - initialMouseY;
+//         const newX = initialImageX + deltaX;
+//         const newY = initialImageY + deltaY;
+//         parentRef.style.x = newX + "px";
+//         parentRef.style.y = newY + "px";
+//       }
+//     });
+//   });
 
-  // for touch events
-  let touch;
-  parentRef.addEventListener("touchstart", (e) => {
-    touch = e.touches[0];
-    isDragging = true;
-    initialMouseX = touch.clientX;
-    initialMouseY = touch.clientY;
-    initialImageX = parseInt(parentRef.style.x);
-    initialImageY = parseInt(parentRef.style.y);
-  });
+//   // for touch events
+//   let touch;
+//   parentRef.addEventListener("touchstart", (e) => {
+//     touch = e.touches[0];
+//     isDragging = true;
+//     initialMouseX = touch.clientX;
+//     initialMouseY = touch.clientY;
+//     initialImageX = parseInt(parentRef.style.x);
+//     initialImageY = parseInt(parentRef.style.y);
+//   });
 
-  document.addEventListener("touchmove", (e) => {
-    touch = e.touches[0];
-    if (isDragging) {
-      const deltaX = touch.clientX - initialMouseX;
-      const deltaY = touch.clientY - initialMouseY;
-      const newX = initialImageX + deltaX;
-      const newY = initialImageY + deltaY;
-      parentRef.style.x = newX + "px";
-      parentRef.style.y = newY + "px";
-    }
-  });
+//   document.addEventListener("touchmove", (e) => {
+//     touch = e.touches[0];
+//     if (isDragging) {
+//       const deltaX = touch.clientX - initialMouseX;
+//       const deltaY = touch.clientY - initialMouseY;
+//       const newX = initialImageX + deltaX;
+//       const newY = initialImageY + deltaY;
+//       parentRef.style.x = newX + "px";
+//       parentRef.style.y = newY + "px";
+//     }
+//   });
 
-  document.addEventListener("touchend", () => {
-    isDragging = false;
-  });
-}
+//   document.addEventListener("touchend", () => {
+//     isDragging = false;
+//   document.removeEventListener("touchmove", (e) => {
+//     if (isDragging) {
+//       const deltaX = e.clientX - initialMouseX;
+//       const deltaY = e.clientY - initialMouseY;
+//       const newX = initialImageX + deltaX;
+//       const newY = initialImageY + deltaY;
+//       parentRef.style.x = newX + "px";
+//       parentRef.style.y = newY + "px";
+//     }
+//   });
+//   parentRef.removeEventListener("touchstart", (e) => {
+//     touch = e.touches[0];
+//     isDragging = true;
+//     initialMouseX = touch.clientX;
+//     initialMouseY = touch.clientY;
+//     initialImageX = parseInt(parentRef.style.x);
+//     initialImageY = parseInt(parentRef.style.y);
+//   });
+//   });
+// }
 
 // set the image background to view port width
+
 function getVisibleViewport() {
   const viewportWidth = window.innerWidth;
   const viewportHeight = window.innerHeight;
@@ -1187,6 +1428,7 @@ function toggleDiv(className) {
 }
 const setSquareWidget = (e) => {
   console.log("setSquare", e);
+  createDrag = new Draggable();
 
   const setSquareforeignObject = document.createElementNS(
     "http://www.w3.org/2000/svg",
@@ -1212,14 +1454,14 @@ const setSquareWidget = (e) => {
   <div class="triangle-container-two" id="rotatableContainerTwo">
     <div class="triangle-two" id="rotatableTriangleTwo"></div>
     <div class="input-container-two">
-      <input type="number" id="rotationInputTwo" min="0" max="360" value="0">
+      <input type="number" id="rotationInputTwo" min="0" max="360" value="0" ></input>
     </div>
   </div>
 
   <div class="triangle-container" id="rotatableContainer">
     <div class="triangle" id="rotatableTriangle"></div>
     <div class="input-container">
-      <input type="number" id="rotationInput" min="0" max="360" value="0">
+      <input type="number" id="rotationInput" min="0" max="360" value="0" ></input>
     </div>
   </div>
   </div>`;
@@ -1236,8 +1478,14 @@ const setSquareWidget = (e) => {
   setSquareforeignObject.appendChild(setSquareWidgetElement);
 
   Tools.group.appendChild(setSquareforeignObject);
-  makeDraggeble(setSquareforeignObject);
+  //makeDraggeble(setSquareforeignObject);
+  const dragDiv = document.createElement("div");
+  dragDiv.innerHTML =
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>';
+  dragDiv.classList.add("drag-widget");
 
+  setSquareforeignObject.appendChild(dragDiv);
+  createDrag.addDrag(dragDiv, setSquareforeignObject);
   // for 30-60 set-square
 
   const containerTwo = document.getElementById("rotatableContainerTwo");

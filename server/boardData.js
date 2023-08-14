@@ -25,7 +25,6 @@
  * @module boardData
  */
 
-
 var fs = require("fs"),
   path = require("path"),
   config = require("./configuration.js");
@@ -34,15 +33,6 @@ var fs = require("fs"),
  * Represents a board.
  * @constructor
  */
-const express = require("express");
-const http = require("http");
-const socketIO = require("socket.io");
-
-const app = express();
-const server = http.createServer(app);
-const io = socketIO(server);
-
-// This Function is for all the Board Data 
 var BoardData = function (name) {
   this.name = name;
   this.size = 0;
@@ -79,7 +69,7 @@ var BoardData = function (name) {
 
 BoardData.prototype.set = function (id, data) {
   //KISS
-  // var size;
+  var size;
   if (!(size = this.isValid(data, "data"))) return;
   this.elements[id] = { size: size, data: data };
   this.size += size;
@@ -553,9 +543,6 @@ BoardData.prototype.save = function (file) {
     });
   }
 };
-
-// BoardData.prototype.
-
 /** Remove old elements from the board */
 BoardData.prototype.clean = function cleanBoard() {
   var elems = this.elements;
@@ -639,8 +626,7 @@ BoardData.prototype.validate = function validate(item, parent) {
 }
 */
 
-/** Load the data in 
-the board from a file.
+/** Load the data in the board from a file.
  * @param {string} file - Path to the file where the board data will be read.
  */
 BoardData.load = function loadBoard(name) {
@@ -648,7 +634,6 @@ BoardData.load = function loadBoard(name) {
   var boardData = new BoardData(name);
   return new Promise((accept) => {
     fs.readFile(boardData.file, function (err, data) {
-      console.log(boardData.file, data)
       try {
         if (err) throw err;
         boardData.elements = JSON.parse(data);
@@ -662,66 +647,13 @@ BoardData.load = function loadBoard(name) {
               ". The following error occured: " +
               e
           );
-        // console.log("Creating an empty board.");
+        console.log("Creating an empty board.");
         boardData.elements = {};
       }
       accept(boardData);
     });
   });
 };
-
-
-// ---------------->Adds Multipage Board Data and renders the canvas 
-
-io.on("connection", (socket) => {
-  console.log("A user connected");
-
-  // Listen for the "createNewFolder" event
-  socket.on("createNewFolder", () => {
-    console.log("Folder creation triggered");
-  });
-
-  // Handle disconnection
-  socket.on("disconnect", () => {
-    console.log("A user disconnected");
-  });
-});
-
-
-io.on("connection", (socket) => {
-  // ... Other socket.io event handling ...
-
-  socket.on("createNewTab", () => {
-    // track the current tab name
-    const newTabName = "NewTab"; // new tab name
-
-    // subfolder inside the "server-data" folder to save the JSON file
-    const subfolderPath = path.join(__dirname, "server-data", newTabName);
-
-    fs.mkdir(subfolderPath, { recursive: true }, (err) => {
-      if (err) {
-        console.error("Error creating subfolder:", err);
-      } else {
-        console.log("Subfolder created:", subfolderPath);
-
-        //  BoardData object and the necessary data to save as JSON
-        //  function to read the data for the new tab
-        const newTabData = loadBoard(); // function to get the data for the new tab
-
-        // Save the data to a JSON file inside the subfolder
-        const jsonFilePath = path.join(subfolderPath, "data"+ +".json");
-        fs.writeFile(jsonFilePath, JSON.stringify(newTabData), (err) => {
-          if (err) {
-            console.error("Error saving JSON file:", err);
-          } else {
-            console.log("JSON file saved:", jsonFilePath);
-          }
-        });
-      }
-    });
-  });
-});
-
 
 BoardData.prototype.sortIds = function sortIds(ids) {
   var elems = this.elements;
@@ -780,13 +712,5 @@ function memorySizeOf(obj) {
 
   return formatByteSize(sizeOf(obj));
 }
-
-
-
-// Call the function to read the board data directory when the server starts
-// readingBoardDataDirectory();
-
-
-
 
 module.exports.BoardData = BoardData;

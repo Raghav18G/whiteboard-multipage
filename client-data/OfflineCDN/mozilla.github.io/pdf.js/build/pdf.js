@@ -969,7 +969,7 @@ function getDocument(src) {
   }
   const fetchDocParams = {
     docId,
-    apiVersion: '3.10.48',
+    apiVersion: '3.10.54',
     data,
     password,
     disableAutoFetch,
@@ -2726,9 +2726,9 @@ class InternalRenderTask {
     }
   }
 }
-const version = '3.10.48';
+const version = '3.10.54';
 exports.version = version;
-const build = 'ec2b71770';
+const build = 'f89020e9b';
 exports.build = build;
 
 /***/ }),
@@ -2916,6 +2916,7 @@ class AnnotationEditor {
   #isEditing = false;
   #isInEditMode = false;
   _uiManager = null;
+  _focusEventsAllowed = true;
   #isDraggable = false;
   #zIndex = AnnotationEditor._zIndex++;
   static _colorManager = new _tools.ColorManager();
@@ -3000,6 +3001,9 @@ class AnnotationEditor {
     this.parent = parent;
   }
   focusin(event) {
+    if (!this._focusEventsAllowed) {
+      return;
+    }
     if (!this.#hasBeenSelected) {
       this.parent.setSelected(this);
     } else {
@@ -3007,6 +3011,9 @@ class AnnotationEditor {
     }
   }
   focusout(event) {
+    if (!this._focusEventsAllowed) {
+      return;
+    }
     if (!this.isAttachedToDOM) {
       return;
     }
@@ -3050,6 +3057,7 @@ class AnnotationEditor {
   }
   translateInPage(x, y) {
     this.#translate(this.pageDimensions, x, y);
+    this.parent.moveEditorInDOM(this);
     this.div.scrollIntoView({
       block: "nearest"
     });
@@ -3432,7 +3440,6 @@ class AnnotationEditor {
       });
       this.fixAndSetPosition();
       this.parent.moveEditorInDOM(this);
-      this.div.focus();
     };
     window.addEventListener("pointerup", pointerUpCallback);
     window.addEventListener("blur", pointerUpCallback);
@@ -3950,9 +3957,12 @@ class AnnotationEditorUIManager {
   #filterFactory = null;
   #idManager = new IdManager();
   #isEnabled = false;
+  #lastActiveElement = null;
   #mode = _util.AnnotationEditorType.NONE;
   #selectedEditors = new Set();
   #pageColors = null;
+  #boundBlur = this.blur.bind(this);
+  #boundFocus = this.focus.bind(this);
   #boundCopy = this.copy.bind(this);
   #boundCut = this.cut.bind(this);
   #boundPaste = this.paste.bind(this);
@@ -4028,6 +4038,7 @@ class AnnotationEditorUIManager {
   }
   destroy() {
     this.#removeKeyboardManager();
+    this.#removeFocusManager();
     this.#eventBus._off("editingaction", this.#boundOnEditingAction);
     this.#eventBus._off("pagechanging", this.#boundOnPageChanging);
     this.#eventBus._off("scalechanging", this.#boundOnScaleChanging);
@@ -4095,6 +4106,42 @@ class AnnotationEditorUIManager {
     if (!editor.isEmpty() && this.#annotationStorage && !this.#annotationStorage.has(editor.id)) {
       this.#annotationStorage.setValue(editor.id, editor);
     }
+  }
+  #addFocusManager() {
+    window.addEventListener("focus", this.#boundFocus);
+    window.addEventListener("blur", this.#boundBlur);
+  }
+  #removeFocusManager() {
+    window.removeEventListener("focus", this.#boundFocus);
+    window.removeEventListener("blur", this.#boundBlur);
+  }
+  blur() {
+    if (!this.hasSelection) {
+      return;
+    }
+    const {
+      activeElement
+    } = document;
+    for (const editor of this.#selectedEditors) {
+      if (editor.div.contains(activeElement)) {
+        this.#lastActiveElement = [editor, activeElement];
+        editor._focusEventsAllowed = false;
+        break;
+      }
+    }
+  }
+  focus() {
+    if (!this.#lastActiveElement) {
+      return;
+    }
+    const [lastEditor, lastActiveElement] = this.#lastActiveElement;
+    this.#lastActiveElement = null;
+    lastActiveElement.addEventListener("focusin", () => {
+      lastEditor._focusEventsAllowed = true;
+    }, {
+      once: true
+    });
+    lastActiveElement.focus();
   }
   #addKeyboardManager() {
     window.addEventListener("keydown", this.#boundKeydown, {
@@ -4213,6 +4260,7 @@ class AnnotationEditorUIManager {
   }
   setEditingState(isEditing) {
     if (isEditing) {
+      this.#addFocusManager();
       this.#addKeyboardManager();
       this.#addCopyPasteListeners();
       this.#dispatchUpdateStates({
@@ -4223,6 +4271,7 @@ class AnnotationEditorUIManager {
         hasSelectedEditor: false
       });
     } else {
+      this.#removeFocusManager();
       this.#removeKeyboardManager();
       this.#removeCopyPasteListeners();
       this.#dispatchUpdateStates({
@@ -12663,15 +12712,13 @@ class AnnotationEditorLayer {
   remove(editor) {
     this.detach(editor);
     this.#uiManager.removeEditor(editor);
-    editor.div.style.display = "none";
-    setTimeout(() => {
-      editor.div.style.display = "";
-      editor.div.remove();
-      editor.isAttachedToDOM = false;
-      if (document.activeElement === document.body) {
+    if (editor.div.contains(document.activeElement)) {
+      setTimeout(() => {
         this.#uiManager.focusMainContainer();
-      }
-    }, 0);
+      }, 0);
+    }
+    editor.div.remove();
+    editor.isAttachedToDOM = false;
     if (!this.#isCleaningUp) {
       this.addInkEditorIfNeeded(false);
     }
@@ -12707,6 +12754,20 @@ class AnnotationEditorLayer {
     this.#uiManager.addToAnnotationStorage(editor);
   }
   moveEditorInDOM(editor) {
+    const {
+      activeElement
+    } = document;
+    if (editor.div.contains(activeElement)) {
+      editor._focusEventsAllowed = false;
+      setTimeout(() => {
+        editor.div.addEventListener("focusin", () => {
+          editor._focusEventsAllowed = true;
+        }, {
+          once: true
+        });
+        activeElement.focus();
+      }, 0);
+    }
     this.#accessibilityManager?.moveElementInDOM(this.div, editor.div, editor.contentDiv, true);
   }
   addOrRebuild(editor) {
@@ -13070,6 +13131,9 @@ class FreeTextEditor extends _editor.AnnotationEditor {
     this.parent.div.classList.add("freeTextEditing");
   }
   focusin(event) {
+    if (!this._focusEventsAllowed) {
+      return;
+    }
     super.focusin(event);
     if (event.target !== this.editorDiv) {
       this.editorDiv.focus();
@@ -16535,6 +16599,9 @@ class InkEditor extends _editor.AnnotationEditor {
     });
   }
   focusin(event) {
+    if (!this._focusEventsAllowed) {
+      return;
+    }
     super.focusin(event);
     this.enableEditMode();
   }
@@ -17524,8 +17591,8 @@ var _tools = __w_pdfjs_require__(5);
 var _annotation_layer = __w_pdfjs_require__(29);
 var _worker_options = __w_pdfjs_require__(14);
 var _xfa_layer = __w_pdfjs_require__(32);
-const pdfjsVersion = '3.10.48';
-const pdfjsBuild = 'ec2b71770';
+const pdfjsVersion = '3.10.54';
+const pdfjsBuild = 'f89020e9b';
 })();
 
 /******/ 	return __webpack_exports__;
