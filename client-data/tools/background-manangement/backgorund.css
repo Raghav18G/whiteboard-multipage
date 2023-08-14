@@ -62,3 +62,21 @@ input[type="color"] {
 .color-tab-content.show {
   display: block;
 }
+
+.bg-modal-tabs {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 13px;
+}
+.bg-modal-close-btn{
+  border: #f5f5f5;
+  color: red;
+  padding: 2px 5px px 5px;
+  font-size: 2rem;
+  border-radius: 10%;
+}
+.bg-modal-close-btn:hover{
+  color: #f5f5f5;
+  background-color: red;
+  transition: all 400ms;
+}

@@ -36,9 +36,7 @@ class Draggable {
                 parentRef.style.y = newY + "px";
             }
         }
-        this.stopDrag=()=>{
-            this
-        }
+       
         document.addEventListener("mousemove", this.changePosition);
 
         document.addEventListener("mouseup", () => {

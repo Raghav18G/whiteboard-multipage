@@ -464,7 +464,6 @@
 				x: document.documentElement.scrollLeft + evt.clientX,
 				y: document.documentElement.scrollTop + evt.clientY,
 			}
-			console.log('harsh moce called')
 		
 		}
 		else{
@@ -479,7 +478,6 @@
 		evt.preventDefault()
         evt.stopPropagation();
 		if (selected && !isTouchEvent) { //Let the browser handle touch to scroll
-			console.log(selected.x ,evt, selected.y , evt.clientY,selected)
 			window.scrollTo(selected.x - evt.clientX, selected.y - evt.clientY);
 		}
 		else{
@@ -492,7 +490,6 @@
 
 	
 	function press(x, y, evt, isTouchEvent) {
-		console.log("press",isTouchEvent)
 		evt.preventDefault()
         evt.stopPropagation();
 		if (!handTool.secondary.active) startHand(x, y, evt, isTouchEvent);
@@ -501,7 +498,6 @@
 
 
 	function move(x, y, evt, isTouchEvent) {
-		console.log('move')
         evt.stopPropagation();
 		evt.preventDefault()
 		if (!handTool.secondary.active) moveHand(x, y, evt, isTouchEvent);
@@ -509,7 +505,6 @@
 	}
 
 	function release(x, y, evt, isTouchEvent) {
-		console.log('release')
 		evt.preventDefault()
         evt.stopPropagation();
 		move(x, y, evt, isTouchEvent);

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no" />
-    <title>Iprep | Online collaborative whiteboard</title>
+    <title>Iprep  Whiteboard</title>
     <link rel="stylesheet" href="Fonts/stylesheet.css">
     <link rel="stylesheet" href="tools/table/table.css">
     
@@ -21,42 +21,35 @@
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
 
-    <link rel="stylesheet" type="text/css" href="board.css" />
     <!-- <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" /> -->
     <!-- <link href="OfflineCDN/ajax.googleapis.com/ajax/libs/jquery/" rel="stylesheet" /> -->
-   
+
 
 
 
     <script src="OfflineCDN/ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="js/jquery.fullscreen.js"></script>
-    
+
     <script src="OfflineCDN/maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"
         integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg=="
         crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="board.css" />
-  
+
     <script src="OfflineCDN/kit.fontawesome.com/0166a4ad2b.js" crossorigin="anonymous"></script>
     <script src="socket.io.js"></script>
-   
-    
-  <script src="node_modules/pdfjs-dist/build/pdf.min.js"></script>
+
+
+    <script src="node_modules/pdfjs-dist/build/pdf.min.js"></script>
 
     <meta name="description" content="A free and opensource online collaborative drawing tool." />
     <meta name="keywords" content="Collaborative whiteboard,online,draw,paint,shared,realtime" />
-    <link rel="shortcut icon"
-        href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/favicon_sptzcl.ico" />
-    <link rel="apple-touch-icon" sizes="180x180"
-        href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/apple-touch-icon_ls1yzj.png">
-    <link rel="icon" type="image/png" sizes="32x32"
-        href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/favicon-32x32_bshltf.png">
-    <link rel="icon" type="image/png" sizes="16x16"
-        href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/favicon-16x16_w5wobw.png">
-    <link rel="manifest"
-        href="https://res.cloudinary.com/ddwbbzuxw/raw/upload/v1597236051/fevicon/site_uzghky.webmanifest">
-    <link rel="stylesheet" type="text/css" href="board.css" />
-
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/Fevicon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/Fevicon.png" />
+    <link
+      rel="manifest"
+      href="https://res.cloudinary.com/ddwbbzuxw/raw/upload/v1597236051/fevicon/site_uzghky.webmanifest"
+    />
     <style>
         .modal-backdrop {
             opacity: 0.25 !important;
@@ -127,11 +120,11 @@
             <!-- <div class="gcse-search"></div>
             <div class="gcse-searchresults-only"></div> -->
             <div>
-            <div class="gcse-searchbox">
+                <div class="gcse-searchbox">
+                </div>
+                <div class="gcse-searchresults"></div>
             </div>
-            <div class="gcse-searchresults"></div>
-            </div>
-            
+
         </div>
     </div>
 
@@ -150,21 +143,21 @@
       </div>
 
     <!-- Download Content Modal -->
-        <div class="downloadModal" id="downloadModal">
-            <div class="downloadModal-content">
-                <span class="close" id="downloadModalClose"><img src="./assets/CloseCircle.svg" /></span>
-    
-                <div class="downloadItems">
-                    <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsSVG">SVG</h4>
-                    <hr/>
-                    <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPDF">PDF</h4>
-                    <hr/>
-                    <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPNG">PNG</h4>
-                    <hr/>
-                    <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsJPG">JPG</h4>
-                </div>
+    <div class="downloadModal" id="downloadModal">
+        <div class="downloadModal-content">
+            <span class="close" id="downloadModalClose"><img src="./assets/CloseCircle.svg" /></span>
+
+            <div class="downloadItems">
+                <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsSVG">SVG</h4>
+                <hr />
+                <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPDF">PDF</h4>
+                <hr />
+                <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPNG">PNG</h4>
+                <hr />
+                <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsJPG">JPG</h4>
             </div>
         </div>
+    </div>
 
 
     <!-- Video Modal -->
@@ -181,7 +174,7 @@
     <!-- Video Player -->
     <div class="dragVideoModal" id="dragVideoModal">
         <div class="dragVideoModal-content">
-            <span class="close" id="dragVideoModalClose" >&times;</span>
+            <span class="close" id="dragVideoModalClose">&times;</span>
             <!-- Video Tag -->
             <div class="dragVideoModalheader" id="dragVideoModalheader">
                 <p> *************** Hold here to Drag **************** </p>
@@ -220,10 +213,10 @@
     <div id="snackbar">Invalid File type. Please choose PDF file.</div>
     <div id="snackbar-success">PDF uploaded successfully.</div>
     <!-- <div id="snackbar-success">PDF uploaded successfully.</div> -->
-   
-    
+
+
     <!--Document Moadal -->
-    
+
     <div class="documentModal" id="documentModal">
         <div class="documentModal-content">
             <span class="close" id="documentModalModalClose"><img src="./assets/CloseCircle.svg" /></span>
@@ -263,7 +256,18 @@
             <!-- Drawer content goes here -->
             <h2 id="img-library">Image Library</h2>
             <div style="display: flex; justify-content: end">
-            <button class="browser-btn" id="SearchGoogle">Browser Files <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="18px" height="18px"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg></button></div>
+                <button class="browser-btn" id="SearchGoogle">Browser Files <svg xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 48 48" width="18px" height="18px">
+                        <path fill="#FFC107"
+                            d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" />
+                        <path fill="#FF3D00"
+                            d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" />
+                        <path fill="#4CAF50"
+                            d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" />
+                        <path fill="#1976D2"
+                            d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z" />
+                    </svg></button>
+            </div>
 
 
             <div class="tab-header">
@@ -555,33 +559,42 @@
         <!-- Tools -->
 
         <!-- Color Picker -->
-            <span class="tool-icon color-tool-pick" style="margin: 0px 18px auto 16px;">
-            <div class="color-pick"  id="color-pick" title="Color Picker">
-                    <input type="color" value="#ff00ff" id="chooseColor" />
+        <span class="tool-icon color-tool-pick" style="margin: 0px 18px auto 16px;">
+            <div class="color-pick" id="color-pick" title="Color Picker">
+                <input type="color" value="#ff00ff" id="chooseColor" />
             </div>
-            <label id="tool-color-localization" class="label-tool" style="font-size:10px;font-weight:400;margin-top: 4px;"><p>Color Picker</p></label>
+            <label id="tool-color-localization" class="label-tool"
+                style="font-size:10px;font-weight:400;margin-top: 4px;">
+                <p>Color Picker</p>
+            </label>
         </span>
-        <!-- Tool Size Indicator -->    
+        <!-- Tool Size Indicator -->
         <div class="tool size_selector_container">
-            <span class="tool-icon" id="tool-size-selector" title="Tool size selector">             
+            <span class="tool-icon" id="tool-size-selector" title="Tool size selector">
                 <svg viewBox="-60 -70 120 120" class="tool-icon-sizeIndicator" style="display:none">
                     <circle id="sizeIndicator" cx=0 cy=0 r=10 />
                 </svg>
-                    
+
                 <!-- <img src="icon-size.svg" height=30 /> -->
                 <!-- <svg class="tool-icon-svg" viewBox="0 0 37 42" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5.28555 14.1307C4.06106 15.3552 4.06106 17.3507 5.28555 18.5752L20.5208 33.8104C20.5803 33.8728 20.6568 33.9181 20.7362 33.9465L26.2889 35.8569C26.493 35.9277 26.7198 35.8739 26.8728 35.7208C26.9805 35.6131 27.04 35.4686 27.04 35.3212C27.04 35.2588 27.0287 35.1965 27.0089 35.1369L25.0984 29.5842C25.0701 29.502 25.0247 29.4283 24.9624 29.3688L9.72715 14.1336C9.13475 13.5412 8.34394 13.2124 7.50494 13.2124C6.66594 13.2124 5.87512 13.5383 5.28272 14.1336L5.28555 14.1307ZM8.76911 20.4544L9.78951 19.434L21.9409 31.5854L20.9204 32.6058L8.76911 20.4544ZM25.5605 34.4056L21.9635 33.1698L23.1427 31.9907L24.3218 30.8115L25.5576 34.4085L25.5605 34.4056ZM23.7634 29.7685L22.743 30.7889L10.5917 18.6375L11.6121 17.6171L23.7634 29.7685ZM10.8099 16.815L9.38985 18.235L7.96979 19.6551L7.29235 18.9777L10.1325 16.1375L10.8099 16.815ZM8.93067 14.9357L9.33033 15.3354L6.4902 18.1755L6.09054 17.7759C5.30823 16.9935 5.30823 15.718 6.09054 14.9357C6.87285 14.1534 8.14836 14.1534 8.93067 14.9357Z" fill="black"/>
                     <path d="M0.706387 25.2591C-0.235463 26.201 -0.235463 27.7359 0.706387 28.6777L12.425 40.3963C12.4708 40.4443 12.5297 40.4792 12.5907 40.501L16.8617 41.9704C17.0187 42.0249 17.1931 41.9835 17.3109 41.8658C17.3937 41.7829 17.4395 41.6718 17.4395 41.5584C17.4395 41.5104 17.4308 41.4625 17.4155 41.4167L15.946 37.1456C15.9242 37.0824 15.8894 37.0257 15.8414 36.9799L4.12277 25.2613C3.66711 24.8057 3.05883 24.5528 2.41349 24.5528C1.76815 24.5528 1.15987 24.8035 0.704206 25.2613L0.706387 25.2591ZM3.38586 30.1232L4.17074 29.3383L13.5173 38.6849L12.7324 39.4697L3.38586 30.1232ZM16.3014 40.8542L13.5347 39.9036L14.4417 38.9966L15.3487 38.0897L16.2992 40.8564L16.3014 40.8542ZM14.9192 37.2874L14.1343 38.0722L4.78774 28.7257L5.57261 27.9408L14.9192 37.2874ZM4.95561 27.3238L3.86333 28.4161L2.77104 29.5084L2.24997 28.9873L4.43454 26.8027L4.95561 27.3238ZM3.51013 25.8783L3.81754 26.1857L1.63298 28.3703L1.32557 28.0629C0.723829 27.4612 0.723828 26.4801 1.32557 25.8783C1.9273 25.2766 2.9084 25.2766 3.51013 25.8783Z" fill="black"/>
                     <path d="M27.6893 26.0511L27.6893 26.0511C27.554 26.0028 27.4148 25.9229 27.3006 25.8045L9.13735 7.64123C7.54238 6.04627 7.54106 3.44904 9.13338 1.85241L27.6893 26.0511ZM27.6893 26.0511L27.6932 26.0524M27.6893 26.0511L27.6932 26.0524M27.6932 26.0524L34.313 28.33C34.3131 28.33 34.3133 28.3301 34.3134 28.3301C34.6853 28.4591 35.0952 28.3601 35.3704 28.0849C35.5635 27.8918 35.672 27.631 35.672 27.3616C35.672 27.2453 35.6509 27.1336 35.6169 27.0316L35.6169 27.0316M27.6932 26.0524L35.6169 27.0316M35.6169 27.0316L35.6158 27.0284M35.6169 27.0316L35.6158 27.0284M35.6158 27.0284L33.3379 20.4076L33.3379 20.4074M35.6158 27.0284L33.3379 20.4074M33.3379 20.4074C33.288 20.2627 33.2063 20.1271 33.09 20.015M33.3379 20.4074L33.09 20.015M33.09 20.015L14.9268 1.85182C14.1552 1.08023 13.1236 0.651232 12.0304 0.651232C10.9397 0.651232 9.90926 1.07493 9.13735 1.84844C9.13733 1.84846 9.13731 1.84848 9.1373 1.84849L33.09 20.015ZM31.9336 22.6264L32.9917 25.7062L29.912 24.648L30.9228 23.6372L31.9336 22.6264ZM28.0264 23.6304L14.0312 9.63523L14.7544 8.912L28.7496 22.9072L28.0264 23.6304ZM30.9227 20.7408L30.1995 21.4641L16.2043 7.46885L16.9275 6.74564L30.9227 20.7408ZM14.0311 6.74221L12.5846 8.1887L12.2703 7.87442L15.1633 4.98145L15.4776 5.29573L14.0311 6.74221ZM13.4836 3.30173L13.7134 3.53154L10.8204 6.42451L10.5906 6.1947C9.79411 5.39818 9.79411 4.09826 10.5906 3.30173C11.3872 2.50521 12.6871 2.50521 13.4836 3.30173Z" fill="black" stroke="#F6F6F6" stroke-width="0.69786"/>
                 </svg> -->
-                
-                <svg class="tool-icon-svg" width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M27.1198 3.875L15.9662 6.86359L19.3416 10.239L8.94209 20.6385L5.56671 17.2631L2.57812 28.4167L13.7317 25.4281L10.3563 22.0527L20.7558 11.6532L24.1312 15.0286L27.1198 3.875Z" fill="#424242"/>
-                </svg>
-    
 
-            <label class="label-tool" style="font-size:10px; line-height:2px;font-weight:400; margin-top:14px"><p id="tool-size-localization">Tool-size</p> <p id="tool-selector-localization">selector</p></label>
-               
+                <svg class="tool-icon-svg" width="31" height="31" viewBox="0 0 31 31" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M27.1198 3.875L15.9662 6.86359L19.3416 10.239L8.94209 20.6385L5.56671 17.2631L2.57812 28.4167L13.7317 25.4281L10.3563 22.0527L20.7558 11.6532L24.1312 15.0286L27.1198 3.875Z"
+                        fill="#424242" />
+                </svg>
+
+
+                <label class="label-tool" style="font-size:10px; line-height:2px;font-weight:400; margin-top:14px">
+                    <p id="tool-size-localization">Tool-size</p>
+                    <p id="tool-selector-localization">selector</p>
+                </label>
+
             </span>
 
             <label class="tool-name slider verticalAlign sizeSelector" for="chooseSize">
@@ -603,41 +616,46 @@
                     </pattern>
                     <circle cx=4 cy=4.6 id="opacityIndicator" r=3.5 fill="url(#opacityPattern)" />
                 </svg> -->
-                <svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
-                    <mask id="mask0_8261_28999" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="28" height="28">
-                    <circle id="opacityIndicator" cx="14" cy="14" r="14" fill="#D9D9D9"/>
+                <svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"
+                    fill="none">
+                    <mask id="mask0_8261_28999" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
+                        width="28" height="28">
+                        <circle id="opacityIndicator" cx="14" cy="14" r="14" fill="#D9D9D9" />
                     </mask>
                     <g mask="url(#mask0_8261_28999)">
-                    <path d="M-5 0H4V9H-5V0Z" fill="#212121"/>
-                    <path d="M-5 18H4V27H-5V18Z" fill="#212121"/>
-                    <path d="M-5 9H4V18H-5V9Z" fill="white"/>
-                    <path d="M-5 27H4V36H-5V27Z" fill="white"/>
-                    <path d="M4 0H13V9H4V0Z" fill="white"/>
-                    <path d="M4 18H13V27H4V18Z" fill="white"/>
-                    <path d="M4 9H13V18H4V9Z" fill="#212121"/>
-                    <path d="M4 27H13V36H4V27Z" fill="#212121"/>
-                    <path d="M13 0H22V9H13V0Z" fill="#212121"/>
-                    <path d="M13 18H22V27H13V18Z" fill="#212121"/>
-                    <path d="M31 9H40V18H31V9Z" fill="white"/>
-                    <path d="M31 27H40V36H31V27Z" fill="white"/>
-                    <path d="M22 0H31V9H22V0Z" fill="white"/>
-                    <path d="M22 18H31V27H22V18Z" fill="white"/>
-                    <path d="M22 9H31V18H22V9Z" fill="#212121"/>
-                    <path d="M22 27H31V36H22V27Z" fill="#212121"/>
-                    <path d="M31 0H40V9H31V0Z" fill="#212121"/>
-                    <path d="M31 18H40V27H31V18Z" fill="#212121"/>
-                    <path d="M13 9H22V18H13V9Z" fill="white"/>
-                    <path d="M13 27H22V36H13V27Z" fill="white"/>
+                        <path d="M-5 0H4V9H-5V0Z" fill="#212121" />
+                        <path d="M-5 18H4V27H-5V18Z" fill="#212121" />
+                        <path d="M-5 9H4V18H-5V9Z" fill="white" />
+                        <path d="M-5 27H4V36H-5V27Z" fill="white" />
+                        <path d="M4 0H13V9H4V0Z" fill="white" />
+                        <path d="M4 18H13V27H4V18Z" fill="white" />
+                        <path d="M4 9H13V18H4V9Z" fill="#212121" />
+                        <path d="M4 27H13V36H4V27Z" fill="#212121" />
+                        <path d="M13 0H22V9H13V0Z" fill="#212121" />
+                        <path d="M13 18H22V27H13V18Z" fill="#212121" />
+                        <path d="M31 9H40V18H31V9Z" fill="white" />
+                        <path d="M31 27H40V36H31V27Z" fill="white" />
+                        <path d="M22 0H31V9H22V0Z" fill="white" />
+                        <path d="M22 18H31V27H22V18Z" fill="white" />
+                        <path d="M22 9H31V18H22V9Z" fill="#212121" />
+                        <path d="M22 27H31V36H22V27Z" fill="#212121" />
+                        <path d="M31 0H40V9H31V0Z" fill="#212121" />
+                        <path d="M31 18H40V27H31V18Z" fill="#212121" />
+                        <path d="M13 9H22V18H13V9Z" fill="white" />
+                        <path d="M13 27H22V36H13V27Z" fill="white" />
                     </g>
-                    </svg>
-                <label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p id="tool-opacity-localization">Opacity</p><p id="tool-picker-localization"> Picker</p></label>
+                </svg>
+                <label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">
+                    <p id="tool-opacity-localization">Opacity</p>
+                    <p id="tool-picker-localization"> Picker</p>
+                </label>
             </span>
             <label class="tool-name slider opacitySelector hideOpacity" for="chooseOpacity" id="opacitySelector">
                 <input type="range" id="chooseOpacity" value="1" min="0.2" max="1" step="0.1"
                     style="-webkit-appearance: slider-vertical" class="rangeChooser rangeChooser-opacity" />
             </label>
         </div>
-        
+
         <ul id="tools" class="tools">
             <li class="tool"><span class="tool-icon"></span></li>
         </ul>
@@ -645,18 +663,42 @@
         <!-- Recording Buttons -->
         <button id="btn-start-recording" style="border:none; margin-top: -5px;margin-left: -9px;">
             <svg style="margin-top:-5px;width:20px" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.30402 0H3.30411C2.50856 0 1.74527 0.316069 1.18301 0.878325C0.620757 1.44058 0.304688 2.20387 0.304688 2.99942C0.304688 4.74317 0.304688 7.25666 0.304688 8.99933C0.304688 9.55191 0.752988 10.0002 1.30449 10.0002C1.856 10.0002 2.3043 9.55191 2.3043 8.99933V2.99942C2.3043 2.73495 2.40965 2.48017 2.59779 2.29311C2.78485 2.10497 3.03964 1.99961 3.30411 1.99961H9.30402C9.8566 1.99961 10.3049 1.55131 10.3049 0.999806C10.3049 0.4483 9.8566 0 9.30402 0Z" fill="#424242"/>
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M19.3054 1.99961H25.3053C25.5697 1.99961 25.8245 2.10497 26.0116 2.29311C26.1997 2.48017 26.3051 2.73495 26.3051 2.99942V8.99933C26.3051 9.55191 26.7534 10.0002 27.3049 10.0002C27.8564 10.0002 28.3047 9.55191 28.3047 8.99933V2.99942C28.3047 2.20387 27.9886 1.44058 27.4264 0.878325C26.8641 0.316069 26.1008 0 25.3053 0C23.5615 0 21.048 0 19.3054 0C18.7528 0 18.3045 0.4483 18.3045 0.999806C18.3045 1.55131 18.7528 1.99961 19.3054 1.99961Z" fill="#424242"/>
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.30402 25.9984H3.30411C3.03964 25.9984 2.78485 25.8931 2.59779 25.7049C2.40965 25.5179 2.3043 25.2631 2.3043 24.9986V18.9987C2.3043 18.4461 1.856 17.9978 1.30449 17.9978C0.752988 17.9978 0.304688 18.4461 0.304688 18.9987V24.9986C0.304688 25.7942 0.620757 26.5575 1.18301 27.1197C1.74527 27.682 2.50856 27.998 3.30411 27.998C5.04785 27.998 7.56135 27.998 9.30402 27.998C9.8566 27.998 10.3049 27.5497 10.3049 26.9982C10.3049 26.4467 9.8566 25.9984 9.30402 25.9984Z" fill="#424242"/>
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M19.3054 27.998H25.3053C26.1008 27.998 26.8641 27.682 27.4264 27.1197C27.9886 26.5575 28.3047 25.7942 28.3047 24.9986C28.3047 23.2549 28.3047 20.7414 28.3047 18.9987C28.3047 18.4461 27.8564 17.9978 27.3049 17.9978C26.7534 17.9978 26.3051 18.4461 26.3051 18.9987V24.9986C26.3051 25.2631 26.1997 25.5179 26.0116 25.7049C25.8245 25.8931 25.5697 25.9984 25.3053 25.9984H19.3054C18.7528 25.9984 18.3045 26.4467 18.3045 26.9982C18.3045 27.5497 18.7528 27.998 19.3054 27.998Z" fill="#424242"/>
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M14.3403 6.03418C9.94402 6.03418 6.375 9.6032 6.375 13.9995C6.375 18.3958 9.94402 21.9648 14.3403 21.9648C18.7366 21.9648 22.3056 18.3958 22.3056 13.9995C22.3056 9.6032 18.7366 6.03418 14.3403 6.03418ZM14.3403 8.03381C17.6329 8.03381 20.306 10.707 20.306 13.9995C20.306 17.292 17.6329 19.9652 14.3403 19.9652C11.0478 19.9652 8.37464 17.292 8.37464 13.9995C8.37464 10.707 11.0478 8.03381 14.3403 8.03381Z" fill="#424242"/>
-            </svg>   <br/>
-                <label class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 10px; margin-bottom: 0px;"><p id="tool-screen-localization">Screen</p><p id="tool-recorder-localization">Recorder</p></label>  
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M9.30402 0H3.30411C2.50856 0 1.74527 0.316069 1.18301 0.878325C0.620757 1.44058 0.304688 2.20387 0.304688 2.99942C0.304688 4.74317 0.304688 7.25666 0.304688 8.99933C0.304688 9.55191 0.752988 10.0002 1.30449 10.0002C1.856 10.0002 2.3043 9.55191 2.3043 8.99933V2.99942C2.3043 2.73495 2.40965 2.48017 2.59779 2.29311C2.78485 2.10497 3.03964 1.99961 3.30411 1.99961H9.30402C9.8566 1.99961 10.3049 1.55131 10.3049 0.999806C10.3049 0.4483 9.8566 0 9.30402 0Z"
+                    fill="#424242" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M19.3054 1.99961H25.3053C25.5697 1.99961 25.8245 2.10497 26.0116 2.29311C26.1997 2.48017 26.3051 2.73495 26.3051 2.99942V8.99933C26.3051 9.55191 26.7534 10.0002 27.3049 10.0002C27.8564 10.0002 28.3047 9.55191 28.3047 8.99933V2.99942C28.3047 2.20387 27.9886 1.44058 27.4264 0.878325C26.8641 0.316069 26.1008 0 25.3053 0C23.5615 0 21.048 0 19.3054 0C18.7528 0 18.3045 0.4483 18.3045 0.999806C18.3045 1.55131 18.7528 1.99961 19.3054 1.99961Z"
+                    fill="#424242" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M9.30402 25.9984H3.30411C3.03964 25.9984 2.78485 25.8931 2.59779 25.7049C2.40965 25.5179 2.3043 25.2631 2.3043 24.9986V18.9987C2.3043 18.4461 1.856 17.9978 1.30449 17.9978C0.752988 17.9978 0.304688 18.4461 0.304688 18.9987V24.9986C0.304688 25.7942 0.620757 26.5575 1.18301 27.1197C1.74527 27.682 2.50856 27.998 3.30411 27.998C5.04785 27.998 7.56135 27.998 9.30402 27.998C9.8566 27.998 10.3049 27.5497 10.3049 26.9982C10.3049 26.4467 9.8566 25.9984 9.30402 25.9984Z"
+                    fill="#424242" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M19.3054 27.998H25.3053C26.1008 27.998 26.8641 27.682 27.4264 27.1197C27.9886 26.5575 28.3047 25.7942 28.3047 24.9986C28.3047 23.2549 28.3047 20.7414 28.3047 18.9987C28.3047 18.4461 27.8564 17.9978 27.3049 17.9978C26.7534 17.9978 26.3051 18.4461 26.3051 18.9987V24.9986C26.3051 25.2631 26.1997 25.5179 26.0116 25.7049C25.8245 25.8931 25.5697 25.9984 25.3053 25.9984H19.3054C18.7528 25.9984 18.3045 26.4467 18.3045 26.9982C18.3045 27.5497 18.7528 27.998 19.3054 27.998Z"
+                    fill="#424242" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M14.3403 6.03418C9.94402 6.03418 6.375 9.6032 6.375 13.9995C6.375 18.3958 9.94402 21.9648 14.3403 21.9648C18.7366 21.9648 22.3056 18.3958 22.3056 13.9995C22.3056 9.6032 18.7366 6.03418 14.3403 6.03418ZM14.3403 8.03381C17.6329 8.03381 20.306 10.707 20.306 13.9995C20.306 17.292 17.6329 19.9652 14.3403 19.9652C11.0478 19.9652 8.37464 17.292 8.37464 13.9995C8.37464 10.707 11.0478 8.03381 14.3403 8.03381Z"
+                    fill="#424242" />
+            </svg> <br />
+            <label class="label-tool"
+                style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 10px; margin-bottom: 0px;">
+                <p id="tool-screen-localization">Screen</p>
+                <p id="tool-recorder-localization">Recorder</p>
+            </label>
 
-            </button>
+        </button>
 
         <button id="btn-stop-recording" style="display: none;"><img class="stopRecordingBtn"
-                src="./assets/stopRecordingButton.png" /> </button>
+                src="./assets/stopRecordingButton.png" /> 
+        </button>
+        
+        <button id="toogle-tranparency" style="border:none; margin-top: -5px;margin-left: -9px;">
+            <svg xmlns="http://www.w3.org/2000/svg" style="margin-top:-5px;width:20px" viewBox="0 0 29 28" fill-rule="evenodd" clip-rule="evenodd"><path d="M16 20h-8c-4.415 0-8-3.585-8-8s3.585-8 8-8h8c4.415 0 8 3.585 8 8s-3.585 8-8 8zm0-15h-8c-3.863 0-7 3.137-7 7s3.137 7 7 7h8.045c3.843-.025 6.955-3.152 6.955-7s-3.112-6.975-6.955-7h-.045zm-8 2c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5zm0 1c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4z"/></svg>
+           <br> <label class="label-tool"
+                style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 10px; margin-bottom: 0px;">
+                <p>WHITE BOARD</p>
+                
+            </label>
+        </button>
 
             <button id="add-page" onclick="addNewPage()">Add New</button>
 
@@ -726,13 +768,13 @@
                     <path d="M 0 0 L 15 15 L 30 0 L 15 -15" fill="none" stroke="gray" stroke-width="0.5" />
                 </pattern>
                 <pattern id="imagePattern" width="200" height="150" patternUnits="userSpaceOnUse"
-                    patternTransform="scale(9)" >
+                    patternTransform="scale(4)">
                     <image id="setImagePattern" href="./assets/image.jpeg" x="0" y="0" width="200" height="150"
-                    preserveAspectRatio="xMinYMin slice">
+                        preserveAspectRatio="xMinYMin slice">
                 </pattern>
             </defs>
             <!-- <rect onmousedown="mouser.unregisterShapes()" style="display:block" id="rect_1" width="100%" height="100%" fill="url(#grid)" /> -->
-            <rect onmousedown="mouser.unregisterShapes()" style="display:block" id="rect_1" width="100%" height="100%"
+            <rect onmousedown="mouser.unregisterShapes()" style="display:block;" id="rect_1" width="100%" height="100%"
                 fill="transparent" />
 
             <g id="cursors"></g>
@@ -746,7 +788,8 @@
             <div class="close-max-btn" style="margin-right: 40px">
                 <button type="button" class="close window-button" id="close-calc" aria-label="Close">
                     <span aria-hidden="true">×</span></button>
-                <button type="button" class="window-button window-icon-button" id="max-calc" title="Maximize" aria-label="Max">
+                <button type="button" class="window-button window-icon-button" id="max-calc" title="Maximize"
+                    aria-label="Max">
                     <span aria-hidden="true"><i class="fa fa-window-maximize wb-editor-icon"></i></span></button>
 
             </div>
@@ -755,77 +798,75 @@
     </div>
 
     <!-- Text Editor -->
- <!-- Text Editor -->
- <div class="window" id="wb-editor-container" style="display:none">
-    <div id="wb-editor-container-header">
-        <div>
-            <span id='wb-editor-curmode'>Text</span> Editor &nbsp;
+    <!-- Text Editor -->
+    <div class="window" id="wb-editor-container" style="display:none">
+        <div id="wb-editor-container-header">
+            <div>
+                <span id='wb-editor-curmode'>Text</span> Editor &nbsp;
 
-            <button class="wb-editor-button" data-trigger="hover" title="Modes" style="display: none"
-                id="wb-options" type="button"><i class="fas fa-bars wb-editor-icon"></i></button>
-            <button class="wb-editor-button wb-button-inactive" data-trigger="hover"
-                title="Run" id="wb-editor-run" type="button"><i
-                    class="fas fa-play-circle wb-editor-icon"></i></button>
-            <button class="wb-editor-button wb-button-inactive" data-trigger="hover"
-                title="Real-time Run" id="wb-editor-live" type="button"><i id="wb-editor-live-icon"
-                    class="fas fa-circle-notch fa-spin wb-editor-icon"></i></button>
-            <button type="button" class="wb-button wb-textoptions-button" data-trigger="hover" style="display: none"
-                title="Text Options" id="wb-textoptions" aria-label="Down"><span aria-hidden="true"><i
-                        class="fas fa-angle-double-down"></i></span></button>
+                <button class="wb-editor-button" data-trigger="hover" title="Modes" style="display: none"
+                    id="wb-options" type="button"><i class="fas fa-bars wb-editor-icon"></i></button>
+                <button class="wb-editor-button wb-button-inactive" data-trigger="hover" title="Run" id="wb-editor-run"
+                    type="button"><i class="fas fa-play-circle wb-editor-icon"></i></button>
+                <button class="wb-editor-button wb-button-inactive" data-trigger="hover" title="Real-time Run"
+                    id="wb-editor-live" type="button"><i id="wb-editor-live-icon"
+                        class="fas fa-circle-notch fa-spin wb-editor-icon"></i></button>
+                <button type="button" class="wb-button wb-textoptions-button" data-trigger="hover" style="display: none"
+                    title="Text Options" id="wb-textoptions" aria-label="Down"><span aria-hidden="true"><i
+                            class="fas fa-angle-double-down"></i></span></button>
+
+            </div>
+
+
+            <div class="close-max-btn" style="margin-right: 40px">
+                <button type="button" class="close window-button" id="close-editor" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <button type="button" class="window-button window-icon-button" data-trigger="hover" title="Maximize"
+                    id="max-editor" aria-label="Max"><span aria-hidden="true"><i
+                            class="fa fa-window-maximize wb-editor-icon"></i></span></button>
+            </div>
 
         </div>
-
-
-        <div class="close-max-btn" style="margin-right: 40px">
-            <button type="button" class="close window-button" id="close-editor" aria-label="Close"><span
-                    aria-hidden="true">×</span></button>
-            <button type="button" class="window-button window-icon-button"
-                data-trigger="hover" title="Maximize" id="max-editor" aria-label="Max"><span aria-hidden="true"><i
-                        class="fa fa-window-maximize wb-editor-icon"></i></span></button>
+        <div id="wb-editor-container-modes">
+            <button class="wb-button wb-mode-button" id="wb-close-options" type="button"><i
+                    class="fas fa-angle-double-up" aria-hidden="true"></i></button>
+            <button class="wb-editor-mode" id="wb-text" data-trigger="hover" title="Text editor"
+                type="button">text</button>
+            <button class="wb-editor-mode" id="wb-js" data-trigger="hover" title="Javascript compiler/editor"
+                type="button">js</button>
+            <button class="wb-editor-mode" id="wb-python" data-trigger="hover" title="Python compiler/editor"
+                type="button">py</button>
+            <button class="wb-editor-mode" id="wb-cpp" data-trigger="hover" title="C++ compiler/Editor"
+                type="button">c++</button>
         </div>
+        <div id="wb-editor-container-toolbar" style="display: none">
+            <button class="wb-button wb-edit-button" id="wb-close-edit" type="button"><i class="fas fa-angle-double-up"
+                    aria-hidden="true"></i></button>
+            <button class="wb-button wb-edit-button" id="wb-spell-check" data-trigger="hover" title="Check spelling"
+                type="button"><i id="wb-editor-spell-check-icon" class="fas fa-spell-check"></i></button>
+            <button class="wb-button wb-edit-button" id="wb-code-template" data-trigger="hover" title="Code template"
+                type="button"><i class="fa fa-file-code-o"></i></button>
+            <button class="wb-button wb-edit-button" id="wb-ed-undo" data-trigger="hover" title="Undo" type="button"><i
+                    class="fas fa-undo"></i></button>
+            <button class="wb-button wb-edit-button" id="wb-ed-redo" data-trigger="hover" title="Redo" type="button"><i
+                    class="fas fa-redo"></i></button>
+            <button class="wb-button wb-edit-button" id="wb-ed-search" data-trigger="hover" title="Search"
+                type="button"><i class="fas fa-search"></i></button>
+            <!-- <button id="createFolderButton" onclick="createFolderButton">New Tab</button> -->
 
-    </div>
-    <div id="wb-editor-container-modes">
-        <button class="wb-button wb-mode-button" id="wb-close-options" type="button"><i
-                class="fas fa-angle-double-up" aria-hidden="true"></i></button>
-        <button class="wb-editor-mode" id="wb-text" data-trigger="hover" title="Text editor"
-            type="button">text</button>
-        <button class="wb-editor-mode" id="wb-js" data-trigger="hover"
-            title="Javascript compiler/editor" type="button">js</button>
-        <button class="wb-editor-mode" id="wb-python" data-trigger="hover"
-            title="Python compiler/editor" type="button">py</button>
-        <button class="wb-editor-mode" id="wb-cpp" data-trigger="hover"
-            title="C++ compiler/Editor" type="button">c++</button>
-    </div>
-    <div id="wb-editor-container-toolbar" style="display: none">
-        <button class="wb-button wb-edit-button" id="wb-close-edit" type="button"><i class="fas fa-angle-double-up"
-                aria-hidden="true"></i></button>
-        <button class="wb-button wb-edit-button" id="wb-spell-check" data-trigger="hover"
-            title="Check spelling" type="button"><i id="wb-editor-spell-check-icon"
-                class="fas fa-spell-check"></i></button>
-        <button class="wb-button wb-edit-button" id="wb-code-template" data-trigger="hover"
-            title="Code template" type="button"><i class="fa fa-file-code-o"></i></button>
-        <button class="wb-button wb-edit-button" id="wb-ed-undo" data-trigger="hover"
-            title="Undo" type="button"><i class="fas fa-undo"></i></button>
-        <button class="wb-button wb-edit-button" id="wb-ed-redo" data-trigger="hover"
-            title="Redo" type="button"><i class="fas fa-redo"></i></button>
-        <button class="wb-button wb-edit-button" id="wb-ed-search"  data-trigger="hover"
-            title="Search" type="button"><i class="fas fa-search"></i></button>
-        <!-- <button id="createFolderButton" onclick="createFolderButton">New Tab</button> -->
-
-    </div>
-    <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser" data-toggle="tooltip"
+        </div>
+        <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser" data-toggle="tooltip"
         data-trigger="hover">Search</button> -->
-        <input type="text" placeholder="Type Something...." id="searchBrowser" class="wb-button wb-edit-button searchBrowser" 
-        data-trigger="hover"></input>
-    <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser">Search</button> -->
-    <div id="wb-editor">
-        <div class="row wb-editor">
-            <div class="col-sm-12" id="wb-editor-input">
+        <input type="text" placeholder="Type Something...." id="searchBrowser"
+            class="wb-button wb-edit-button searchBrowser" data-trigger="hover"></input>
+        <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser">Search</button> -->
+        <div id="wb-editor">
+            <div class="row wb-editor">
+                <div class="col-sm-12" id="wb-editor-input">
+                </div>
             </div>
         </div>
     </div>
-</div>
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
@@ -855,7 +896,6 @@
     <!-- backgorund-color-tool -->
     <div id="colorPickerModal" class="color-modal">
         <div class="color-modal-content">
-            <div id="closeModalBtn"> <span class="close">&times;</span></div>
             <div class="color-tabs">
                 <div id="color-tab1" class="color-tab-content show">
                     <div id="colorPickerModalContent">
@@ -866,27 +906,30 @@
                     </div>
                 </div>
             </div>
-            <div>
-                <span class="color-tab" onclick="openTab(event, 'color-tab1')"><svg width="25" height="25"
-                        viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <path fill="#444"
-                            d="M13 14.5c0.468-2.207 0.985-4.050 1.604-5.846 0.411 1.796 0.928 3.638 1.337 5.521 0.059 1.153-0.612 1.825-1.441 1.825s-1.5-0.672-1.5-1.5z">
-                        </path>
-                        <path fill="#444"
-                            d="M8 1l-1.44 1.44-2-2c-0.276-0.262-0.649-0.423-1.060-0.423s-0.784 0.161-1.061 0.423c-0.27 0.271-0.438 0.645-0.438 1.059s0.168 0.789 0.439 1.060l2 2-4.44 4.44 7 7 8-8zM8 2.41l5.59 5.59h-11.18l2.75-2.75c0.071 0.042 0.156 0.067 0.247 0.067 0.271 0 0.49-0.219 0.49-0.49 0-0.091-0.025-0.176-0.068-0.249l0.721-0.718 1.54 1.53c0.091 0.091 0.216 0.147 0.355 0.147 0.277 0 0.502-0.225 0.502-0.502 0-0.139-0.056-0.264-0.147-0.355l-1.53-1.53zM3.15 1.85c-0.091-0.091-0.148-0.216-0.148-0.355s0.057-0.264 0.148-0.355c0.092-0.089 0.217-0.144 0.355-0.144s0.263 0.055 0.355 0.144l2 2-0.71 0.71z">
-                        </path>
-                    </svg>
-                </span>
-                <span class="color-tab" onclick="openTab(event, 'color-tab2')">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none">
-                        <g id="Media / Image_02">
-                            <path id="Vector"
-                                d="M3.00005 18.0001C3 17.9355 3 17.8689 3 17.8002V6.2002C3 5.08009 3 4.51962 3.21799 4.0918C3.40973 3.71547 3.71547 3.40973 4.0918 3.21799C4.51962 3 5.08009 3 6.2002 3H17.8002C18.9203 3 19.4801 3 19.9079 3.21799C20.2842 3.40973 20.5905 3.71547 20.7822 4.0918C21 4.5192 21 5.07899 21 6.19691V17.8031C21 18.2881 21 18.6679 20.9822 18.9774M3.00005 18.0001C3.00082 18.9884 3.01337 19.5058 3.21799 19.9074C3.40973 20.2837 3.71547 20.5905 4.0918 20.7822C4.5192 21 5.07899 21 6.19691 21H17.8036C18.9215 21 19.4805 21 19.9079 20.7822C20.2842 20.5905 20.5905 20.2837 20.7822 19.9074C20.9055 19.6654 20.959 19.3813 20.9822 18.9774M3.00005 18.0001L7.76798 12.4375L7.76939 12.436C8.19227 11.9426 8.40406 11.6955 8.65527 11.6064C8.87594 11.5282 9.11686 11.53 9.33643 11.6113C9.58664 11.704 9.79506 11.9539 10.2119 12.4541L12.8831 15.6595C13.269 16.1226 13.463 16.3554 13.6986 16.4489C13.9065 16.5313 14.1357 16.5406 14.3501 16.4773C14.5942 16.4053 14.8091 16.1904 15.2388 15.7607L15.7358 15.2637C16.1733 14.8262 16.3921 14.6076 16.6397 14.5361C16.8571 14.4734 17.0896 14.4869 17.2988 14.5732C17.537 14.6716 17.7302 14.9124 18.1167 15.3955L20.9822 18.9774M20.9822 18.9774L21 18.9996M15 9C14.4477 9 14 8.55228 14 8C14 7.44772 14.4477 7 15 7C15.5523 7 16 7.44772 16 8C16 8.55228 15.5523 9 15 9Z"
-                                stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </g>
-                    </svg>
-                </span>
+            <div class="bg-modal-tabs">
+                <div>
+                    <span class="color-tab" onclick="openTab(event, 'color-tab1')"><svg width="25" height="25"
+                            viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path fill="#444"
+                                d="M13 14.5c0.468-2.207 0.985-4.050 1.604-5.846 0.411 1.796 0.928 3.638 1.337 5.521 0.059 1.153-0.612 1.825-1.441 1.825s-1.5-0.672-1.5-1.5z">
+                            </path>
+                            <path fill="#444"
+                                d="M8 1l-1.44 1.44-2-2c-0.276-0.262-0.649-0.423-1.060-0.423s-0.784 0.161-1.061 0.423c-0.27 0.271-0.438 0.645-0.438 1.059s0.168 0.789 0.439 1.060l2 2-4.44 4.44 7 7 8-8zM8 2.41l5.59 5.59h-11.18l2.75-2.75c0.071 0.042 0.156 0.067 0.247 0.067 0.271 0 0.49-0.219 0.49-0.49 0-0.091-0.025-0.176-0.068-0.249l0.721-0.718 1.54 1.53c0.091 0.091 0.216 0.147 0.355 0.147 0.277 0 0.502-0.225 0.502-0.502 0-0.139-0.056-0.264-0.147-0.355l-1.53-1.53zM3.15 1.85c-0.091-0.091-0.148-0.216-0.148-0.355s0.057-0.264 0.148-0.355c0.092-0.089 0.217-0.144 0.355-0.144s0.263 0.055 0.355 0.144l2 2-0.71 0.71z">
+                            </path>
+                        </svg>
+                    </span>
+                    <span class="color-tab" onclick="openTab(event, 'color-tab2')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none">
+                            <g id="Media / Image_02">
+                                <path id="Vector"
+                                    d="M3.00005 18.0001C3 17.9355 3 17.8689 3 17.8002V6.2002C3 5.08009 3 4.51962 3.21799 4.0918C3.40973 3.71547 3.71547 3.40973 4.0918 3.21799C4.51962 3 5.08009 3 6.2002 3H17.8002C18.9203 3 19.4801 3 19.9079 3.21799C20.2842 3.40973 20.5905 3.71547 20.7822 4.0918C21 4.5192 21 5.07899 21 6.19691V17.8031C21 18.2881 21 18.6679 20.9822 18.9774M3.00005 18.0001C3.00082 18.9884 3.01337 19.5058 3.21799 19.9074C3.40973 20.2837 3.71547 20.5905 4.0918 20.7822C4.5192 21 5.07899 21 6.19691 21H17.8036C18.9215 21 19.4805 21 19.9079 20.7822C20.2842 20.5905 20.5905 20.2837 20.7822 19.9074C20.9055 19.6654 20.959 19.3813 20.9822 18.9774M3.00005 18.0001L7.76798 12.4375L7.76939 12.436C8.19227 11.9426 8.40406 11.6955 8.65527 11.6064C8.87594 11.5282 9.11686 11.53 9.33643 11.6113C9.58664 11.704 9.79506 11.9539 10.2119 12.4541L12.8831 15.6595C13.269 16.1226 13.463 16.3554 13.6986 16.4489C13.9065 16.5313 14.1357 16.5406 14.3501 16.4773C14.5942 16.4053 14.8091 16.1904 15.2388 15.7607L15.7358 15.2637C16.1733 14.8262 16.3921 14.6076 16.6397 14.5361C16.8571 14.4734 17.0896 14.4869 17.2988 14.5732C17.537 14.6716 17.7302 14.9124 18.1167 15.3955L20.9822 18.9774M20.9822 18.9774L21 18.9996M15 9C14.4477 9 14 8.55228 14 8C14 7.44772 14.4477 7 15 7C15.5523 7 16 7.44772 16 8C16 8.55228 15.5523 9 15 9Z"
+                                    stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </g>
+                        </svg>
+                    </span>
+                </div>
+                <button id="closeModalBtn" class="bg-modal-close-btn">Close</button>
             </div>
         </div>
     </div>
@@ -898,7 +941,7 @@
             <div id="closeToolModalBtn"> <span class="close">&times;</span></div>
             <div class="tabs">
                 <div id="tab1--mathematiclTool" class="tab-content show">
-                 </div>
+                </div>
             </div>
             <div>
             </div>
@@ -906,13 +949,13 @@
     </div>
 
 
-   <!-- Table Actions -->
+    <!-- Table Actions -->
 
     <!-- HTML 2 Canvas CDN -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
     </script> -->
-<script src="OfflineCDN/cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
-</script>
+    <script src="OfflineCDN/cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
+    </script>
     <script type="application/json" id="translations">{}</script>
     <script src="js/path-data-polyfill.js"></script>
     <script src="js/minitpl.js"></script>
@@ -934,7 +977,7 @@
     <script src="tools/screenshotTool/screenshotTool.js"></script>
 
     <!-- ContextMenu -->
-    <script src="js/contextMenu.js" ></script>
+    <script src="js/contextMenu.js"></script>
 
 
 
@@ -945,7 +988,7 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.6.1/RecordRTC.min.js" integrity="sha512-JdnCTTJRivaH4nStpZnsHO5Fm6TmgWHwwyPfhTPMgHGOz4GRzynCnm1T28C7Ees55ERL+t+gqg/DQro9oROd0w==" crossorigin="anonymous"></script> -->
     <!-- <script src="https://www.webrtc-experiment.com/EBML.js"></script>   -->
     <script src="OfflineCDN/www.webrtc-experiment.com/EBML.js"></script>
-  
+
 
     <script src="./js/screenRecorder/recorder.js"></script>
 
@@ -961,38 +1004,38 @@
 
     <!-- Download -->
     <script src="tools/download/download.js"></script>
-   <!-- BEGIN EDITOR TOOL -->
-	<!-- Editor dep: CodeMirror -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.css" />
+    <!-- BEGIN EDITOR TOOL -->
+    <!-- Editor dep: CodeMirror -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.css" />
 
-	<!-- *Editor dep: Typo -->
-	<script src="https://rawgit.com/cfinke/Typo.js/master/typo/typo.js"></script>
+    <!-- *Editor dep: Typo -->
+    <script src="https://rawgit.com/cfinke/Typo.js/master/typo/typo.js"></script>
 
-	<!-- Editor dep: Klipse -->
-	<script>
-		window.klipse_settings = {
-			selector_eval_python_client: 'no_element',
-		};
-	</script>
-	<script src="js/klipse_plugin.min.js"></script>
+    <!-- Editor dep: Klipse -->
+    <script>
+        window.klipse_settings = {
+            selector_eval_python_client: 'no_element',
+        };
+    </script>
+    <script src="js/klipse_plugin.min.js"></script>
 
-	<!-- Editor dep: Firebase/Firepad -->
-	<script>
-		var firepad_config = {
-			apiKey: '<API_KEY>',
-			authDomain: "<AUTH_DOMAIN>.firebaseapp.com",
-			databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
-		};
-	</script>
-	<script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
-	<link rel="stylesheet" href="https://firepad.io/releases/v1.5.9/firepad.css" />
-	<script src="https://firepad.io/releases/v1.5.9/firepad.min.js"></script>
+    <!-- Editor dep: Firebase/Firepad -->
+    <script>
+        var firepad_config = {
+            apiKey: '<API_KEY>',
+            authDomain: "<AUTH_DOMAIN>.firebaseapp.com",
+            databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
+        };
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
+    <link rel="stylesheet" href="https://firepad.io/releases/v1.5.9/firepad.css" />
+    <script src="https://firepad.io/releases/v1.5.9/firepad.min.js"></script>
 
-	<!-- Editor -->
-	<script src="tools/editor/editor.js"></script>
-	<!-- END EDITOR TOOL-->
-    
+    <!-- Editor -->
+    <script src="tools/editor/editor.js"></script>
+    <!-- END EDITOR TOOL-->
+
     <script src="tools/handNew/hand.js"></script>
     <script src="tools/grid/grid.js"></script>
     <script src="tools/clear/clear.js"></script>
@@ -1060,10 +1103,10 @@
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
     </script> -->
-       <script src="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+    <script src="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
     </script>
     <script src="js/draggableContainers.js"></script>
-    <!-- <script src="tools/background-manangement/background.js"></script> -->
+    <script src="tools/background-manangement/background.js"></script>
 
     <!-- Paste Event -->
     <script src="js/pasteEvents.js"></script>
@@ -1076,6 +1119,9 @@
     <script async src="https://cse.google.com/cse.js?cx=95c89d889e52e4b7f">
     </script>
     <script src="js/dragElements.js"></script>
+
+    <!-- toogle SVG -->
+    <script src="js/toogleSVG.js"></script>
     <!-- Localization  -->
     <script>
         function changeLanguage() {
@@ -1105,14 +1151,14 @@
                     document.getElementById("toolID-Transform").title = `ट्रांसफोर्म `;
                     document.getElementById("toolID-Document").title = `डॉक्यूमेंट`;
                     document.getElementById("toolID-Download").title = `डाउनलोड`;
-              
+
                     document.getElementById("toolID-Editor").title = `एडीटर`;
                     document.getElementById("toolID-Hand").title = `हैंड`;
                     document.getElementById("toolID-Grid").title = `ग्रिड`;
                     document.getElementById("toolID-Calculator").title = `कैलक्युलेटर`;
                     document.getElementById("toolID-Zoom In").title = `जूम इन`;
                     document.getElementById("toolID-Zoom Out").title = `जूम आउट`;
-                    // document.getElementById("toolID-Background").title = `बैकग्राउंड`;
+                    document.getElementById("toolID-Background").title = `बैकग्राउंड`;
                     document.getElementById("toolID-Table").title = `टेबल`;
                     document.getElementById("toolID-Undo").title = `अन्डू`;
                     document.getElementById("toolID-Redo").title = `रीडू`;
@@ -1144,24 +1190,24 @@
                     document.getElementById("tool-picker-localization").innerHTML = `पिकर`;
                     document.getElementById("tool-pencil-localization").innerHTML = `पेंसिल`;
                     // document.getElementById("tool-eraser-localization").innerHTML = `इरेजर`;
-                
-                    document.getElementById("tool-lines-localization").innerHTML = `लाइनस`; 
+
+                    document.getElementById("tool-lines-localization").innerHTML = `लाइनस`;
                     document.getElementById("tool-shapes-localization").innerHTML = `शेपस`;
                     document.getElementById("tool-text-localization").innerHTML = `टेक्स्ट`;
                     document.getElementById("tool-text-localization").innerHTML = `शेपस`;
-                    document.getElementById("tool-mathstool-localization").innerHTML = `मैथमेटिकल`; 
+                    document.getElementById("tool-mathstool-localization").innerHTML = `मैथमेटिकल`;
                     document.getElementById("tool-mathstools-localization").innerHTML = `टूल्स`;
                     document.getElementById("tool-screenshot-localization").innerHTML = `स्क्रीनशॉट`;
-                    document.getElementById("tool-transform-localization").innerHTML = `ट्रांसफोर्म`;                   
-                    document.getElementById("tool-document-localization").innerHTML = `डॉक्यूमेंट`;         
-                    document.getElementById("tool-download-localization").innerHTML = `डाउनलोड`;                  
+                    document.getElementById("tool-transform-localization").innerHTML = `ट्रांसफोर्म`;
+                    document.getElementById("tool-document-localization").innerHTML = `डॉक्यूमेंट`;
+                    document.getElementById("tool-download-localization").innerHTML = `डाउनलोड`;
                     document.getElementById("tool-editor-localization").innerHTML = `एडीटर`;
                     document.getElementById("tool-hand-localization").innerHTML = `हैंड`;
                     document.getElementById("tool-grid-localization").innerHTML = `ग्रिड`;
-                    document.getElementById("tool-calculator-localization").innerHTML = `कैलक्युलेटर`;              
-                    document.getElementById("tool-zoomin-localization").innerHTML = `जूम इन`;                    
+                    document.getElementById("tool-calculator-localization").innerHTML = `कैलक्युलेटर`;
+                    document.getElementById("tool-zoomin-localization").innerHTML = `जूम इन`;
                     document.getElementById("tool-zoomout-localization").innerHTML = `जूम आउट`;
-                    document.getElementById("tool-table-localization").innerHTML = `टेबल`;                  
+                    document.getElementById("tool-table-localization").innerHTML = `टेबल`;
                     document.getElementById("tool-screen-localization").innerHTML = `स्क्रीन`;
                     document.getElementById("tool-recorder-localization").innerHTML = `रिकॉर्डिंग`;
 
@@ -1175,7 +1221,7 @@
                     document.getElementById("downloadAsPDF").innerHTML = `पीडीऍफ़`;
                     document.getElementById("downloadAsPNG").innerHTML = `पीएनजी`;
                     document.getElementById("downloadAsJPG").innerHTML = `जेपीईजी`;
-                                        
+
                     document.getElementById("tab1").innerHTML = `एजुकेशन`;
                     document.getElementById("tab2").innerHTML = `स्पोर्ट्स`;
                     document.getElementById("tab3").innerHTML = `म्यूजिक`;
@@ -1195,7 +1241,7 @@
 
                     // document.getElementById("lines-localization").innerHTML = `शेपस`;
                     // document.getElementById("popover-header").innerHTML = `शेपस`;
-                  
+
                     break;
                 default:
                     // English is the default language
@@ -1228,7 +1274,7 @@
                     document.getElementById("toolID-Calculator").title = `Calculator`;
                     document.getElementById("toolID-Zoom In").title = `Zoom In`;
                     document.getElementById("toolID-Zoom Out").title = `Zoom Out`;
-                    // document.getElementById("toolID-Background").title = `Background`;
+                    document.getElementById("toolID-Background").title = `Background`;
                     document.getElementById("toolID-Table").title = `Table`;
 
                     document.getElementById("shape2d-rectangle").title = `Rectangle`;

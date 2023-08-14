@@ -8,24 +8,27 @@ svg {
   font-family: CircularXXWeb-Book !important;
 }
 
-body{
+body {
   background: transparent !important;
 }
 
-/* 
-#rect_1{
-  fill: transparent !important;
-  
-} */
+
+/* #rect_1{
+  fill: transparent !important; 
+}  */
+
+.toggle-white{
+  fill: transparent;
+}
 
 /* .tool-icon svg {
   height: 17px;
   width: 15px;
 } */
-  
-  .tool-icon-svg{
-    height:24px;
-  }
+
+.tool-icon-svg {
+  height: 24px;
+}
 /* styles.css */
 #createFolderButton {
   background-color: black;
@@ -155,6 +158,7 @@ iframe {
   margin-right: 1rem;
 }
 
+
 .close:hover,
 .close:focus {
   text-decoration: none;
@@ -193,7 +197,7 @@ iframe {
   color: #fff;
 }
 
- /* .dragLogo {
+/* .dragLogo {
   width: 40px;
 } */
 
@@ -268,7 +272,7 @@ iframe {
 .localization {
   margin-left: 55px;
   /* margin-top: -45px; */
-margin-top: -85px;
+  margin-top: -85px;
 }
 
 @keyframes minimize {
@@ -297,8 +301,8 @@ margin-top: -85px;
   /* height: 40px; */
   line-height: 37px;
   /* border-radius: 3px; */
- /* max-width: 40px; */
- max-width: 55px;
+  /* max-width: 40px; */
+  max-width: 55px;
   transition-duration: 0.2s;
   overflow: hidden;
   float: left;
@@ -655,7 +659,7 @@ button.close.window-button {
 .color-pick {
   width: 30px;
   height: 30px;
-    /* margin: 5px; */
+  /* margin: 5px; */
   overflow: hidden;
   border-radius: 100%;
 }
@@ -674,7 +678,7 @@ button.close.window-button {
 }
 .rangeChooser-opacity {
   width: 8rem !important;
-  bottom: 1.8rem!important;
+  bottom: 1.8rem !important;
   height: 12rem;
   left: 1.9rem;
 }
@@ -1013,9 +1017,9 @@ div#msr-pod-up {
 }
 
 /* calculator  */
-.calc-btn{
+.calc-btn {
   width: 3.5rem;
-    height: 3.5rem
+  height: 3.5rem;
 }
 
 @media screen and (min-width: 200px) and (max-width: 619px) {
@@ -1028,16 +1032,15 @@ div#msr-pod-up {
   ::-webkit-scrollbar {
     width: 1rem;
   }
-  
+
   ::-webkit-scrollbar-track {
     background: #f1f1f1;
   }
-  
+
   /* Handle */
   ::-webkit-scrollbar-thumb {
     background: #888;
-    border-radius: .7rem
-  
+    border-radius: 0.7rem;
   }
 
   #menuItems #tools {
@@ -1092,7 +1095,7 @@ div#msr-pod-up {
     display: block;
     width: 54px;
     padding: 6px 3px 6px;
-    top: 15rem!important;
+    top: 15rem !important;
     left: 0px !important;
     bottom: 0px;
     overflow-y: scroll;
@@ -1137,7 +1140,6 @@ div#msr-pod-up {
     left: 100px !important;   
   } */
 
- 
   .tool-name.slider.opacitySelector {
     display: contents;
   }
@@ -1195,13 +1197,13 @@ div#msr-pod-up {
     transform: none !important;
     bottom: 0px;
   }
-    /* tabs toolbar ui */
- .label-tool{
-  display:none!important;
-} 
-.color-tool-pick{
-  margin:auto!important;
-}   
+  /* tabs toolbar ui */
+  .label-tool {
+    display: none !important;
+  }
+  .color-tool-pick {
+    margin: auto !important;
+  }
 }
 @media screen and (min-width: 620px) and (max-width: 960px) {
   /* #menuItems #tools {
@@ -1242,16 +1244,15 @@ div#msr-pod-up {
   ::-webkit-scrollbar {
     width: 2rem;
   }
-  
+
   ::-webkit-scrollbar-track {
     background: #f1f1f1;
   }
-  
+
   /* Handle */
   ::-webkit-scrollbar-thumb {
     background: #888;
-    border-radius: 1rem
-  
+    border-radius: 1rem;
   }
 }
 
@@ -1264,14 +1265,14 @@ div#msr-pod-up {
 }
 
 .downloadModal {
-  position: fixed; 
+  position: fixed;
   display: none;
-  z-index: 9999; 
+  z-index: 9999;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto; 
+  overflow: auto;
   font-family: "Inter";
   background-color: rgba(0, 0, 0, 0.5);
 }
@@ -1537,7 +1538,6 @@ div#msr-pod-up {
   right: 0px;
   cursor: pointer;
   font-size: 24px;
-  
 }
 
 #downloadModalClose img {
@@ -1659,10 +1659,9 @@ div#msr-pod-up {
 #dice {
   width: 150px;
   height: 150px;
-   /* margin: 20px auto; */
-   margin-left: -15px;
+  /* margin: 20px auto; */
+  margin-left: -15px;
   display: block;
-
 }
 
 .dice {
@@ -1708,7 +1707,7 @@ div#msr-pod-up {
   /* padding: 10px 20px; */
   margin: 5px;
   width: 4.2rem;
-    height: 4.2rem;
+  height: 4.2rem;
   background-color: #4caf50;
   color: white;
   border: none;
@@ -1719,12 +1718,12 @@ div#msr-pod-up {
 #calculatorWidget button:hover {
   background-color: #45a049;
 }
-.parent-glass{
+.parent-glass {
   width: 100%;
   height: 100%;
   position: fixed;
   z-index: 99999;
-  top:0px;
+  top: 0px;
   left: 0px;
 }
 /* CSS Manifyig glass */
@@ -1752,11 +1751,10 @@ div#msr-pod-up {
   border: none;
 }
 
-
 .downloadOption:hover {
-  color:red;
+  color: red;
 }
-#dragVideoModalClose{
+#dragVideoModalClose {
   top: 18px;
   right: 7px;
 }
@@ -1769,7 +1767,7 @@ div#msr-pod-up {
   justify-content: center;
   align-items: center;
   /* background-color: #ffff; */
-  background-image: url('canvas.svg');
+  background-image: url("canvas.svg");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -1795,7 +1793,7 @@ div#msr-pod-up {
   justify-content: center;
   align-items: center;
   position: relative;
-  background-image: url('Protractor_png.png');
+  background-image: url("Protractor_png.png");
   background-size: cover;
   background-repeat: no-repeat;
   /* border: 2.5px solid beige; */
@@ -1825,9 +1823,8 @@ div#msr-pod-up {
   font-weight: 500;
 }
 
-
 ::-webkit-scrollbar {
-  width: .7rem;
+  width: 0.7rem;
 }
 
 ::-webkit-scrollbar-track {
@@ -1837,25 +1834,24 @@ div#msr-pod-up {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #888;
-  border-radius: .7rem
-
+  border-radius: 0.7rem;
 }
 
 /* Ruler Widget*/
 
 #canvas-container {
   position: relative;
-  z-index: 1; 
+  z-index: 1;
   left: 20rem;
 }
 
 #myCanvas {
   display: block;
   /* border: 2px solid #ccc; */
-  position: absolute; 
+  position: absolute;
   top: 0;
   left: 0;
-  border:none
+  border: none;
 }
 
 #parent-div {
@@ -1970,7 +1966,7 @@ div#msr-pod-up {
   width: 40px;
   text-align: center;
   background-color: beige;
-  border: .4px solid yellow;
+  border: 0.4px solid yellow;
 }
 
 /* Rounded Compass*/
@@ -1985,12 +1981,11 @@ div#msr-pod-up {
   justify-content: center;
   align-items: center;
   margin-top: -197px;
-    /* left: -77px; */
-    right: 86px;
-
+  /* left: -77px; */
+  right: 86px;
 }
 
-#canvas-roundcompass{
+#canvas-roundcompass {
   /* border: 1px solid beige; */
   border: none;
   position: relative;
@@ -1999,9 +1994,9 @@ div#msr-pod-up {
   cursor: crosshair;
   z-index: 9999;
 }
-.drag-widget{
+.drag-widget {
   position: absolute;
-  top:-3rem;
+  top: -3rem;
   left: -1rem;
   background-color: #e0e0e0;
   padding: 5px 5px;
