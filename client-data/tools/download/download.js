@@ -149,7 +149,7 @@
     //     "data:application/octet-stream"
     //   );
 
-    //   /* In addition to <a>'s "download" attribute, you can define HTTP-style headers */
+    /* In addition to <a>'s "download" attribute, you can define HTTP-style headers */
     //   canvasURL = canvasURL.replace(
     //     /^data:application\/octet-stream/,
     //     `data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20`
@@ -157,9 +157,14 @@
     //   let filename = `${Tools.boardName}.png`;
     //   downloadwithSpecificExtension(canvasURL, filename);
     // });
+
     domtoimage
       .toPng(canvas, { bgcolor: "#fff" })
       .then(function (dataURL) {
+        dataURL.replace(
+          /^data:application\/octet-stream/,
+          `data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20`
+        );
         let filename = `${Tools.boardName}.png`;
         downloadwithSpecificExtension(dataURL, filename);
       })
@@ -181,17 +186,11 @@
       width: window.innerWidth,
       height: window.innerHeight,
     }).then(function (res) {
-      var canvasURL = res.toDataURL("image/jpg");
-      /* Change MIME type to trick the browser to downlaod the file instead of displaying it */
-      canvasURL = canvasURL.replace(
-        /^data:image\/[^;]*/,
-        "data:application/octet-stream"
-      );
-
-      /* In addition to <a>'s "download" attribute, you can define HTTP-style headers */
+      var canvasURL = res.toDataURL("image/jpeg");
+      canvasURL = canvasURL.replace(/^data:image\/[^;]*/, "data:image/jpeg");
       canvasURL = canvasURL.replace(
         /^data:application\/octet-stream/,
-        `data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20`
+        `data:image/jpeg;headers="Content-Type:image/jpeg"`
       );
       let filename = `${Tools.boardName}.jpg`;
       downloadwithSpecificExtension(canvasURL, filename);
