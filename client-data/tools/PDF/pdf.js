@@ -73,11 +73,13 @@ function drawPDF(event, file) {
 }
 
 function snackbar() {
+  let clear;
+  clearTimeout(clear)
   var x = document.getElementById("snackbar");
   x.className = "show";
-  setTimeout(function () {
+  clear = setTimeout(function () {
     x.className = x.className.replace("show", "");
-  }, 6000);
+  }, 3000);
 }
 
 function displayPdfPages(pdfData, x, y) {
@@ -179,7 +181,6 @@ function handleAddAllPDF() {
 }
 
 function deselectAllPDF() {
-  console.log("harsh");
   const div = document.getElementById("addPDFPages");
   const inputs = div.querySelectorAll("input");
   console.log(inputs, "inputs");
@@ -198,7 +199,6 @@ function handleDrawPDF() {
     snackbarSuccess();
   for (i in finalImages) {
     let image = new Image();
-    console.log(imageURL[i], "url", i, PDFCount);
     image.src = imageURL[i];
     image.onload = function () {
       var uid = Tools.generateUID("doc");
@@ -228,9 +228,11 @@ function handleDrawPDF() {
 
 
 function snackbarSuccess() {
+  let clearSuccess;
+    clearTimeout(clearSuccess)
     var x = document.getElementById("snackbar-success");
     x.className = "show";
-    setTimeout(function () {
+    clearSuccess= setTimeout(function () {
       x.className = x.className.replace("show", "");
-    }, 6000);
-  }
+    }, 3000);
+}

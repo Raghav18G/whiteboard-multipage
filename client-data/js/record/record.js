@@ -24,6 +24,8 @@ async function startRecording() {
   } else {
     video.src = window.URL.createObjectURL(audioStream);
   }
+
+  
   video.onloadedmetadata = function (e) {
     video.play();
   };

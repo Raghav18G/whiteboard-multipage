@@ -31,7 +31,7 @@
     '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"  viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"><g><path id="submenu-rect-path" fill="';
   var shapeSVG =
     '<svg class="tool-icon-svg" viewBox="0 0 21 29" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.8531 10.6557L16.5479 8.17546L16.5443 3.63952L10.638 0.235352L4.73646 3.64889L4.74114 8.19264L0.453125 10.6729L0.462499 22.4515L10.6682 28.3333L20.8641 22.4359L20.8531 10.6557ZM14.9885 9.55671L11.4302 11.6145V7.73014L14.9839 5.50254L14.9885 9.55671ZM9.86823 11.6176L6.3026 9.56348L6.29896 5.49264L9.86823 7.67233V11.6176ZM10.6401 2.04004L14.249 4.12025L10.6974 6.34681L7.0474 4.11816L10.6401 2.04004ZM4.74323 10.4671L10.65 13.8708L11.0411 13.6452L16.5505 10.4572L16.55 9.9791L18.5021 11.1041L10.6396 15.5911L2.80208 11.1192L4.74271 9.99681L4.74323 10.4671ZM2.01562 12.4692L9.86823 16.9499V26.0687L2.02344 21.5494L2.01562 12.4692ZM11.4302 26.0864V16.9385L19.2927 12.4525L19.301 21.5343L11.4302 26.0864Z" fill="#424242"/></svg><label  id="tool-shapes-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Shapes</p></label>';
-      var ellipse2 =
+  var ellipse2 =
     '" d="M435.204,126.967C387.398,94.1,324.11,76,257,76c-67.206,0-130.824,18.084-179.138,50.922C27.652,161.048,0,206.889,0,256c0,49.111,27.652,94.952,77.862,129.078C126.176,417.916,189.794,436,257,436c67.11,0,130.398-18.1,178.204-50.967C484.727,350.986,512,305.161,512,256S484.727,161.014,435.204,126.967z M418.208,360.312C375.354,389.774,318.103,406,257,406 c-61.254,0-118.884-16.242-162.273-45.733C52.986,331.898,30,294.868,30,256s22.986-75.898,64.727-104.267C138.116,122.242,195.746,106,257,106c61.103,0,118.354,16.226,161.208,45.688C459.345,179.97,482,217.015,482,256S459.345,332.03,418.208,360.312z"/></g></svg>';
   var cubeImg = "";
   var icons = {
@@ -46,37 +46,37 @@
       isSVG: false,
     },
     Triangle: {
-      icon: `◺<br> <label id="tool-triangle-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Triangle</p></label>`, 
+      icon: `◺<br> <label id="tool-triangle-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Triangle</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     EquiTriangle: {
-      icon: `△<br> <label id="tool-equitri-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Triangle</p></label>`, 
+      icon: `△<br> <label id="tool-equitri-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Triangle</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Parallelogram: {
-      icon: `▱<br> <label id="tool-parallelogram-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Parallelogram</p></label>`, 
+      icon: `▱<br> <label id="tool-parallelogram-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Parallelogram</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Rombus: {
-      icon: `◇<br> <label id="tool-eraser-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Parallelogram</p></label>`, 
+      icon: `◇<br> <label id="tool-eraser-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Parallelogram</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Trapezoid: {
-      icon: `⏢<br> <label id="tool-trapezoid-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Trapezoid</p></label>`, 
+      icon: `⏢<br> <label id="tool-trapezoid-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Trapezoid</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Pentagon: {
-      icon: `⬠<br> <label id="tool-pentagon-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Pentagon</p></label>`, 
+      icon: `⬠<br> <label id="tool-pentagon-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Pentagon</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Hexagon: {
-      icon: `⎔<br> <label id="tool-hexagon-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p> Hexagon</p></label>`, 
+      icon: `⎔<br> <label id="tool-hexagon-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p> Hexagon</p></label>`,
       isHTML: true,
       isSVG: false,
     },
@@ -162,7 +162,7 @@
 
   function move(x, y, evt) {
     /*Wait 20ms before adding any point to the currently drawing shape.
-		This allows the animation to be smother*/
+    This allows the animation to be smother*/
     if (curId !== "") {
       var curUpdate = {
         //The data of the message that will be sent for every new point
@@ -355,7 +355,7 @@
       Math.round(
         Math.sqrt(
           Math.pow(data["x2"] - data["x"], 2) +
-            Math.pow(data["y2"] - data["y"], 2)
+          Math.pow(data["y2"] - data["y"], 2)
         ) / 2
       )
     );
@@ -510,9 +510,8 @@
 
     var topWidth = width * 0.6; // Adjust the top width ratio as needed
 
-    var points = `${x1},${y1} ${x2},${y1} ${
-      x2 - (width - topWidth) / 2
-    },${y2} ${x1 + (width - topWidth) / 2},${y2}`;
+    var points = `${x1},${y1} ${x2},${y1} ${x2 - (width - topWidth) / 2
+      },${y2} ${x1 + (width - topWidth) / 2},${y2}`;
 
     shape.setAttribute("points", points);
     shape.setAttribute("fill", "none");
@@ -523,13 +522,13 @@
       shape.setAttribute("transform", data.transform);
     }
   }
-  
+
   function updatePentagon(shape, data) {
     // Extract the required properties from the data object
     var centerX = (data.x2 + data.x) / 2;
     var centerY = (data.y2 + data.y) / 2;
     var sideLength = Math.abs(data.x2 - data.x) / 2;
-  
+
     // Calculate the coordinates of the pentagon vertices
     var angleOffset = Math.PI * 3 / 2; // Offset to start from the bottom vertex
     var angle = (2 * Math.PI) / 5;
@@ -539,7 +538,7 @@
       var y = centerY + sideLength * Math.sin(angle * i + angleOffset);
       points.push(x + "," + y);
     }
-  
+
     // Update the attributes of the polygon shape
     shape.setAttribute("points", points.join(" "));
     shape.setAttribute("fill", "none");
@@ -550,7 +549,7 @@
       shape.setAttribute("transform", data.transform);
     }
   }
-  
+
 
   function updateHexagon(shape, data) {
     // Extract the required properties from the data object
@@ -617,25 +616,62 @@
         "././assets/pyramid.png";
     }
 
+    var uid = Tools.generateUID("doc");
+    // image.onload = function () {
+
+    //   var msg = {
+    //     id: uid,
+    //     type: "doc",
+    //     src: image.src,
+    //     w: this.width || 300,
+    //     h: this.height || 300,
+    //     x:
+    //       (100 + document.documentElement.scrollLeft) / Tools.scale +
+    //       10 * imgCount,
+    //     y:
+    //       (100 + document.documentElement.scrollTop) / Tools.scale +
+    //       10 * imgCount,
+    //   };
+    //   console.log("enter in shape draw");
+    //   drawImage(msg);
+    // };
     image.onload = function () {
-      var uid = Tools.generateUID("doc");
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", image.src, true);
+      xhr.responseType = "blob";
+      xhr.send();
 
-      var msg = {
-        id: uid,
-        type: "doc",
-        src: image.src,
-        w: this.width || 300,
-        h: this.height || 300,
-        x:
-          (100 + document.documentElement.scrollLeft) / Tools.scale +
-          10 * imgCount,
-        y:
-          (100 + document.documentElement.scrollTop) / Tools.scale +
-          10 * imgCount,
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          // Create a new FileReader instance
+          var reader = new FileReader();
+          reader.onloadend = function () {
+            // The result attribute contains the data URL
+            var dataURL = reader.result;
+
+            var msgLibrary = {
+              id: uid,
+              type: "doc",
+              src: dataURL,
+              w: this.width || 300,
+              h: this.height || 300,
+              x:
+                (100 + document.documentElement.scrollLeft) / Tools.scale +
+                10 * imgCount,
+              y:
+                (100 + document.documentElement.scrollTop) / Tools.scale +
+                10 * imgCount,
+            };
+            drawImage(msgLibrary);
+            Tools.send(msgLibrary, "Document");
+            imgCount++;
+          };
+
+          // Read the file as a Data URL
+          reader.readAsDataURL(xhr.response);
+        }
       };
-
-      drawImage(msg);
-    };
+    }
   }
 
   function drawImage(msg) {
@@ -710,10 +746,10 @@
       btns[i].style.borderRadius = "8px";
     }
     /*if(shape=="Ellipse"){
-			var extender = document.getElementById("submenu-rect-extend")
-			extender.style.display = 'block';
-			$(extender).animate({width:250,height:200});
-		}*/
+      var extender = document.getElementById("submenu-rect-extend")
+      extender.style.display = 'block';
+      $(extender).animate({width:250,height:200});
+    }*/
     var btn = document.getElementById("submenu-rect-" + shape);
     if (icons[btn.id.substr(13)].isSVG) {
       btn.getElementsByClassName("tool-icon")[0].innerHTML =

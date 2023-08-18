@@ -356,6 +356,14 @@ const MagnifyingGlass = () => {
         console.log(canvasURL, "utl");
         glass.style.backgroundImage = "url('" + canvasURL + "')";
       });
+      // domtoimage.toJpeg(img, { height: window.innerHeight, width: window.innerWidth, bgcolor: '#fff', style: { x: window.scrollX, y: window.scrollY } })
+      //   .then(function (res) {
+
+      //     glass.style.backgroundImage = "url('" + res + "')";
+      //   })
+      //   .catch(function (error) {
+      //     console.error('oops, something went wrong!', error);
+      //   });
 
       /*set background properties for the magnifier glass:*/
       glass.style.backgroundRepeat = "no-repeat";
@@ -400,9 +408,8 @@ const MagnifyingGlass = () => {
         /*display what the magnifier glass "sees":*/
         glass.style.backgroundPosition =
           "-" + (x * zoom - w + bw) + "px -" + (y * zoom - h + bw) + "px";
-        glass.style.backgroundSize = `${getVisibleArea.width * zoom}px ${
-          getVisibleArea.height * zoom
-        }px`;
+        glass.style.backgroundSize = `${getVisibleArea.width * zoom}px ${getVisibleArea.height * zoom
+          }px`;
       }
       function getCursorPos(e) {
         e.preventDefault();
@@ -416,8 +423,8 @@ const MagnifyingGlass = () => {
         /*get the x and y positions of the image:*/
         a = img.getBoundingClientRect();
         /*calculate the cursor's x and y coordinates, relative to the image:*/
-        x = e.pageX || e.touches[0].pageX - a.left;
-        y = e.pageY || e.touches[0].pageY - a.top;
+        x = e.pageX || e.touches[0]?.pageX - a.left;
+        y = e.pageY || e.touches[0]?.pageY - a.top;
         /*consider any page scrolling:*/
         x = x - window.pageXOffset;
         y = y - window.pageYOffset;
@@ -447,7 +454,7 @@ const MagnifyingGlass = () => {
     glass.addEventListener("mousedown", addMouoseMove);
     glass.addEventListener("touchstart", addMouoseMove);
   }
-  magnify("canvas", 1.5);
+  magnify("board", 1.5);
 };
 
 const calculatorWidget = (e) => {

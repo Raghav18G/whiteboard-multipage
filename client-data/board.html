@@ -688,15 +688,19 @@
         </button>
 
         <button id="btn-stop-recording" style="display: none;"><img class="stopRecordingBtn"
-                src="./assets/stopRecordingButton.png" /> 
+                src="./assets/stopRecordingButton.png" />
         </button>
-        
+
         <button id="toogle-tranparency" style="border:none; margin-top: -5px;margin-left: -9px;">
-            <svg xmlns="http://www.w3.org/2000/svg" style="margin-top:-5px;width:20px" viewBox="0 0 29 28" fill-rule="evenodd" clip-rule="evenodd"><path d="M16 20h-8c-4.415 0-8-3.585-8-8s3.585-8 8-8h8c4.415 0 8 3.585 8 8s-3.585 8-8 8zm0-15h-8c-3.863 0-7 3.137-7 7s3.137 7 7 7h8.045c3.843-.025 6.955-3.152 6.955-7s-3.112-6.975-6.955-7h-.045zm-8 2c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5zm0 1c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4z"/></svg>
-           <br> <label class="label-tool"
+            <svg xmlns="http://www.w3.org/2000/svg" style="margin-top:-5px;width:20px" viewBox="0 0 29 28"
+                fill-rule="evenodd" clip-rule="evenodd">
+                <path
+                    d="M16 20h-8c-4.415 0-8-3.585-8-8s3.585-8 8-8h8c4.415 0 8 3.585 8 8s-3.585 8-8 8zm0-15h-8c-3.863 0-7 3.137-7 7s3.137 7 7 7h8.045c3.843-.025 6.955-3.152 6.955-7s-3.112-6.975-6.955-7h-.045zm-8 2c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5zm0 1c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4z" />
+            </svg>
+            <br> <label class="label-tool"
                 style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 10px; margin-bottom: 0px;">
                 <p>WHITE BOARD</p>
-                
+
             </label>
         </button>
 
@@ -767,16 +771,15 @@
                 <pattern id="zigzag" width="30" height="30" patternUnits="userSpaceOnUse">
                     <path d="M 0 0 L 15 15 L 30 0 L 15 -15" fill="none" stroke="gray" stroke-width="0.5" />
                 </pattern>
-                <pattern id="imagePattern" width="200" height="150" patternUnits="userSpaceOnUse"
-                    patternTransform="scale(4)">
-                    <image id="setImagePattern" href="./assets/image.jpeg" x="0" y="0" width="200" height="150"
-                        preserveAspectRatio="xMinYMin slice">
+                <pattern id="imagePattern" width="100%" height="100%" patternContentUnits="objectBoundingBox"
+                    patternTransform="scale(1)">
+                    <image id="setImagePattern" href="./assets/image.jpeg" x="0" y="0" width="1" height="1"
+                        preserveAspectRatio="none">
                 </pattern>
             </defs>
             <!-- <rect onmousedown="mouser.unregisterShapes()" style="display:block" id="rect_1" width="100%" height="100%" fill="url(#grid)" /> -->
             <rect onmousedown="mouser.unregisterShapes()" style="display:block;" id="rect_1" width="100%" height="100%"
                 fill="transparent" />
-
             <g id="cursors"></g>
             <g id="layer-1"></g>
         </svg>
@@ -1122,6 +1125,10 @@
 
     <!-- toogle SVG -->
     <script src="js/toogleSVG.js"></script>
+    <!-- DOM_TO_IMAGE -->
+
+    <script src="OfflineCDN/DOM_TO_IMAGE/dom-to-image.js"></script>
+
     <!-- Localization  -->
     <script>
         function changeLanguage() {

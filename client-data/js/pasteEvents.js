@@ -103,7 +103,6 @@ function drawImage(msg) {
   img.setAttribute("height", 400);
   if (msg.transform) img.setAttribute("transform", msg.transform);
   Tools.group.appendChild(img);
-  nnnnnnnnnn;
 }
 
 function drawText(text) {
@@ -170,25 +169,45 @@ async function pasteImage() {
         throw new Error("Clipboard contains non-image data.");
       }
       const blob = await item.getType("image/png");
-      console.log("BLOB", blob);
-      console.log("IAMGE BLOB", URL.createObjectURL(blob));
+    
       var image = new Image();
+      var uid = Tools.generateUID("doc");
       image.src = URL.createObjectURL(blob);
-      image.onload = function () {
-        var uid = Tools.generateUID("doc");
-        var msg = {
-          id: uid,
-          type: "doc",
-          src: image.src,
-          w: this.width || 300,
-          h: this.height || 300,
-          x:
-            (100 + document.documentElement.scrollLeft) / Tools.scale +
-            10 * imgCount,
-          y:
-            (100 + document.documentElement.scrollTop) / Tools.scale +
-            10 * imgCount,
-        };
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", image.src, true);
+      xhr.responseType = "blob";
+      xhr.send();
+
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          // Create a new FileReader instance
+          var reader = new FileReader();
+          reader.onloadend = function () {
+            // The result attribute contains the data URL
+            var dataURL = reader.result;
+
+            var msgLibrary = {
+              id: uid,
+              type: "doc",
+              src: dataURL,
+              w: this.width || 300,
+              h: this.height || 300,
+              x:
+                (100 + document.documentElement.scrollLeft) / Tools.scale +
+                10 * imgCount,
+              y:
+                (100 + document.documentElement.scrollTop) / Tools.scale +
+                10 * imgCount,
+            };
+            drawImage(msgLibrary);
+            Tools.send(msgLibrary, "Document");
+            imgCount++;
+          };
+
+          // Read the file as a Data URL
+          reader.readAsDataURL(xhr.response);
+        }
+      
         drawImage(msg);
       };
     }

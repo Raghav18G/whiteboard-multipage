@@ -117,18 +117,21 @@
   }
 
   function backgroundChange(data) {
-
+    var pattern = Tools.svg.getElementById("rect_1")
     switch (data.type) {
-      //TODO: add the ability to erase only some points in a line
       case "color":
         var elem = Tools.svg.getElementById("rect_1")
+        pattern.setAttribute("width","100%") // reset the rect size to 100% as previous
+        pattern.setAttribute("height","100%")
         elem.setAttribute("fill", selectedColor)
         break
       case "background":
         var getImage = document.getElementById("setImagePattern")
+        const getVisibleArea = getVisibleViewport();
         getImage.setAttribute("href", selectedColor)
-        var patter = Tools.svg.getElementById("rect_1")
-        patter.setAttribute("fill", "url(#imagePattern)")
+        pattern.setAttribute("width",getVisibleArea.width) // fit the image on the available view port
+        pattern.setAttribute("height",getVisibleArea.height)
+        pattern.setAttribute("fill", "url(#imagePattern)")
         break
 
       default:

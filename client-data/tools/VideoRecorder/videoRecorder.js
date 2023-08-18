@@ -17,12 +17,14 @@ $(document).ready(() => {
   // const urlParams = new URLSearchParams(queryString);
   // const token = urlParams.get("token");
   // if (token) {
-    $("#top_left_tools").append(container);
+  $("#top_left_tools").append(container);
   // }
   $("body").on("click", ".hide__video", () => {
+    console.log("CLICKED VIDEO ELEMENT");
     $(".video__container").empty().append(video);
   });
   $("body").on("click", ".video__recorder", () => {
+    console.log("CLICKED VIDEO ELEMENT AGAIN");
     $(".video__container").empty().append(hideVideo);
   });
 });
